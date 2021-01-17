@@ -61,7 +61,7 @@
 			      <td>'.$row['daterecorded'].'</td>
 			      <td>
 			      	<input type="button" class="btn btn-success edit-object" edit-id="'.$row['pid'].'" value="Add Record"/>
-			      	<a href="viewrecordlist?id='.$row['pid'].'" class="btn btn-info">View Records</a>
+			      	<a href="viewrecordlist?id='.$row['pid'].'" class="btn btn-info">View Records And Documents</a>
 					<a class="btn btn-warning text-dark delete-object" delete-id="'.$row['pid'].'">Archive</a>
 	      		  </td>
 			    </tr>';

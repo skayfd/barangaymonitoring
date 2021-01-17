@@ -9,6 +9,12 @@
 		public $address;
 		public $archive;
 		public $referral;
+
+		public $brgycert;
+		public $healthdeclaration;
+		public $medcert;
+		public $travelauth;
+
 		public $pid;
 		public $uid;
 
@@ -20,7 +26,7 @@
 		}
 
 		function createperson(){
-			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, uid=?";
+			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, uid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->daterecorded);
 			$stmt->bindparam(2, $this->firstname);
@@ -30,7 +36,11 @@
 			$stmt->bindparam(6, $this->contactno);
 			$stmt->bindparam(7, $this->address);
 			$stmt->bindparam(8, $_SESSION['referral']);
-			$stmt->bindparam(9, $_SESSION['uid']);
+			$stmt->bindparam(9, $this->brgycert);
+			$stmt->bindparam(10, $this->healthdeclaration);
+			$stmt->bindparam(11, $this->medcert);
+			$stmt->bindparam(12, $this->travelauth);
+			$stmt->bindparam(13, $_SESSION['uid']);
 
 			if($stmt->execute()){
 				return true;
@@ -68,7 +78,16 @@
 			$stmt->bindparam(1, $this->pid);
 
 			$stmt->execute();
+		}
+		function documentPic(){
+			$query = "SELECT pid, brgycert, healthdeclaration, medcert, travelauth
+				FROM person
+    			WHERE pid = ?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
 
+			$stmt->execute();
+			return $stmt;
 		}
 	}
 ?>

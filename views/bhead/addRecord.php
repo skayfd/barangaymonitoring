@@ -81,7 +81,7 @@
 	<br>
 	<div class='row'>
 		<div class='col-sm-4'>
-			<label>Point of Origin: </label>
+			<label>Came from: </label>
 		</div>
 		<div class='col-sm-8'>
 			<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name='pointoforigin' required></textarea>
