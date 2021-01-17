@@ -7,6 +7,8 @@
 * document format
 
 # NOTE
+- CHANGE DIRECTORY from barangaymonitoring-main TO monitoring-main
+
 - When Registering, use a fake email(or yours kung gusto mong ma flood ang inbox mo hahaha)
 	- Site for getting fake email with inbox(no signup whatsoever): [TempMail](https://temp-mail.org/en/)
 
