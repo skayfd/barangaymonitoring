@@ -1,6 +1,10 @@
 # Things Left 
 
-- TBA
+* RECORDS: arrange to latest to oldest
+* Show Archive to admin
+* add archive 
+* add an attach file button
+* document format
 
 # NOTE
 - When Registering, use a fake email(or yours kung gusto mong ma flood ang inbox mo hahaha)
