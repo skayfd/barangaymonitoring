@@ -45,14 +45,15 @@
 			FROM record
 			INNER JOIN user ON record.uid = user.uid
 			INNER JOIN person ON record.pid = person.pid
-			WHERE record.archive = 0 AND record.pid=?";
+			WHERE record.archive = 0 AND record.pid=?
+			ORDER BY record.daterecorded DESC";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->pid);
 
 			$stmt->execute();
 			return $stmt;
 		}
-		function readrelatedRecordPerson(){
+		function readrelatedRecordPerson(){//used for specified report title e.g Juan's Records
 			$query = "SELECT DISTINCT CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2'
 			FROM record
 		    INNER JOIN person ON record.pid = person.pid
@@ -219,6 +220,7 @@
 		    WHERE
 		    record.daterecorded BETWEEN '$sDate' AND '$eDate'
 		    AND person.referral = '$referral'
+		    ORDER BY record.daterecorded DESC
 		    ";
 		    $stmt = $this->conn->prepare($query);
 

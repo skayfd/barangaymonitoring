@@ -39,7 +39,7 @@
 	$pdf->SetTextColor(0,0,0);
 	$pdf->SetDrawColor(128,0,0);
 
-	$pdf->SetWidths(Array(40,32,60,20,40));//set width for each column
+	$pdf->SetWidths(Array(32,32,13,30,15,40,30));//set width for each column
 
 	$pdf->SetLineHeight(5);//height of text lines
 
@@ -48,11 +48,13 @@
 	//make a dummy empty cell as a vertical spacer
 	$pdf->Cell(189	,10,'',0,1);//end of line
 
-	$pdf->Cell(40,15," Added By ",1,0);
+	$pdf->Cell(32,15," Added By ",1,0);
 	$pdf->Cell(32,15," Date and Time ",1,0);
-	$pdf->Cell(60,15," Reason ",1,0);
-	$pdf->Cell(20,15," Status ",1,0);
+	$pdf->Cell(13,15," Temp ",1,0);
+	$pdf->Cell(30,15," Reason ",1,0);
+	$pdf->Cell(15,15," Status ",1,0);
 	$pdf->Cell(40,15," Point of Origin ",1,0);
+	$pdf->Cell(30,15," Headed to ",1,0);
 	$pdf->ln();
 	//loop data
 	$record->pid = $_GET['id'];
@@ -62,9 +64,11 @@
 		$pdf->Row(Array(
 			$row['fullname'],
 			$row['date'],
+			$row['temp'],
 			$row['reason'],
 			$row['status'],
 			$row['point'],
+			$row['addressto'],
 		));		
 	}
 	//output pdf

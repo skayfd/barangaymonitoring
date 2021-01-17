@@ -7,13 +7,13 @@
 
 	    // The data for our dataset
 	    data: {
-	        labels: ['APOR', 'LSI', 'PUI', 'PUM'],
+	        labels: ['APOR', 'PUI', 'PUM', 'LSI'],
 	        datasets: [{
 	            label: 'Number of People Categorized',
 	            backgroundColor: [
 	            '#5cb85c',
-	            '#f0ad4e',
 	            '#d9534f',
+	            '#f0ad4e',
 	            '#5bc0de'
 	            ],
 	            

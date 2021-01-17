@@ -98,7 +98,8 @@
 			$query = "SELECT COUNT(*) AS 'total'
 				FROM barangay
     			INNER JOIN user ON barangay.referral = user.referral
-    			WHERE barangay.referral = ?";
+    			WHERE barangay.referral = ?
+    			AND type BETWEEN '1' AND '2'";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
