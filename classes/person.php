@@ -1,0 +1,74 @@
+<?php
+	class Person{
+		public $daterecorded;
+		public $firstname;
+		public $middlename;
+		public $lastname;
+		public $gender;
+		public $contactno;
+		public $address;
+		public $archive;
+		public $referral;
+		public $pid;
+		public $uid;
+
+		public $conn;
+		private $tableName = 'person';
+
+		function __construct($db){
+			$this->conn=$db;
+		}
+
+		function createperson(){
+			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, uid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->daterecorded);
+			$stmt->bindparam(2, $this->firstname);
+			$stmt->bindparam(3, $this->middlename);
+			$stmt->bindparam(4, $this->lastname);
+			$stmt->bindparam(5, $this->gender);
+			$stmt->bindparam(6, $this->contactno);
+			$stmt->bindparam(7, $this->address);
+			$stmt->bindparam(8, $_SESSION['referral']);
+			$stmt->bindparam(9, $_SESSION['uid']);
+
+			if($stmt->execute()){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		function readallpeople(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid'
+			FROM person 
+			INNER JOIN user ON user.uid = person.uid
+			WHERE person.referral = ? AND person.archive=0";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+
+		function numberofPeopleList(){
+			$query = "SELECT COUNT(*) AS 'total'
+				FROM person
+    			INNER JOIN barangay ON barangay.referral = person.referral
+    			WHERE barangay.referral = ? AND archive=0";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+
+		function archivePerson(){
+			$query = "UPDATE person SET archive=1 WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
+
+			$stmt->execute();
+
+		}
+	}
+?>
