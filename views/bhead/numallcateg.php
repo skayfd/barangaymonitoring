@@ -7,13 +7,14 @@
 
 	    // The data for our dataset
 	    data: {
-	        labels: ['APOR', 'PUI', 'PUM'],
+	        labels: ['APOR', 'LSI', 'PUI', 'PUM'],
 	        datasets: [{
 	            label: 'Total Records',
 	            backgroundColor: [
 	            '#6eaa10',
 	            '#931205',
-	            '#d7b620'
+	            '#d7b620',
+	            '#0275d8'
 	            ],
 	            
 	            data: [

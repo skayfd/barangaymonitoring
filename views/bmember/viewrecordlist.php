@@ -53,7 +53,7 @@
 		      <td>'.$row['status'].'</td>
 		      <td>'.$row['fullname'].'</td>
 		      <td>
-		      	<a class="btn btn-danger text-white delete-object" delete-id="'.$row['rid'].'">Delete</a>
+		      	<a class="btn btn-warning text-white delete-object" delete-id="'.$row['rid'].'">Archive</a>
 		      </td>
 		    </tr>';
 		  }
@@ -72,7 +72,8 @@ $(document).ready(function() {
     "aLengthMenu": [[3, 8, -1], [3, 8, "All"]],
     "pageLength": 3,
 	"bLengthChange": true,
-	"bInfo" : true,	
+	"bInfo" : true,
+	"order": [[ 0, "desc" ]]
     } );
 
 });

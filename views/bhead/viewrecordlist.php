@@ -68,7 +68,8 @@ $(document).ready(function() {
     "aLengthMenu": [[3, 8, -1], [3, 8, "All"]],
     "pageLength": 3,
 	"bLengthChange": true,
-	"bInfo" : true,	
+	"bInfo" : true,
+	"order": [[ 0, "desc" ]]
     } );
 
 } );

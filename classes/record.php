@@ -76,14 +76,26 @@
 			return $stmt;
 		}
 		function readStatus(){
-			$query = "SELECT status, COUNT(DISTINCT pid) as 'number' FROM record  WHERE archive = 0 GROUP BY status";
+			$query = "SELECT status, COUNT(DISTINCT record.pid) as 'number' 
+				FROM record
+			    INNER JOIN person ON record.pid = person.pid
+			    WHERE record.archive = 0
+			    AND person.referral = ?
+			    GROUP BY status";
 			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}
 		function readAllStatus(){
-			$query = "SELECT status, COUNT(*) as 'number' FROM record  WHERE archive = 0 GROUP BY status";
+			$query = "SELECT record.status, COUNT(*) as 'number' 
+				FROM record
+			    INNER JOIN person ON record.pid = person.pid
+				WHERE record.archive = 0
+			    AND person.referral = ?
+			    GROUP BY status";
 			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}

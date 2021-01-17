@@ -111,7 +111,8 @@ $(document).ready(function() {
     "aLengthMenu": [[10, 30, -1], [10, 30, "All"]],
     "pageLength": 10,
 	"bLengthChange": true,
-	"bInfo" : true,	
+	"bInfo" : true,
+	"order": [[ 5, "desc" ]]
     } );
 
 } );

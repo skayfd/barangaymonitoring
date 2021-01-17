@@ -214,7 +214,7 @@
 				<?php
 					$stmt = $record->countStatus();
 					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-		            	if($row['number'] >= 4){
+		            	if($row['number'] >= '4'){
 							require 'numeachcateg.php';
 						}
 						else {
@@ -228,7 +228,7 @@
 				<?php
 					$stmt = $record->countStatus();
 					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-		            	if($row['number'] >= 4){
+		            	if($row['number'] >= '4'){
 							require 'numallcateg.php';
 						}
 						else {
