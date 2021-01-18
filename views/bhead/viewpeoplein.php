@@ -148,6 +148,7 @@ $(document).ready(function() {
     "pageLength": 8,
 	"bLengthChange": true,
 	"bInfo" : true,	
+	"order": [[ 1, "asc" ]]
     } );
 
 } );

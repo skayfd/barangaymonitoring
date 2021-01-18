@@ -29,7 +29,7 @@
 		<?php
 		$stmt = $record->readarchiveRec();
 		echo '
-		<table id="tblArec" class="table bg-light table-hover table-bordered">
+		<table id="tblArec" class="table bg-light table-hover table-bordered table-responsive">
 		  <thead class="thead-light">
 		    <tr>
 		      <th scope="col">Full Name</th>
@@ -75,7 +75,7 @@
 		<?php
 		$stmt = $person->readarchivePer();
 		echo '
-		<table id="tblAper" class="table bg-light table-hover table-bordered">
+		<table id="tblAper" class="table bg-light table-hover table-bordered table-responsive">
 		  <thead class="thead-light">
 		    <tr>
 		      <th scope="col">Full Name</th>

@@ -143,6 +143,16 @@
 
 			$stmt->execute();
 		}
+		function archiveRelatedRecord(){
+			$query = "UPDATE record
+			INNER JOIN person on record.pid = person.pid
+            SET record.archive = 1
+		    WHERE person.pid = ?";
+		    $stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
+
+			$stmt->execute();
+		}
 		function fromToDate($sDate, $eDate){
 			$query = "SELECT CONCAT(person.firstname,' ', person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'datetimerecorded', record.reason AS 'reason', record.status AS 'status'
 			FROM record

@@ -45,12 +45,11 @@
 		      <th scope="col">Action</th>
 		    </tr>
 		  </thead>
-		  ';
+		  <tbody>';
 		  $stmt = $barangay->readIgnoredRequests();
 		  while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 			extract($row);
 			echo '
-		  <tbody>
 		    <tr>
 		      <th scope="row">'.$row['fullname'].'</th>
 		      <td>'.$row['email'].'</td>
@@ -59,10 +58,10 @@
 					Accept to Group
 				</button>
 		      </td>
-		    </tr>
-		  </tbody>';
+		    </tr>'; 
 		}
 		echo '
+			</tbody>
 		</table>';
 		?>
 		</div>
@@ -86,6 +85,15 @@ $(document).on('click', '.check-object', function(){
       }
       return false;
 });
+$(document).ready(function() {
+    $('#tblRequest').dataTable( {
+    "aLengthMenu": [[3, 8, -1], [3, 8, "All"]],
+    "pageLength": 3,
+	"bLengthChange": true,
+	"bInfo" : true,
+    } );
+
+} );
 </script>
 <?php
 	include_once '../include/footer.php';

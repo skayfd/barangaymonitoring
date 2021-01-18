@@ -1,13 +1,13 @@
 # Things Left 
 
-* RECORDS: arrange to latest to oldest
-* Show Archive to admin
-* add archive 
-* add an attach file button
-* document format
+* :white_check_mark: RECORDS: arrange to latest to oldest
+* :white_check_mark: Show Archive to admin
+* :white_check_mark: add archive 
+* :white_check_mark: add an attach file button
+* :white_check_mark: Archive Person archives related records.
 
 # NOTE
-- CHANGE DIRECTORY from **barangaymonitoring-main** TO **monitoring-main**
+- CHANGE FILE DIRECTORY from **barangaymonitoring-main** TO **monitoring-main**
 
 - When Registering, use a fake email(or yours kung gusto mong ma flood ang inbox mo hahaha)
 	- Site for getting fake email with inbox(no signup whatsoever): [TempMail](https://temp-mail.org/en/)

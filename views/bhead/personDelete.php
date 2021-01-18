@@ -12,14 +12,18 @@
 if($_POST){
     include_once "../../config/database.php";
     include_once "../../classes/person.php";
+    include_once "../../classes/record.php";
 
     $database = new Database();
     $db = $database->getConnection();
  
 	$person = new Person($db);
+	$record = new Record($db);
 
 	$person->pid = $_POST['pid'];
- 
+ 	$record->pid = $_POST['pid'];
+
 	$person->archivePerson();
+	$record->archiveRelatedRecord();
 }
 ?>
