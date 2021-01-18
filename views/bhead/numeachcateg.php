@@ -20,7 +20,19 @@
 	            data: [
 	            // '3', '5', '8'
 	            <?php
-		            $stmt = $record->readStatus();
+		            $stmt = $record->countAPOR();
+		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		            	echo $row['number'].',';
+		            }
+		            $stmt = $record->countPUI();
+		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		            	echo $row['number'].',';
+		            }
+		            $stmt = $record->countPUM();
+		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		            	echo $row['number'].',';
+		            }
+		            $stmt = $record->countLSI();
 		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		            	echo $row['number'].',';
 		            }

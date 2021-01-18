@@ -93,19 +93,19 @@
 		  <tbody>';
 		  while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 			extract($row);
-			echo '
+			echo "
 		    <tr>
-		      <td>'.$row['fullname'].'</td>
-		      <td>'.$row['date'].'</td>
-		      <td>'.$row['gender'].'</td>
-		      <td>'.$row['contactno'].'</td>
-		      <td>'.$row['address'].'</td>
-		      <td>'.$row['brgycert'].'</td>
-		      <td>'.$row['hdecla'].'</td>
-		      <td>'.$row['medcert'].'</td>
-		      <td>'.$row['travelauth'].'</td>
-		      <td>'.$row['addedby'].'</td>
-		    </tr>';
+		      <td>".$row['fullname']."</td>
+		      <td>".$row['date']."</td>
+		      <td>".$row['gender']."</td>
+		      <td>".$row['contactno']."</td>
+		      <td>".$row['address']."</td>
+		      <td><img src='../../assets/img/".$row['brgycert']."' id='bang' height='120px' width='100%'></td>
+		      <td><img src='../../assets/img/".$row['hdecla']."' id='bang' height='120px' width='100%'></td>
+		      <td><img src='../../assets/img/".$row['medcert']."' id='bang' height='120px' width='100%'></td>
+		      <td><img src='../../assets/img/".$row['travelauth']."' id='bang' height='120px' width='100%'></td>
+		      <td>".$row['addedby']."</td>
+		    </tr>";
 		  }
 		echo '
 		  </tbody>

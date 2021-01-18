@@ -49,6 +49,7 @@
 		<a href="reportpage" class="btn btn-info"><i class="far fa-file-alt"></i> Make Report</a>
 		<a href="ignoreList" class="btn btn-danger"><i class="fas fa-ban"></i> Ignored List</a>
 		<a href="archives" class="btn btn-warning text-dark"><i class="fas fa-archive"></i> Archives</a>
+		<a href="viewhistory" class="btn btn-dark"><i class="fas fa-receipt"></i> History/Activity Log</a>
 	  </div>
 	</div>
 	<div class="row">

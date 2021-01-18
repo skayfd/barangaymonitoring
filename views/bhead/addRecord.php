@@ -3,6 +3,7 @@
 	include_once "../../config/database.php";
 	include_once "../../classes/person.php";
 	include_once "../../classes/record.php";
+	include_once "../../classes/history.php";
 
 
 	if(!isset($_SESSION['uid'])){
@@ -19,6 +20,7 @@
 
 	$person = new Person($db);
 	$record = new Record($db);
+	$history = new History($db);
 
 	if(isset($_POST['pid'])){
 		$person->pid = $_POST['pid'];
@@ -36,7 +38,19 @@
 		$record->daterecorded = date("Y-m-d h:i:s");
 		$record->pid = $pid;
 
+		$person->pid = $pid;
+		$person->readspecPerson($person->pid);
+
+		//history
+		$history->daterecorded = date("Y-m-d h:i:s");
+		$avar = "Added record for";
+		$into = "in the system.";
+		$history->action = $avar.' '.$person->firstname.' '.$person->lastname.' '.$into;	
+		$history->pid = $pid;
+		$history->createPersonHis();
+
 		$record->createRecord();
+
 		echo 
 		"<script>
 			alert('Record Added!');

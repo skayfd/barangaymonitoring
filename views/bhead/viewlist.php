@@ -15,7 +15,6 @@
 	include_once '../../classes/person.php';
 
 	$person = new Person($db);
-
 ?>
 <br>
 <div class="container">
@@ -36,7 +35,7 @@
 			<?php
 			$stmt = $person->readallpeople();
 			echo '
-			<table id="tblpeople" class="table table-hover table-bordered">
+			<table id="tblpeople" class="table table-hover table-bordered table-responsive">
 			  <thead class="thead-light">
 			    <tr>
 			      <th scope="col">Full Name</th>

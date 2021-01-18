@@ -76,25 +76,97 @@
 			$stmt->execute();
 			return $stmt;
 		}
-		function readStatus(){
-			$query = "SELECT status, COUNT(DISTINCT record.pid) as 'number' 
-				FROM record
-			    INNER JOIN person ON record.pid = person.pid
-			    WHERE record.archive = 0
-			    AND person.referral = ?
-			    GROUP BY status";
+		function countAPOR(){//FOR DONUT CHART APOR
+			$query = "SELECT COUNT(DISTINCT record.pid) as 'number' 
+                    FROM record
+                    INNER JOIN person ON record.pid = person.pid
+                    WHERE record.archive = 0
+                    AND person.referral = ?
+                    And record.status = 'APOR'";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}
-		function readAllStatus(){
-			$query = "SELECT record.status, COUNT(*) as 'number' 
+		function countPUI(){//FOR DONUT CHART PUI
+			$query = "SELECT COUNT(DISTINCT record.pid) as 'number' 
+                    FROM record
+                    INNER JOIN person ON record.pid = person.pid
+                    WHERE record.archive = 0
+                    AND person.referral = ?
+                    And record.status = 'PUI'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function countPUM(){//FOR DONUT CHART PUM
+			$query = "SELECT COUNT(DISTINCT record.pid) as 'number' 
+                    FROM record
+                    INNER JOIN person ON record.pid = person.pid
+                    WHERE record.archive = 0
+                    AND person.referral = ?
+                    And record.status = 'PUM'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function countLSI(){//FOR DONUT CHART LSI
+			$query = "SELECT COUNT(DISTINCT record.pid) as 'number' 
+                    FROM record
+                    INNER JOIN person ON record.pid = person.pid
+                    WHERE record.archive = 0
+                    AND person.referral = ?
+                    And record.status = 'LSI'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readAllAPOR(){//FOR BAR CHART
+			$query = "SELECT COUNT(*) as 'number' 
 				FROM record
 			    INNER JOIN person ON record.pid = person.pid
 				WHERE record.archive = 0
 			    AND person.referral = ?
-			    GROUP BY status";
+                AND record.status = 'APOR'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readAllLSI(){//FOR BAR CHART
+			$query = "SELECT COUNT(*) as 'number' 
+				FROM record
+			    INNER JOIN person ON record.pid = person.pid
+				WHERE record.archive = 0
+			    AND person.referral = ?
+                AND record.status = 'LSI'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readAllPUI(){//FOR BAR CHART
+			$query = "SELECT COUNT(*) as 'number' 
+				FROM record
+			    INNER JOIN person ON record.pid = person.pid
+				WHERE record.archive = 0
+			    AND person.referral = ?
+                AND record.status = 'PUI'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readAllPUM(){//FOR BAR CHART
+			$query = "SELECT COUNT(*) as 'number' 
+				FROM record
+			    INNER JOIN person ON record.pid = person.pid
+				WHERE record.archive = 0
+			    AND person.referral = ?
+                AND record.status = 'PUM'";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();

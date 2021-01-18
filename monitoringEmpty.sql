@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2021 at 08:51 AM
+-- Generation Time: Jan 18, 2021 at 05:32 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -33,6 +33,20 @@ CREATE TABLE `barangay` (
   `brgyname` varchar(120) NOT NULL,
   `streetname` varchar(120) NOT NULL,
   `referral` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history`
+--
+
+CREATE TABLE `history` (
+  `hid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `daterecorded` datetime NOT NULL,
+  `action` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -125,6 +139,13 @@ ALTER TABLE `barangay`
   ADD KEY `uid` (`uid`);
 
 --
+-- Indexes for table `history`
+--
+ALTER TABLE `history`
+  ADD PRIMARY KEY (`hid`),
+  ADD KEY `foreign_uid` (`uid`);
+
+--
 -- Indexes for table `person`
 --
 ALTER TABLE `person`
@@ -162,6 +183,12 @@ ALTER TABLE `barangay`
   MODIFY `bid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `history`
+--
+ALTER TABLE `history`
+  MODIFY `hid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `person`
 --
 ALTER TABLE `person`
@@ -188,6 +215,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `barangay`
   ADD CONSTRAINT `uid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`);
+
+--
+-- Constraints for table `history`
+--
+ALTER TABLE `history`
+  ADD CONSTRAINT `foreign_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`);
 
 --
 -- Constraints for table `person`

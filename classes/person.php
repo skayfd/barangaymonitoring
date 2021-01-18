@@ -17,6 +17,7 @@
 
 		public $pid;
 		public $uid;
+		public $rid;
 
 		public $conn;
 		private $tableName = 'person';
@@ -59,6 +60,47 @@
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
+		}
+		function readspecPerson($pid){
+			$query = "SELECT * FROM person WHERE pid='$pid'";
+			$stmt = $this->conn->prepare($query);
+			// $stmt->bindparam(1, $this->pid);
+
+			$stmt->execute();
+		
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			$this->firstname = $row['firstname'];
+			$this->middlename = $row['middlename'];
+			$this->lastname = $row['lastname'];
+			$this->gender = $row['gender'];
+			$this->contactno = $row['contactno'];
+			$this->daterecorded = $row['daterecorded'];
+			$this->referral = $row['referral'];
+			$this->pid = $row['pid'];
+
+			return true;
+		}
+		function readspecPersonRecord($rid){
+			$query = "SELECT * FROM person
+			INNER JOIN record ON person.pid = record.pid
+		    WHERE record.rid = '$rid'";
+			$stmt = $this->conn->prepare($query);
+			// $stmt->bindparam(1, $this->rid);
+			$stmt->execute();
+		
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			$this->firstname = $row['firstname'];
+			$this->middlename = $row['middlename'];
+			$this->lastname = $row['lastname'];
+			$this->gender = $row['gender'];
+			$this->contactno = $row['contactno'];
+			$this->daterecorded = $row['daterecorded'];
+			$this->referral = $row['referral'];
+			$this->pid = $row['pid'];
+
+			return true;
 		}
 		function readarchivePer(){
 			$query = "SELECT CONCAT(person.firstname,' ', person.middlename,' ',person.lastname) AS 'fullname', person.daterecorded AS 'date', person.gender AS 'gender', person.contactno AS 'contactno', person.address As 'address', person.brgycert AS 'brgycert', person.healthdeclaration AS 'hdecla', person.medcert AS 'medcert', person.travelauth AS 'travelauth',

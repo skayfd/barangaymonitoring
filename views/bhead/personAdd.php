@@ -3,6 +3,7 @@
 	$title = "Add Person";
 	include_once "../../config/database.php";
 	include_once "../../classes/person.php";
+	include_once '../../classes/history.php';
 	include_once '../include/header.php';
 
 	if(!isset($_SESSION['uid'])){
@@ -16,6 +17,7 @@
 	}
 
 	$person = new Person($db);
+	$history = new History($db);
 
 	if(isset($_POST['submit'])){
 		date_default_timezone_set("Asia/Manila");
@@ -47,7 +49,12 @@
 
 		$person->uid = $_SESSION['uid'];
 		
-		if($person->createperson()){
+		if($person->createperson()){		
+			$history->daterecorded = date("Y-m-d h:i:s");
+			$avar = "Added";
+			$into = "into listed people.";
+			$history->action = $avar.' '.$_POST['firstname'].' '.$_POST['lastname'].' '.$into;
+			$history->createPersonHis();
 			echo '
 			<script>
 				alert("Person Added!");

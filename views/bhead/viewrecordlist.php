@@ -16,6 +16,7 @@
 
 	$record = new Record($db);
 	$person = new Person($db);
+
 ?>
 <div class="container">&nbsp
 	<center>
