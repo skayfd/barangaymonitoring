@@ -5,6 +5,7 @@
 * :white_check_mark: add archive 
 * :white_check_mark: add an attach file button
 * :white_check_mark: Archive Person archives related records.
+* Activity History/Activity Logs
 
 # NOTE
 - CHANGE FILE DIRECTORY from **barangaymonitoring-main** TO **monitoring-main**
