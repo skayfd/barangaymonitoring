@@ -227,5 +227,17 @@
 			$stmt->execute();
 			return $stmt;
 		}
+		function readarchiveRec(){
+			$query = "SELECT CONCAT(person.firstname,' ', person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'date', person.contactno AS 'contactnumber', person.address AS 'address', record.temp AS 'temp', record.reason AS 'reason', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', CONCAT(user.firstname,' ', user.middlename,' ',user.lastname) AS 'addedby'
+				FROM record
+			    INNER JOIN person ON record.pid = person.pid
+			    INNER JOIN user ON record.uid = user.uid
+			    WHERE person.referral = ?
+			    AND record.archive = '1'";
+		    $stmt = $this->conn->prepare($query);
+		    $stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
 	}
 ?>

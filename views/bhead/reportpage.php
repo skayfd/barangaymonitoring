@@ -15,7 +15,7 @@
 
 	$person = new Person($db);
 ?>
-<form target="_blank" name="formReport" method="POST">
+<form target="_blank" name="formReport" action="report/numpercateg" method="POST">
 <div class='container'><br>
 	<center><a href="viewgroup?id=
 	<?php $stmt = $barangay->readrelatedGroup(); 
@@ -24,8 +24,8 @@
 		echo md5($row['referral']);
 	} 
 	?>" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
-	</center>
-	<center><h1 class='display-4'>Reports</h1></center>
+	</center><br>
+	<center><h3>Number of Entries</h3></center>
 	<div class='row'>
 		<div class='col-sm-3'>
 		</div>
@@ -44,12 +44,12 @@
 					</div>
 				</div>
 				<br>
-				<label for="select">Report Options</label>
+				<!-- <label for="select">Report Options</label>
 				<select class='form-control' id='report' name='report' required>
 					<option></option>
 					<option value='1'>Number of People</option>
 				</select>
-				<br>
+				<br> -->
 
 				<center>
 					<button type='submit' class='btn btn-success'><i class="fas fa-print"></i> Create Report</button>
@@ -120,17 +120,17 @@
     	$('.date').datepicker();
   	});
 
-	$(document).on('change','#report',function(){
-	    if($(this).val() == 1){
-	        formReport.action = "report/numpercateg";
-	    }else if($(this).val() == 2){
-	        formReport.action = "";
-	    }else if($(this).val() == 3){
-	        formReport.action = "#report/.php"; 
-	    }else{
-	        report_form.action = "#";
-	    }
-  	});
+	// $(document).on('change','#report',function(){
+	//     if($(this).val() == 1){
+	//         formReport.action = "report/numpercateg";
+	//     }else if($(this).val() == 2){
+	//         formReport.action = "";
+	//     }else if($(this).val() == 3){
+	//         formReport.action = "#report/.php"; 
+	//     }else{
+	//         report_form.action = "#";
+	//     }
+ //  	});
 
 $(document).ready(function() {
     $('#tblpeople').dataTable( {

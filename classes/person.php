@@ -60,7 +60,18 @@
 			$stmt->execute();
 			return $stmt;
 		}
-
+		function readarchivePer(){
+			$query = "SELECT CONCAT(person.firstname,' ', person.middlename,' ',person.lastname) AS 'fullname', person.daterecorded AS 'date', person.gender AS 'gender', person.contactno AS 'contactno', person.address As 'address', person.brgycert AS 'brgycert', person.healthdeclaration AS 'hdecla', person.medcert AS 'medcert', person.travelauth AS 'travelauth',
+				CONCAT(user.firstname,' ', user.middlename,' ',user.lastname) AS 'addedby'
+				FROM person
+			    INNER JOIN user ON person.uid = user.uid
+			    WHERE person.referral = ?
+			    AND person.archive = '1'";
+		    $stmt = $this->conn->prepare($query);
+		    $stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
 		function numberofPeopleList(){
 			$query = "SELECT COUNT(*) AS 'total'
 				FROM person

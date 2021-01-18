@@ -41,14 +41,14 @@
 		<p>
 			<h5 class="lead" style="color:black">
 			<?php
-				echo "<i class='fas fa-key'></i>&nbspYour Referral Code: <b>".$row['referral']."</b>";
+				echo "<i class='fas fa-key'></i>&nbspYour Referral Code: <b><u>".$row['referral']."</u></b>";
 				}//ending brace of while loop
 			?>
 			</h5>
 		</p>
 		<a href="reportpage" class="btn btn-info"><i class="far fa-file-alt"></i> Make Report</a>
 		<a href="ignoreList" class="btn btn-danger"><i class="fas fa-ban"></i> Ignored List</a>
-		<a href="ignoreList" class="btn btn-warning text-dark"><i class="fas fa-archive"></i> Archives</a>
+		<a href="archives" class="btn btn-warning text-dark"><i class="fas fa-archive"></i> Archives</a>
 	  </div>
 	</div>
 	<div class="row">
