@@ -5,7 +5,7 @@
 * :white_check_mark: add archive 
 * :white_check_mark: add an attach file button
 * :white_check_mark: Archive Person archives related records.
-* Activity History/Activity Logs
+* :white_check_mark: Activity History/Activity Logs
 	* :white_check_mark: Add person
 	* :white_check_mark: Add Record
 	* :white_check_mark: Archive Person
