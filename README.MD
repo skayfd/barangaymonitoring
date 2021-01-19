@@ -11,8 +11,8 @@
 	* :white_check_mark: Archive Person
 	* :white_check_mark: Archive Record
 	* :white_check_mark: Requesting(also ignored list)
-	* :white_check_mark Promotion
-	* :white_check_mark also add history function on member side
+	* :white_check_mark: Promotion
+	* :white_check_mark: also add history function on member side
 # NOTE
 - CHANGE FILE DIRECTORY from **barangaymonitoring-main** TO **monitoring-main**
 
