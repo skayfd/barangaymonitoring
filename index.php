@@ -15,6 +15,10 @@ if(isset($_SESSION['uid'])){
 		if($_SESSION['status'] == 1){ header("Location: views/request/reqhome"); }
 		else { header("Location: views/verification/accountonhold"); }
 	}
+	elseif($_SESSION['type'] == 4){
+		if($_SESSION['status'] == 1){ header("Location: views/request/reqhome"); }
+		else { header("Location: views/verification/accountonhold"); }
+	}
 }
 else {
 	header("Location: views/login");

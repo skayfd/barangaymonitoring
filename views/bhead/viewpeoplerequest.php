@@ -15,6 +15,7 @@
 	include_once '../../classes/barangay.php';
 
 	$barangay = new Barangay($db);
+
 ?>
 <br>
 <div class="container">

@@ -27,6 +27,7 @@ if($_POST){
 
  	$person->readspecPerson($person->pid);
 
+ 	date_default_timezone_set("Asia/Manila");
  	//history
 	$history->daterecorded = date("Y-m-d h:i:s");
 	$avar = "Archived";
