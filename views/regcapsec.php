@@ -235,19 +235,19 @@
 				   		<div class="row">
 				   			<div class="col-md-12">
 							    <label class="col-form-label col-form-label-sm">First Name</label>
-							    <input type="text" name="firstname" class="form-control form-control-sm" pattern="[A-Z,a-z]{3,}" title="3 or more letters required" placeholder="Enter your first name" value='<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>' required>
+							    <input type="text" name="firstname" class="form-control form-control-sm" pattern="[A-Za-z ]{3,}" title="3 or more letters required" placeholder="Enter your first name" value='<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>' required>
 				   			</div>
 				   		</div>
 				   		<div class="row">
 				   			<div class="col-md-12">
 				   				<label class="col-form-label col-form-label-sm">Middle Name</label>
-							    <input type="text" name="middlename" class="form-control form-control-sm" pattern="[A-Z,a-z]{3,}" placeholder="Optional" value='<?php echo isset($_POST['middlename']) ? $_POST['middlename'] : '' ?>'>
+							    <input type="text" name="middlename" class="form-control form-control-sm" pattern="[A-Za-z ]{1,}" placeholder="Optional" value='<?php echo isset($_POST['middlename']) ? $_POST['middlename'] : '' ?>'>
 				   			</div>
 				   		</div>
 				   		<div class="row">
 				   			<div class="col-md-12">
 				   				<label class="col-form-label col-form-label-sm">Last Name</label>
-							    <input type="text" name="lastname" class="form-control form-control-sm" pattern="[A-Z,a-z]{3,}" title="3 or more letters required" placeholder="Enter your last name" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>' required>
+							    <input type="text" name="lastname" class="form-control form-control-sm" pattern="[A-Za-z\s]{3,}" title="3 or more letters required" placeholder="Enter your last name" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>' required>
 				   			</div>
 				   		</div>
 				   		<div class="row">
