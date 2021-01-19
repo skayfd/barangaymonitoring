@@ -302,6 +302,7 @@
 		    WHERE
 		    record.daterecorded BETWEEN '$sDate' AND '$eDate'
 		    AND person.referral = '$referral'
+		    AND person.archive = 0
 		    ORDER BY record.daterecorded DESC
 		    ";
 		    $stmt = $this->conn->prepare($query);

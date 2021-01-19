@@ -3,7 +3,7 @@
 	include_once "../../config/database.php";
 	include_once "../../classes/person.php";
 	include_once "../../classes/record.php";
-
+	include_once "../../classes/history.php";
 
 	if(!isset($_SESSION['uid'])){
 		header("Location: ../login.php");
@@ -19,6 +19,7 @@
 
 	$person = new Person($db);
 	$record = new Record($db);
+	$history = new History($db);
 
 	if(isset($_POST['pid'])){
 		$person->pid = $_POST['pid'];
@@ -35,6 +36,18 @@
 		$record->addressto = $_POST['addressto'];
 		$record->daterecorded = date("Y-m-d h:i:s");
 		$record->pid = $pid;
+
+		$person->pid = $pid;
+		$person->readspecPerson($person->pid);
+
+		//history
+		$history->daterecorded = date("Y-m-d h:i:s");
+		$avar = "Added record for";
+		$into = "in the system.";
+		$history->action = $avar.' '.$person->firstname.' '.$person->lastname.' '.$into;	
+		$history->pid = $pid;
+		$history->createPersonHis();
+
 
 		$record->createRecord();
 		echo 
@@ -65,6 +78,7 @@
 			  <option value="APOR">APOR</option>
 			  <option value="PUI">PUI</option>
 			  <option value="PUM">PUM</option>
+			  <option value="LSI">LSI</option>
 			</select>
 		</div>
 	</div>

@@ -53,6 +53,7 @@
 				} 
 			?>
 		</p>
+		<a href="viewhistory" class="btn btn-dark"><i class="fas fa-receipt"></i> History/Activity Log</a>
 	  </div>
 	</div>
 

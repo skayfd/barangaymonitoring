@@ -226,8 +226,11 @@
 			}
 		}
 		function readWaitingProm(){
-			$query = "SELECT * FROM user WHERE promote = 2";
+			$query = "SELECT * FROM user 
+				WHERE promote = 2
+				AND referral = ?";
 			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			
 			return $stmt;

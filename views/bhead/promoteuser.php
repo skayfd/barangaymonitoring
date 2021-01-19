@@ -23,11 +23,14 @@
 	}
 
 	include_once '../../classes/user.php';
+	include_once '../../classes/history.php';
 	include_once '../../config/database.php';
 
 	$database = new Database();
 	$db = $database->getConnection();
 	$user = new User($db);
+
+	$history = new History($db);
 ?>
 <!--Necessary assets-->
 <head>
@@ -84,7 +87,18 @@
 			extract($row);
 			  	if(isset($_POST['promote'])){
 					$user->uid = $row['uid'];
+
+					$history->uid = $row['uid'];
+					$history->readUserPro();
+
+					date_default_timezone_set("Asia/Manila");
+					$history->daterecorded = date("Y-m-d h:i:s");
+					$avar = "User";
+					$into = "has been PROMOTED.";
+					$history->action = $avar.' '.$history->firstname.' '.$history->lastname.' '.$into;
+
 					if($user->promoteuser()){
+						$history->createPersonHis();
 						$user->deauthorizeu();
 						echo "
 						<script>
