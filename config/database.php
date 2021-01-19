@@ -1,16 +1,16 @@
 <?php
 	class Database{
 	//LOCAL Connection
-	private	$host = "localhost";
-	private $dbName = "monitoring";
-	private	$userName = "root";
-	private $password = "";
+	// private	$host = "localhost";
+	// private $dbName = "monitoring";
+	// private	$userName = "root";
+	// private $password = "";
 
 	//Deployment Connection
-	// private	$host = "remotemysql.com";//from remotemysql.com
-	// private $dbName = "iluUDmXZz2";
-	// private	$userName = "iluUDmXZz2";
-	// private $password = "sd1Flri7PH";
+	private	$host = "remotemysql.com";//from remotemysql.com
+	private $dbName = "iluUDmXZz2";
+	private	$userName = "iluUDmXZz2";
+	private $password = "sd1Flri7PH";
 
 	public $conn;
 

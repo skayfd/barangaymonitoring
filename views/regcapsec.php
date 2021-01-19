@@ -79,28 +79,28 @@
 												$mailer = new Swift_Mailer($transport);
 
 												//#for localhost address VVVVVV
-												$body = <<<EOD
-												<html>
-												    <head></head>
-												    <body>
-												        Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
-												        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-												    </body>
-												</html>
-												EOD;
-												//#for localhost address ^^^^^^
-
-
-												//#for HEROKU address VVVVVV
 												// $body = <<<EOD
 												// <html>
 												//     <head></head>
 												//     <body>
-												//         Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+												//         Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
 												//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
 												//     </body>
 												// </html>
 												// EOD;
+												//#for localhost address ^^^^^^
+
+
+												//#for HEROKU address VVVVVV
+												$body = <<<EOD
+												<html>
+												    <head></head>
+												    <body>
+												        Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+												        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
+												    </body>
+												</html>
+												EOD;
 												//#for HEROKU address ^^^^^^
 
 
@@ -153,27 +153,27 @@
 										$mailer = new Swift_Mailer($transport);
 
 										//#for localhost address VVVVVV
-										$body = <<<EOD
-										<html>
-										    <head></head>
-										    <body>
-										        Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
-										        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-										    </body>
-										</html>
-										EOD;
-										//#for localhost address ^^^^^^
-
-										//#for Heroku address VVVVVV
 										// $body = <<<EOD
 										// <html>
 										//     <head></head>
 										//     <body>
-										//         Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+										//         Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
 										//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
 										//     </body>
 										// </html>
 										// EOD;
+										//#for localhost address ^^^^^^
+
+										//#for Heroku address VVVVVV
+										$body = <<<EOD
+										<html>
+										    <head></head>
+										    <body>
+										        Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+										        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
+										    </body>
+										</html>
+										EOD;
 										//#for HEROKU address ^^^^^^
 
 										// Create a message
