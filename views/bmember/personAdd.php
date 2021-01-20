@@ -78,11 +78,6 @@
 			echo "ERROR: Something's Wrong";
 		}
 	}
-	$a = 'Hello';
-	$b = 'Hello';
-
-	echo substr(md5($a),rand(0,26),21).'<br>';
-	echo substr(md5($b),rand(0,26),25);
 ?>
 <br>
 <div class="container">
