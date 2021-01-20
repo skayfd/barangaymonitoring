@@ -12,6 +12,12 @@
 	private	$userName = "iluUDmXZz2";
 	private $password = "sd1Flri7PH";
 
+	//Deployment Connection for 000webhosting
+	private	$host = "localhost";//from remotemysql.com
+	private $dbName = "id15884170_monitoring";
+	private	$userName = "id15884170_barangaymonitoring";
+	private $password = "O>wMO0=]@y4Xz6^>";
+
 	public $conn;
 
 	public function getConnection(){
