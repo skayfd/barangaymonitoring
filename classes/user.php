@@ -79,7 +79,7 @@
 			$query = "UPDATE user SET status=1 WHERE token='$token'";
 			$stmt = $this->conn->prepare($query);
 			
-			$stmt->bindparam(1, $this->token);
+			// $stmt->bindparam(1, $this->token);
 
 			if($stmt->execute())
 				return true;
