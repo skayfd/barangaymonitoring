@@ -1,4 +1,5 @@
 <?php
+	ini_set('display_errors', 1);
 	include_once '../../../config/database.php';
 	include_once '../../../classes/record.php';
 
