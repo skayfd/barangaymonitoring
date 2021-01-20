@@ -1,4 +1,6 @@
 <?php
+	ini_set('display_errors', 1);
+
 	session_start();
 	$title = "Add Person";
 	include_once "../../config/database.php";
