@@ -19,11 +19,13 @@
 	$user->readoneuser();
 
 	if(isset($_POST['submit'])){
-		$user->profilepic = "../../assets/img/".$_FILES['file']['name'];
 
-		$location = "../../assets/img/".$_FILES['file']['name'];
+		$temp = explode(".", $_FILES["file"]["name"]);
+		$newfilename = round(microtime(true)) . '.' . end($temp);
+		move_uploaded_file($_FILES['file']['tmp_name'], "../../assets/img/".$newfilename);
+		$imgname = "../../assets/img/".$newfilename;
+		$user->profilepic = $imgname;
 
-		move_uploaded_file($_FILES['file']['tmp_name'], $location);
 
 		if($user->editPicture()){
 			echo '

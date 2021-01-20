@@ -31,21 +31,33 @@
 		$person->address = $_POST['address'];
 		$person->referral = $_SESSION['referral'];
 
-		$person->brgycert = "../../assets/img/".$_FILES['brgycert']['name'];
-		$location1 = "../../assets/img/".$_FILES['brgycert']['name'];
-		move_uploaded_file($_FILES['brgycert']['tmp_name'], $location1);
+		// $person->brgycert = "../../assets/img/".$_FILES['brgycert']['name'];
+		// $location1 = "../../assets/img/".$_FILES['brgycert']['name'];
+		// move_uploaded_file($_FILES['brgycert']['tmp_name'], $location1);
 
-		$person->healthdeclaration = "../../assets/img/".$_FILES['healthdeclaration']['name'];
-		$location2 = "../../assets/img/".$_FILES['healthdeclaration']['name'];
-		move_uploaded_file($_FILES['healthdeclaration']['tmp_name'], $location2);
+		$temp = explode(".", $_FILES["brgycert"]["name"]);
+		$newfilename = substr(md5(microtime()),rand(0,26),21) . '.' . end($temp);
+		move_uploaded_file($_FILES['brgycert']['tmp_name'], "../../assets/img/".$newfilename);
+		$imgname = "../../assets/img/".$newfilename;
+		$person->brgycert = $imgname;
 
-		$person->medcert = "../../assets/img/".$_FILES['medcert']['name'];
-		$location3 = "../../assets/img/".$_FILES['medcert']['name'];
-		move_uploaded_file($_FILES['medcert']['tmp_name'], $location3);
+		$temp2 = explode(".", $_FILES["healthdeclaration"]["name"]);
+		$newfilename2 = substr(md5(microtime()),rand(0,26),22) . '.' . end($temp2);
+		move_uploaded_file($_FILES['healthdeclaration']['tmp_name'], "../../assets/img/".$newfilename2);
+		$imgname2 = "../../assets/img/".$newfilename2;
+		$person->healthdeclaration = $imgname2;
 
-		$person->travelauth = "../../assets/img/".$_FILES['travelauth']['name'];
-		$location4 = "../../assets/img/".$_FILES['travelauth']['name'];
-		move_uploaded_file($_FILES['travelauth']['tmp_name'], $location4);
+		$temp3 = explode(".", $_FILES["medcert"]["name"]);
+		$newfilename3 = substr(md5(microtime()),rand(0,26),24) . '.' . end($temp3);
+		move_uploaded_file($_FILES['medcert']['tmp_name'], "../../assets/img/".$newfilename3);
+		$imgname3 = "../../assets/img/".$newfilename3;
+		$person->medcert = $imgname3;
+
+		$temp4 = explode(".", $_FILES["travelauth"]["name"]);
+		$newfilename4 = substr(md5(microtime()),rand(0,26),26) . '.' . end($temp4);
+		move_uploaded_file($_FILES['travelauth']['tmp_name'], "../../assets/img/".$newfilename4);
+		$imgname4 = "../../assets/img/".$newfilename4;
+		$person->travelauth = $imgname4;
 
 		$person->uid = $_SESSION['uid'];
 		
