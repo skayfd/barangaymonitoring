@@ -1,4 +1,5 @@
 <?php
+	ini_set('display_errors', 1);
 	session_start();
 	$title = "View Group";
 	if(!isset($_SESSION['uid'])){
@@ -57,8 +58,8 @@
 			<a href="viewpeoplein">
 				<div class="card bg-success">
 				  <center>
-				  	<p class="fas fa-user-friends" style="font-size:90px;"></p>
-					<h3>People Inside: 
+				  	<p class="fas fa-user-friends text-light" style="font-size:90px;"></p>
+					<h3 class="text-light">People Inside: 
 						<?php
 							$stmt = $barangay->numberofPeople();
 							while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -75,8 +76,8 @@
 			<a href="viewlist">
 				<div class="card bg-info">
 				  <center>
-				  	<p class="fas fa-user-friends" style="font-size:90px;"></p>
-				  	<h3>People Listed: 
+				  	<p class="fas fa-user-friends text-light" style="font-size:90px;"></p>
+				  	<h3 class="text-light">People Listed: 
 				  		<?php 
 				  			$stmt = $person->numberofPeopleList();
 							while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -93,8 +94,8 @@
 			<a href="viewpeoplerequest">
 				<div class="card bg-secondary">
 				  <center>
-				  	<p class="fas fa-user-friends" style="font-size:90px;"></p>
-				  	<h3>Requesting: 
+				  	<p class="fas fa-user-friends text-light" style="font-size:90px;"></p>
+				  	<h3 class="text-light">Requesting: 
 				  		<?php
 				  			$stmt = $barangay->numberofRequest();
 							while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
