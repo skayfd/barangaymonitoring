@@ -27,7 +27,7 @@
 		}
 
 		function createperson(){
-			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, uid=?";
+			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, archive=0, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, uid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->daterecorded);
 			$stmt->bindparam(2, $this->firstname);
