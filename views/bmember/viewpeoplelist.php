@@ -26,7 +26,7 @@
 		<div class="card-header container-fluid bg-light">
 			<div clas="col-md-6 float-left">
 				<h1 class="display-4 text-dark">Listed People</h1>
-				<a  type="button" href="personadd" class="btn btn-success"><i class="far fa-plus-square"></i> Add Person</a>
+				<a  type="button" href="personAdd" class="btn btn-success"><i class="far fa-plus-square"></i> Add Person</a>
 			</div>
 		</div>
 	</div>
