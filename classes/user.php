@@ -61,7 +61,7 @@
 		function checkEmailValid($token){
 			$query = "SELECT token, status FROM user WHERE status=0 AND token='$token'";
 			$stmt = $this->conn->prepare($query);
-			$stmt->bindparam(1, $this->token);
+			// $stmt->bindparam(1, $this->token);
 
 			$stmt->execute();
 
