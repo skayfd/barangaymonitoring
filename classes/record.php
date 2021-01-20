@@ -202,7 +202,7 @@
 			$query = "SELECT CONCAT(MONTHNAME(record.daterecorded),'-',DAY(record.daterecorded),'-',YEAR(record.daterecorded)) AS 'date', TIME_FORMAT(record.daterecorded, '%h:%i') AS 'time', COUNT(*) AS entrycount FROM record
 					INNER JOIN user ON record.uid = user.uid
 				    WHERE user.referral = ?
-					GROUP BY record.daterecorded";
+					GROUP BY 'date'";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
