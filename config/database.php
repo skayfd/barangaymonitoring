@@ -13,7 +13,7 @@
 	// private $password = "sd1Flri7PH";
 
 	//Deployment Connection for 000webhosting
-	private	$host = "http://databases.000webhost.com/?_ga=2.151561275.328059932.1611128955-1723545000.1611128955";
+	private	$host = "http://databases.000webhost.com";
 	private $dbName = "id15884170_monitoring";
 	private	$userName = "id15884170_barangaymonitoring";
 	private $password = "O>wMO0=]@y4Xz6^>";
