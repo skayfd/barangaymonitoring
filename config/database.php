@@ -1,10 +1,10 @@
 <?php
 	class Database{
 	//LOCAL Connection
-	// private	$host = "localhost";
-	// private $dbName = "monitoring";
-	// private	$userName = "root";
-	// private $password = "";
+	private	$host = "localhost";
+	private $dbName = "monitoring";
+	private	$userName = "root";
+	private $password = "";
 
 	//Deployment Connection
 	// private	$host = "remotemysql.com";//from remotemysql.com
@@ -13,10 +13,10 @@
 	// private $password = "sd1Flri7PH";
 
 	//Deployment Connection for www.freemysqlhosting.net
-	private	$host = "sql12.freemysqlhosting.net";
-	private $dbName = "sql12388241";
-	private	$userName = "sql12388241";
-	private $password = "JG9MhGKg29";
+	// private	$host = "sql12.freemysqlhosting.net";
+	// private $dbName = "sql12388241";
+	// private	$userName = "sql12388241";
+	// private $password = "JG9MhGKg29";
 
 	public $conn;
 
