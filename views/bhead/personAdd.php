@@ -33,10 +33,6 @@
 		$person->address = $_POST['address'];
 		$person->referral = $_SESSION['referral'];
 
-		// $person->brgycert = "../../assets/img/".$_FILES['brgycert']['name'];
-		// $location1 = "../../assets/img/".$_FILES['brgycert']['name'];
-		// move_uploaded_file($_FILES['brgycert']['tmp_name'], $location1);
-
 		$temp = explode(".", $_FILES["brgycert"]["name"]);
 		$newfilename = substr(md5(microtime()),rand(0,26),21) . '.' . end($temp);
 		move_uploaded_file($_FILES['brgycert']['tmp_name'], "../../assets/img/".$newfilename);
@@ -106,7 +102,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<label>Contact Number</label>
-						<input type="text" class="form-control" pattern=".{11,}" title="Please enter a valid contact number which contains 11 numbers." name="contactno" required>
+						<input type="text" class="form-control" pattern=".{11,}" title="Please enter a valid contact number which contains 11 numbers." name="contactno" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>' required>
 					</div>
 					<div class="col-md-6">
 						<label>Gender</label>
@@ -120,7 +116,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<label>Address</label>
-						<textarea class="form-control" name="address" pattern="[A-Za-z]{3,}" title="3 or more letters required" value='<?php echo isset($_POST['address']) ? $_POST['address'] : '' ?>' required></textarea>
+						<textarea class="form-control" name="address" pattern="[A-Za-z]{3,}" title="3 or more letters required" required><?php echo isset($_POST['address']) ? $_POST['address'] : '' ?></textarea>
 					</div>
 				</div><br>
 				<hr>
@@ -129,13 +125,13 @@
 					<div class="col-md-6">
 						<label>Picture of Barangay Certificate</label>
 						<div class="form-group">
-						    <input type="file" class="form-control-file" accept='image/*' name="brgycert" required>
+						    <input type="file" class="form-control-file" accept='image/*' name="brgycert">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label>Picture of Health Declaration form</label>
 						<div class="form-group">
-						    <input type="file" class="form-control-file" accept='image/*' name="healthdeclaration" required>
+						    <input type="file" class="form-control-file" accept='image/*' name="healthdeclaration">
 						</div>
 					</div>
 				</div>
@@ -144,13 +140,13 @@
 					<div class="col-md-6">
 						<label>Picture of Medical Certificate</label>
 						<div class="form-group">
-						    <input type="file" class="form-control-file" accept='image/*' name="medcert" required>
+						    <input type="file" class="form-control-file" accept='image/*' name="medcert">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label>Picture of Travel Authority</label>
 						<div class="form-group">
-						    <input type="file" class="form-control-file" accept='image/*' name="travelauth" required>
+						    <input type="file" class="form-control-file" accept='image/*' name="travelauth">
 						</div>
 					</div>			
 				</div>

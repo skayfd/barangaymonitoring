@@ -61,7 +61,6 @@
 			      <td>
 			      	<input type="button" class="btn btn-success edit-object" edit-id="'.$row['pid'].'" value="Add Record"/>
 			      	<a href="viewrecordlist?id='.$row['pid'].'" class="btn btn-info">View Records And Documents</a>
-					<a class="btn btn-warning text-dark delete-object" delete-id="'.$row['pid'].'">Archive</a>
 	      		  </td>
 			    </tr>';
 			  }
@@ -117,20 +116,7 @@ $(document).ready(function() {
 
 } );
 //delete person
-$(document).on('click', '.delete-object', function(){
-    var id = $(this).attr('delete-id');
-    var q = confirm("Are you sure?");
-     
-    if (q == true){
-        $.post('personDelete.php', {
-            pid: id
-        }, function(data){
-            location.reload();
-        }).fail(function() {
-            alert('Unable to delete.');
-        });
-    }
-});
+
 </script>
 <?php
 	include_once '../include/footer.php';
