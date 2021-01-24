@@ -101,7 +101,7 @@
 		<div class="col-md-6">
 		<!-- Password input-->
 		  <label class="control-label" for="NewPassRepeat">New Password</label>
-		  <input id="NewPassRepeat" name="newpass" type="password" placeholder="" class="form-control input-md" required>
+		  <input id="NewPassRepeat" name="newpass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" type="password" placeholder="" class="form-control input-md" required>
 		</div>
 		<div class="col-md-3"></div>	    
 	</div>&nbsp	

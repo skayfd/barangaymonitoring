@@ -15,6 +15,7 @@
 
 	$barangay = new Barangay($db);
 	$user = new User($db);
+
 ?>
 <br>
 <div class="container">
@@ -79,9 +80,12 @@
 		      	<button class="btn btn-warning check-object" check-id="'.$row['uid'].'" name="check">
 					<i class="fas fa-level-up-alt"></i> Promote
 				</button>
+				<button class="btn btn-info reset-object" reset-id="'.$row['uid'].'" name="reset">
+				 	<i class="fas fa-unlock-alt"></i> Reset Password
+				</button>
 		      	';
 		      }
-			  echo '
+			  echo '			  
 		      </td>
 		    </tr>
 		  </tbody>';
@@ -137,6 +141,22 @@ $(document).on('click', '.check-object', function(){
           location.reload();
         }).fail(function() {
           alert("Something Went Wrong, Unable to Confirm");
+        });
+      }
+      return false;
+});
+//reset password
+$(document).on('click', '.reset-object', function(){
+    var uid = $(this).attr("reset-id");
+    var q = confirm("Reset User's Password?");
+      if(q == true){
+        $.post('resetPW.php', {
+          uid: uid
+        }, function(data){
+          alert("User's Password Changed!");
+          location.reload();
+        }).fail(function() {
+          alert("Something Went Wrong, Unable to Change.");
         });
       }
       return false;

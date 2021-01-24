@@ -59,6 +59,7 @@
 
 		$person->uid = $_SESSION['uid'];
 		
+
 		if($person->createperson()){		
 			$history->daterecorded = date("Y-m-d h:i:s");
 			$avar = "Added";
@@ -87,7 +88,7 @@
 		      	<h1 class="display-4">Add Person</h1>
 				<div class="row">
 					<div class="col-md-4">
-						<label>First Name</label>
+						<label>First Name*</label>
 						<input type="text" class="form-control" name="firstname" pattern="[A-Za-z]{3,}" title="3 or more letters required" value='<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>' required>
 					</div>
 					<div class="col-md-4">
@@ -95,17 +96,17 @@
 						<input type="text" class="form-control" name="middlename" pattern="[A-Za-z]{3,}" placeholder="Optional" value='<?php echo isset($_POST['middlename']) ? $_POST['middlename'] : '' ?>'>
 					</div>
 					<div class="col-md-4">
-						<label>Last Name</label>
+						<label>Last Name*</label>
 						<input type="text" class="form-control" name="lastname" pattern="[A-Za-z]{3,}" title="3 or more letters required" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>'required>
 					</div>			
 				</div><br>
 				<div class="row">
 					<div class="col-md-6">
-						<label>Contact Number</label>
+						<label>Contact Number*</label>
 						<input type="text" class="form-control" pattern=".{11,}" title="Please enter a valid contact number which contains 11 numbers." name="contactno" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>' required>
 					</div>
 					<div class="col-md-6">
-						<label>Gender</label>
+						<label>Gender*</label>
 						<select class="custom-select" name = "gender" required>
 						  <option selected></option>
 						  <option value="Female">Female</option>
@@ -115,7 +116,7 @@
 				</div><br>
 				<div class="row">
 					<div class="col-sm-12">
-						<label>Address</label>
+						<label>Address*</label>
 						<textarea class="form-control" name="address" pattern="[A-Za-z]{3,}" title="3 or more letters required" required><?php echo isset($_POST['address']) ? $_POST['address'] : '' ?></textarea>
 					</div>
 				</div><br>

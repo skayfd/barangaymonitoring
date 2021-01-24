@@ -246,6 +246,19 @@
 				return false;
 			}
 		}
+		//reset password
+		function resetPW(){
+			$query = "UPDATE user SET password = ? WHERE uid = ?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->password);
+			$stmt->bindparam(2, $this->uid);
+
+			if($stmt->execute())
+				return true;
+			else{
+				return false;
+			}
+		}
 		function existingref(){
 			//checks if referral code is existing
 			$query = "SELECT * FROM user WHERE referral = ?";

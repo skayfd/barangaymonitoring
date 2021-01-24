@@ -136,7 +136,7 @@
 			      <td>'.$row['firstname'].' '.$row['middlename'].' '.$row['lastname'].'</td>
 			      <td>'.$row['email'].'</td>
 			      <td>
-			      	<a class="btn btn-danger text-white delete-object" delete-id="'.$row['uid'].'"><i class="fas fa-times text-light"></i></a>
+			      	<a class="btn btn-danger text-white delete-object" delete-id="'.$row['uid'].'">Remove From Promotion</a>
 			      </td>
 			    </tr>
 			  </tbody>';
