@@ -18,7 +18,7 @@
 	// Logo
     $pdf->Image('../../../assets/img/logo.png',90,6,30);
     // Arial bold 15
-    $pdf->SetFont('Arial','B',20);
+    $pdf->SetFont('Arial','B',14);
     // Move to the right
     $pdf->Cell(80);
     // Title
@@ -27,6 +27,10 @@
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
 		$pdf->Cell(30,60,$row['fullname2']."'s Records",0,0,'C');
+		$pdf->Cell(189	,10,'',0,1);//Vertical Spacer
+		$pdf->Cell(190,60,"Contact No: ".$row['contactno2'],0,0,'C');
+		$pdf->Cell(189	,10,'',0,1);//Vertical Spacer
+		$pdf->Cell(190,60,"Address: ".$row['address2'],0,0,'C');
 	}
     // Line break
     $pdf->Ln(10);

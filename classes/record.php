@@ -54,7 +54,7 @@
 			return $stmt;
 		}
 		function readrelatedRecordPerson(){//used for specified report title e.g Juan's Records
-			$query = "SELECT DISTINCT CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2'
+			$query = "SELECT DISTINCT CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', person.address AS 'address2', person.contactno AS 'contactno2'
 			FROM record
 		    INNER JOIN person ON record.pid = person.pid
 		    WHERE record.archive = 0 AND record.pid = ?";

@@ -33,6 +33,7 @@
 		$person->address = $_POST['address'];
 		$person->referral = $_SESSION['referral'];
 
+
 		$temp = explode(".", $_FILES["brgycert"]["name"]);
 		$newfilename = substr(md5(microtime()),rand(0,26),21) . '.' . end($temp);
 		move_uploaded_file($_FILES['brgycert']['tmp_name'], "../../assets/img/".$newfilename);
@@ -103,7 +104,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<label>Contact Number*</label>
-						<input type="text" class="form-control" pattern=".{11,}" title="Please enter a valid contact number which contains 11 numbers." name="contactno" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>' required>
+						<input type="text" class="form-control" pattern=".{11,}" title="Please enter a valid contact number which contains 11 numbers." name="contactno" value='<?php echo isset($_POST['contactno']) ? $_POST['contactno'] : '' ?>' required>
 					</div>
 					<div class="col-md-6">
 						<label>Gender*</label>
