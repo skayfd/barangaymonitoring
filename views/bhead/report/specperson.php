@@ -1,7 +1,9 @@
 <?php
+	session_start();
 	ini_set('display_errors', 1);
 	include_once '../../../config/database.php';
 	include_once '../../../classes/record.php';
+	include_once '../../../classes/barangay.php';
 
 	require '../../../fpdf/fpdf.php';
 	include 'pdf_mc_table.php';
@@ -11,31 +13,44 @@
 	$db = $database->getConnection();
 
 	$record = new Record($db);
+	$barangay = new Barangay($db);
+    $barangay->readoneGroup();
+
 
 	$pdf = new PDF_MC_TABLE();
 	$pdf->AddPage();
-
-	// Logo
-    $pdf->Image('../../../assets/img/logo.png',90,6,30);
+	$pdf->SetFont('Arial','',13);
+	$pdf->Ln(10);
+    $pdf->Cell(85);
+	$pdf->Cell(20,10,'Republic of the Philippines',0,0,'C');
+	$pdf->Ln(10);
+    $pdf->Cell(80);
+    $pdf->SetFont('Arial','B',19);
+    $pdf->Cell(30,10,$barangay->brgyname,0,0,'C');
+    $pdf->Ln(10);
+    $pdf->Cell(80);
+    $pdf->SetFont('Arial','',20);
+    $pdf->Cell(30,10,'OFFICE OF THE PUNONG BARANGAY',0,0,'C');
     // Arial bold 15
     $pdf->SetFont('Arial','B',14);
     // Move to the right
+    $pdf->Ln(10);
     $pdf->Cell(80);
     // Title
     $record->pid = $_GET['id'];
 	$stmt = $record->readrelatedRecordPerson();
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
-		$pdf->Cell(30,60,$row['fullname2']."'s Records",0,0,'C');
+		$pdf->Cell(30,30,$row['fullname2']."'s Records",0,0,'C');
 		$pdf->Cell(189	,10,'',0,1);//Vertical Spacer
-		$pdf->Cell(190,60,"Contact No: ".$row['contactno2'],0,0,'C');
+		$pdf->Cell(190,30,"Contact No: ".$row['contactno2'],0,0,'C');
 		$pdf->Cell(189	,10,'',0,1);//Vertical Spacer
-		$pdf->Cell(190,60,"Address: ".$row['address2'],0,0,'C');
+		$pdf->Cell(190,30,"Address: ".$row['address2'],0,0,'C');
 	}
     // Line break
     $pdf->Ln(10);
     $pdf->Cell(50);
-    $pdf->Ln(13);
+    $pdf->Ln(1);
 
 	$pdf->SetFont('Arial','B',12);		
 	$pdf->AliasNbPages();

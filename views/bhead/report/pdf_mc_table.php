@@ -1,6 +1,10 @@
 <?php
 //call main fpdf file
 // require('../../../fpdf/fpdf.php');
+include_once '../../../classes/barangay.php';
+include_once '../../../config/database.php';
+
+
 
 //create new class extending fpdf class
 class PDF_MC_Table extends FPDF {
@@ -13,18 +17,33 @@ var $lineHeight;
     // Page header
     function Header1()
     {
-        // Logo
-        $this->Image('../../../assets/img/logo.png',90,6,30);
+        $database = new Database();
+        $db = $database->getConnection();
+        $barangay = new Barangay($db);
+        $barangay->readoneGroup();
+
         // Arial bold 15
-        $this->SetFont('Arial','B',20);
+        $this->SetFont('Arial','',13);
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(30,60,'Number of Entries',0,0,'C');
+        $this->Cell(30,40,'Republic of the Philippines',0,0,'C');
+        $this->Ln(10);
+        $this->Cell(80);
+        $this->SetFont('Arial','B',19);
+        $this->Cell(30,40,$barangay->brgyname,0,0,'C');
+        $this->Ln(10);
+        $this->Cell(80);
+        $this->SetFont('Arial','',20);
+        $this->Cell(30,40,'OFFICE OF THE PUNONG BARANGAY',0,0,'C');
         // Line break
         $this->Ln(10);
         $this->Cell(80);
-        $this->Cell(30,70,date('M/d/Y', strtotime($_POST['sDate'])).' - '.date('M/d/y', strtotime($_POST['eDate'])),0,0,'C');
+        $this->SetFont('Arial','B',19);
+        $this->Cell(30,60,'Number of Entries',0,0,'C');
+        $this->Ln(10);
+        $this->Cell(80);
+        $this->Cell(30,60,date('M/d/Y', strtotime($_POST['sDate'])).' - '.date('M/d/y', strtotime($_POST['eDate'])),0,0,'C');
         $this->Ln(33);
     }
     function Header2()
