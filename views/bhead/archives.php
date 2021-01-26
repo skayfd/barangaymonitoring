@@ -68,51 +68,6 @@
 		<br>
 	</div><br>
 	<center>
-	<h3>Archived Person</h3>
-	</center>
-	<div class="container bg-light">
-		<br>
-		<?php
-		$stmt = $person->readarchivePer();
-		echo '
-		<table id="tblAper" class="table bg-light table-hover table-bordered table-responsive">
-		  <thead class="thead-light">
-		    <tr>
-		      <th scope="col">Full Name</th>
-		      <th scope="col">Date Added</th>
-		      <th scope="col">Gender</th>
-		      <th scope="col">Contact Number</th>
-		      <th scope="col">Address</th>
-		      <th scope="col">Barangay Certificate</th>
-		      <th scope="col">Health Declaration Form</th>
-		      <th scope="col">Medical Certificate</th>
-		      <th scope="col">Travel Authority</th>
-		      <th scope="col">Listed Down By</th>
-		    </tr>
-		  </thead>
-		  <tbody>';
-		  while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-			extract($row);
-			echo "
-		    <tr>
-		      <td>".$row['fullname']."</td>
-		      <td>".$row['date']."</td>
-		      <td>".$row['gender']."</td>
-		      <td>".$row['contactno']."</td>
-		      <td>".$row['address']."</td>
-		      <td><img src='../../assets/img/".$row['brgycert']."' id='bang' height='120px' width='100%'></td>
-		      <td><img src='../../assets/img/".$row['hdecla']."' id='bang' height='120px' width='100%'></td>
-		      <td><img src='../../assets/img/".$row['medcert']."' id='bang' height='120px' width='100%'></td>
-		      <td><img src='../../assets/img/".$row['travelauth']."' id='bang' height='120px' width='100%'></td>
-		      <td>".$row['addedby']."</td>
-		    </tr>";
-		  }
-		echo '
-		  </tbody>
-		</table>';
-		?>
-		<br>
-	</div>
 </div>
 
 <script>
