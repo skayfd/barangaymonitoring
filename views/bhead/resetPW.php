@@ -4,10 +4,10 @@
 		header("Location: ../login.php");
 	}
 	elseif($_SESSION['type'] == 2){
-		header("Location: ../bmember/memhome.php");
+		if($_SESSION['status'] == 1){ header("Location: views/bmember/memhome"); }
 	}
 	elseif($_SESSION['type'] == 3){
-		header("Location: ../request/reqhome.php");
+		if($_SESSION['status'] == 1){ header("Location: views/request/reqhome"); }
 	}
 if($_POST){
     include_once "../../config/database.php";
