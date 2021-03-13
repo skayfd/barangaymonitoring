@@ -153,7 +153,7 @@ $(document).on('click', '.reset-object', function(){
         $.post('resetPW.php', {
           uid: uid
         }, function(data){
-          alert("User's Password Changed!");
+          alert("User's Password Changed! Password is: pass123");
           location.reload();
         }).fail(function() {
           alert("Something Went Wrong, Unable to Change.");
