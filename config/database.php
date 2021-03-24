@@ -12,7 +12,9 @@
 	// private	$userName = "sql12388241";
 	// private $password = "JG9MhGKg29";
 
-	//Deployment Connection for Clever Hosting can't insert from web???
+	//Deployment Connection for Clever Hosting
+	//update 1: can't make user???
+	//update 2: forced heroku apache to print out errors, swiftmailer and the bot acc was the reason
 	private	$host = "banlme04fckdejwxz19n-mysql.services.clever-cloud.com";
 	private $dbName = "banlme04fckdejwxz19n";
 	private	$userName = "uck1nwdvyoojqcjj";
