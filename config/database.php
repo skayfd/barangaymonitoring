@@ -13,7 +13,7 @@
 	// private $password = "JG9MhGKg29";
 
 	//Deployment Connection for 000webhosting
-	private	$host = "https://databases-auth.000webhost.com/";
+	private	$host = "https://databases-auth.000webhost.com";
 	private $dbName = "id15884170_monitoring";
 	private	$userName = "id15884170_barangaymonitoring";
 	private $password = "7&D%^xCx_*=pv(xh";
