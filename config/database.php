@@ -12,11 +12,11 @@
 	// private	$userName = "sql12388241";
 	// private $password = "JG9MhGKg29";
 
-	//Deployment Connection for 000webhosting
-	private	$host = "https://databases-auth.000webhost.com";
-	private $dbName = "id15884170_monitoring";
-	private	$userName = "id15884170_barangaymonitoring";
-	private $password = "7&D%^xCx_*=pv(xh";
+	//Deployment Connection for Clever Hosting
+	private	$host = "b9e3ien3vvgnjmkehxue-mysql.services.clever-cloud.com";
+	private $dbName = "b9e3ien3vvgnjmkehxue";
+	private	$userName = "ui9tovzvkpiohz8l";
+	private $password = "RwdymIgxJ16AtAPmGlO4";
 
 	public $conn;
 
