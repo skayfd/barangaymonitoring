@@ -7,10 +7,10 @@
 	// private $password = "";
 
 	//Deployment Connection for www.freemysqlhosting.net
-	// private	$host = "sql12.freemysqlhosting.net";
-	// private $dbName = "sql12388241";
-	// private	$userName = "sql12388241";
-	// private $password = "JG9MhGKg29";
+	private	$host = "sql12.freemysqlhosting.net";
+	private $dbName = "sql12388241";
+	private	$userName = "sql12388241";
+	private $password = "JG9MhGKg29";
 
 	//Deployment Connection for Clever Hosting can't insert from web???
 	// private	$host = "b9e3ien3vvgnjmkehxue-mysql.services.clever-cloud.com";
@@ -25,10 +25,10 @@
 	// private $password = "RwdymIgxJ16AtAPmGlO4";
 
 	//Deployment Connection for db4free
-	private	$host = "db4free.net";
-	private $dbName = "bmonitoring";
-	private	$userName = "barmonitoring";
-	private $password = "RwdymIgxJ16AtAPmGlO4";
+	// private	$host = "db4free.net";
+	// private $dbName = "bmonitoring";
+	// private	$userName = "barmonitoring";
+	// private $password = "RwdymIgxJ16AtAPmGlO4";
 
 
 	public $conn;
