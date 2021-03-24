@@ -13,10 +13,18 @@
 	// private $password = "JG9MhGKg29";
 
 	//Deployment Connection for Clever Hosting
-	private	$host = "b9e3ien3vvgnjmkehxue-mysql.services.clever-cloud.com";
-	private $dbName = "b9e3ien3vvgnjmkehxue";
-	private	$userName = "ui9tovzvkpiohz8l";
+	// private	$host = "b9e3ien3vvgnjmkehxue-mysql.services.clever-cloud.com";
+	// private $dbName = "b9e3ien3vvgnjmkehxue";
+	// private	$userName = "ui9tovzvkpiohz8l";
+	// private $password = "RwdymIgxJ16AtAPmGlO4";
+
+	//Deployment Connection for FREEDB
+	private	$host = "freedb.tech";
+	private $dbName = "freedbtech_barangaymonitoring";
+	private	$userName = "freedbtech_bmonitoring";
 	private $password = "RwdymIgxJ16AtAPmGlO4";
+
+
 
 	public $conn;
 
