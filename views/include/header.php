@@ -416,7 +416,7 @@
 			        <a class="nav-link" href="../index.php">HOME<span class="sr-only">(current)</span></a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">ABOUT US</a>
+			        <!-- EMPTY LINK SPACE -->
 			      </li>
 			    </ul>
 			  </div>
