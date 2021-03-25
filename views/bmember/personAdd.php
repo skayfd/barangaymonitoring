@@ -192,7 +192,7 @@
 					echo '
 					<script>
 						alert("Person Added!");
-						window.location.replace("viewlist");
+						window.location.replace("viewpeoplelist");
 					</script>
 					';
 				}
