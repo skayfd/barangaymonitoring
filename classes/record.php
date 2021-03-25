@@ -203,7 +203,8 @@
 					INNER JOIN user ON record.uid = user.uid
 				    WHERE user.referral = ?
 				    AND record.archive = 0
-					GROUP BY date";
+					GROUP BY date
+					ORDER BY MONTHNAME(record.daterecorded)";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
