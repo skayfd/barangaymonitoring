@@ -1,10 +1,10 @@
 <?php
 	class Database{
 	//LOCAL Connection
-	// private	$host = "localhost";
-	// private $dbName = "monitoring";
-	// private	$userName = "root";
-	// private $password = "";
+	private	$host = "localhost";
+	private $dbName = "monitoring";
+	private	$userName = "root";
+	private $password = "";
 
 	//Deployment Connection for www.freemysqlhosting.net
 	// private	$host = "sql12.freemysqlhosting.net";
@@ -15,10 +15,10 @@
 	//Deployment Connection for Clever Hosting
 	//update 1: can't make user???
 	//update 2: forced heroku apache to print out errors, swiftmailer and the bot acc was the reason
-	private	$host = "banlme04fckdejwxz19n-mysql.services.clever-cloud.com";
-	private $dbName = "banlme04fckdejwxz19n";
-	private	$userName = "uck1nwdvyoojqcjj";
-	private $password = "KA67DHheQk0mGbCMPGOy";
+	// private	$host = "banlme04fckdejwxz19n-mysql.services.clever-cloud.com";
+	// private $dbName = "banlme04fckdejwxz19n";
+	// private	$userName = "uck1nwdvyoojqcjj";
+	// private $password = "KA67DHheQk0mGbCMPGOy";
 
 	//Deployment Connection for FREEDB mysql not updated
 	// private	$host = "freedb.tech";
