@@ -20,6 +20,8 @@
 <br>
 <div class="container">
 	<center>
+	<a href="memhome" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
+	<br>
 	<br>
 	</center>
 	<div class="row">

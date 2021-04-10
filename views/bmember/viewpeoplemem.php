@@ -19,6 +19,7 @@
 <br>
 <div class="container">
 	<center>
+	<a href="memhome" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
 	<br>
 	<h1 class="display-4">Barangay Staff</h1><br>
 	</center>

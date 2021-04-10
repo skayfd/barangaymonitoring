@@ -18,7 +18,9 @@
 
 ?>
 <div class="container">
-	<center><h1 class="display-4 text-light">All Records</h1></center>
+	<center><br>
+	<a href="memhome" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
+	<h1 class="display-4 text-light">All Records</h1></center>
 	<div class="card">
 		<div class="container"><br>
 		<table id="tblAllRec" class="table table-light">
