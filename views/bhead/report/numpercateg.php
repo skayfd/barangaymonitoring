@@ -111,6 +111,26 @@
 			));		
 		}
 		
+		//make a dummy empty cell as a vertical spacer
+		$pdf->Cell(189	,10,'',0,1);//end of line
+		$pdf->Cell(189	,10,'',0,1);//end of line
+		
+		
+
+		$pdf->Cell(30,15," ",0,0);
+		$pdf->Cell(22,15,"  ",0,0);
+		$pdf->Cell(50,15,"  ",0,0);
+		$pdf->Cell(20,15,"  ",0,0);
+		$pdf->Cell(40,15,"__________________________",0,0);
+
+		$pdf->Cell(189	,10,'',0,1);//end of line
+		$pdf->Cell(30,15," ",0,0);
+		$pdf->Cell(22,15,"  ",0,0);
+		$pdf->Cell(52,15,"  ",0,0);
+		$pdf->Cell(20,15,"  ",0,0);
+		$pdf->Cell(40,15," Signature over Printed Name",0,0);
+		$pdf->ln();
+
 		//output pdf
 		$pdf->Output();
 		$pdf->Footer();//call footer
