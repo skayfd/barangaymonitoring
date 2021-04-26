@@ -18,25 +18,82 @@
 	$user = new User($db);
 	$user->readoneuser();
 
+	define('KB', 1024);
+	define('MB', 1048576);
+	define('GB', 1073741824);
+	define('TB', 1099511627776);
+
+
 	if(isset($_POST['submit'])){
 
-		$temp = explode(".", $_FILES["file"]["name"]);
-		$newfilename = round(microtime(true)) . '.' . end($temp);
-		move_uploaded_file($_FILES['file']['tmp_name'], "../../assets/img/".$newfilename);
-		$imgname = "../../assets/img/".$newfilename;
-		$user->profilepic = $imgname;
+		$profile = 0;
+		$profsize = 0;
 
-
-		if($user->editPicture()){
-			echo '
-			<script>
-				alert("Profile Picture Changed!");
-				window.location.replace("headprofile");
-			</script>
+		if(!file_exists($_FILES['profpic']['tmp_name']) || !is_uploaded_file($_FILES['profpic']['tmp_name'])){
+			$temp = explode(".", $_FILES["profpic"]["name"]);
+			$newfilename = round(microtime(true)) . '.' . end($temp);
+			move_uploaded_file($_FILES['profpic']['tmp_name'], "../../assets/img/".$newfilename);
+			$imgname = "../../assets/img/".$newfilename;
+			$user->profilepic = $imgname;
+		}
+		else{
+			if($_FILES['profpic']['type'] == 'image/jpeg' || $_FILES['profpic']['type'] == 'image/jpg' || $_FILES['profpic']['type'] == 'image/png'){
+				//checksize
+				if($_FILES['profpic']['size'] > 1*MB){
+					$profsize = 1;
+				}
+				else{
+					$temp = explode(".", $_FILES["profpic"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+					move_uploaded_file($_FILES['profpic']['tmp_name'], "../../assets/img/".$newfilename);
+					$imgname = "../../assets/img/".$newfilename;
+					$user->profilepic = $imgname;
+				}
+			}
+			else{
+				$profile = 1;
+			}
+		}
+		//check if file is valid
+		if($profile == 1){
+			echo
+			'
+			<script type="text/javascript">
+	        	swal({ 
+	        		icon: "error",
+	        		title: "INVALID FILE!",
+	        		text: "Please check if your file is an image.",
+	        	});
+		    </script>
 			';
 		}
 		else {
-			echo "Error";
+			//check file is exceeds limit
+			if($profsize == 1){
+				echo
+				'
+				<script type="text/javascript">
+		        	swal({ 
+		        		icon: "error",
+		        		title: "FILE TOO BIG!",
+		        		text: "Please check if your file exceeds 1MB.",
+		        	});
+			    </script>
+				';
+			}
+			else {
+				if($user->editPicture()){
+					echo '
+					<script>
+						alert("Profile Picture Changed!");
+						window.location.replace("headprofile");
+					</script>
+					';
+				}
+				else {
+					echo "Error";
+				}
+			}
 		}
 	}
 ?>
@@ -75,7 +132,7 @@
 				    <span class="input-group-text">Upload</span>
 				  </div>
 				  <div class="custom-file">
-				    <input type="file" class="custom-file-input" accept='image/*' name="file" required>
+				    <input type="file" class="custom-file-input" accept='image/*' name="profpic" required>
 				    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 				  </div>
 				</div>
