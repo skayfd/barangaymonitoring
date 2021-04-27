@@ -1,4 +1,9 @@
 <?php
+	define('KB', 1024);
+	define('MB', 1048576);
+	define('GB', 1073741824);
+	define('TB', 1099511627776);
+
 	session_start();
 	$title = "Add Person";
 	include_once "../../config/database.php";
@@ -6,10 +11,6 @@
 	include_once "../../classes/history.php";
 	include_once '../include/header.php';
 
-	define('KB', 1024);
-	define('MB', 1048576);
-	define('GB', 1073741824);
-	define('TB', 1099511627776);
 
 	if(!isset($_SESSION['uid'])){
 		header("Location: ../login.php");
