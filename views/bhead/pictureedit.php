@@ -133,7 +133,7 @@
 				    <span class="input-group-text">Upload</span>
 				  </div>
 				  <div class="custom-file">
-				    <input type="file" class="custom-file-input" accept='image/*' name="profpic" required>
+				    <input type="file" class="custom-file-input" accept='image/x-png,image/gif,image/jpeg' name="profpic" required>
 				    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 				  </div>
 				</div>
