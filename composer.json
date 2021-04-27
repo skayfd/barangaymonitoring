@@ -1,6 +1,5 @@
 {
     "require": {
-        "swiftmailer/swiftmailer": "^6.0",
         "php": "8.0.0"
     }
 }
