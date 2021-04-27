@@ -204,7 +204,7 @@
 				    WHERE user.referral = ?
 				    AND record.archive = 0
 					GROUP BY date
-					ORDER BY MONTHNAME(record.daterecorded)";
+					ORDER BY record.daterecorded";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
