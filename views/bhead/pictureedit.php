@@ -87,7 +87,7 @@
 					echo '
 					<script>
 						alert("Profile Picture Changed!");
-						window.location.replace("pictureedit");
+						window.location.replace("headprofile");
 					</script>
 					';
 				}
