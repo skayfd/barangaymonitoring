@@ -4,3 +4,4 @@
         "php": "8.0.0"
     }
 }
+//note to self: change php version in order for most code to work in heroku. heroku is iffy when it comes to this
