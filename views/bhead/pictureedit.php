@@ -1,4 +1,9 @@
 <?php
+	define('KB', 1024);
+	define('MB', 1048576);
+	define('GB', 1073741824);
+	define('TB', 1099511627776);
+	
 	ini_set('display_errors', 1);
 	session_start();
 	$title = "Profile Picture";
@@ -19,12 +24,7 @@
 	$user = new User($db);
 	$user->readoneuser();
 
-	define('KB', 1024);
-	define('MB', 1048576);
-	define('GB', 1073741824);
-	define('TB', 1099511627776);
-
-
+	
 	if(isset($_POST['submit'])){
 
 		$profile = 0;
