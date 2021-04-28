@@ -41,7 +41,7 @@
 	$stmt = $record->readrelatedRecordPerson();
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
-		$pdf->Cell(30,30,$row['fullname2']."'s Records",0,0,'C');
+		$pdf->Cell(30,30,"Person's Name: ".$row['fullname2']."",0,0,'C');
 		$pdf->Cell(189	,10,'',0,1);//Vertical Spacer
 		$pdf->Cell(190,30,"Contact No: ".$row['contactno2'],0,0,'C');
 		$pdf->Cell(189	,10,'',0,1);//Vertical Spacer
