@@ -107,11 +107,11 @@
   		<div class="container">
   			<div class="row">
   				<label style="color:black">Barangay Name</label>
-				<input type="text" class="form-control" name="brgyname" required>
+				<input type="text" class="form-control" pattern="[A-Za-z0-9- ]{3,}" title="3 or more letters required" name="brgyname" required>
   			</div>
   			<div class="row">
   				<label style="color:black">Street</label>
-				<textarea type="text" class="form-control" name="streetname" required></textarea>
+				<textarea type="text" class="form-control" pattern="[A-Za-z0-9- ]{3,}" title="3 or more letters required" name="streetname" required></textarea>
   			</div>
   		</div>
       </div>
