@@ -59,7 +59,12 @@ if(isset($_GET['key'])){
 		}
 	}
 	else {
-		echo "ERROR 404";
+		echo '
+		<script type="text/javascript">
+			alert("Password Changed Successfully!!");
+			window.location.replace("../login");
+		</script>
+		';
 	}
 }
 ?>
