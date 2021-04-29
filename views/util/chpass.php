@@ -74,10 +74,10 @@ if(isset($_GET['key'])){
 	  <div class="card-body">
 	  	<form method="POST" action="chpass.php?key=<?php echo $token; ?>">
 		    <label for="exampleInputPassword1" class="form-label">New Password</label>
-			<input type="password" name="newpass" class="form-control" id="exampleInputPassword1" required>
+			<input type="password" name="newpass" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
 			<label for="exampleInputPassword2" class="form-label">Confirm Password</label>
-			<input type="password" name="confpass" class="form-control" id="exampleInputPassword2" required><br>
+			<input type="password" name="confpass" class="form-control" id="exampleInputPassword2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required><br>
 
 		    <button type="submit" name="submit" class="btn btn-primary btn-block" type="button">Change My Password</button>
 	    </center>
