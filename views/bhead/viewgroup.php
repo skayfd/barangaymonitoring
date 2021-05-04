@@ -37,7 +37,7 @@
 		<p>
 			<h5 class="lead" style="color:black">
 			<?php
-				echo "<i class='fas fa-key'></i>&nbspYour Referral Code: <b><u>".$row['referral']."</u></b>";
+				// echo "<i class='fas fa-key'></i>&nbspYour Referral Code: <b><u>".$row['referral']."</u></b>";
 				}//ending brace of while loop
 			?>
 			</h5>
