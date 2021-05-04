@@ -34,11 +34,6 @@
 					echo "<b><i class='fas fa-campground'></i>&nbsp".$row['brgyname']."</b>";
 			?>
 		</h1>
-	    <h3 class="lead" style="color:black">
-	    	<?php
-	    		echo "<i class='fas fa-map-marker-alt'></i>&nbspAddress: <b>".$row['streetname']."</b>";
-	    	?>
-		</h3>
 		<p>
 			<h5 class="lead" style="color:black">
 			<?php
@@ -48,13 +43,12 @@
 			</h5>
 		</p>
 		<a href="reportpage" class="btn btn-info"><i class="far fa-file-alt"></i> Make Report</a>
-		<a href="ignoreList" class="btn btn-danger"><i class="fas fa-ban"></i> Ignored List</a>
 		<a href="archives" class="btn btn-warning text-dark"><i class="fas fa-archive"></i> Archives</a>
 		<a href="viewhistory" class="btn btn-dark"><i class="fas fa-receipt"></i> History/Activity Log</a>
 	  </div>
 	</div>
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<a href="viewpeoplein">
 				<div class="card bg-success">
 				  <center>
@@ -72,7 +66,7 @@
 				</div>	
 			</a>			
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<a href="viewlist">
 				<div class="card bg-info">
 				  <center>
@@ -90,25 +84,7 @@
 				</div>
 			</a>	
 		</div>
-		<div class="col-md-3">
-			<a href="viewpeoplerequest">
-				<div class="card bg-secondary">
-				  <center>
-				  	<p class="fas fa-user-friends text-light" style="font-size:90px;"></p>
-				  	<h3 class="text-light">Requesting: 
-				  		<?php
-				  			$stmt = $barangay->numberofRequest();
-							while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-								extract($row);
-								echo "<b>".$row['total']."</b>";
-							} 
-				  		?>					  		
-				  	</h3>
-				  </center>
-				</div>	
-			</a>
-		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 				<a href="viewallrecords">
 					<div class="card bg-warning">
 					  <center>
@@ -127,7 +103,7 @@
 				</a>
 			</div>
 	</div><br>
-		<center><h3>Number of Entries Per Day</h3></center>
+		<center><h3>Number of Entries and Exits Per Day</h3></center>
 		<canvas id="myChart3" class="bg-transparent"></canvas>			
 		<script type="text/javascript">
 			var ctx = document.getElementById('myChart3').getContext('2d');
@@ -147,7 +123,7 @@
 					?>					        
 			        ],
 			        datasets: [{
-			            label: 'Entries',					  
+			            label: 'Records',					  
 			            pointStyle: 'triangle',
 			            radius: 9,
 			            // fill: false,
@@ -217,7 +193,7 @@
 				<?php
 					$stmt = $record->countStatus();
 					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-		            	if($row['number'] >= '4'){
+		            	if($row['number'] >= '1'){
 							require 'numeachcateg.php';
 						}
 						else {
@@ -231,7 +207,7 @@
 				<?php
 					$stmt = $record->countStatus();
 					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-		            	if($row['number'] >= '4'){
+		            	if($row['number'] >= '1'){
 							require 'numallcateg.php';
 						}
 						else {

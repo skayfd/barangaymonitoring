@@ -18,106 +18,133 @@
 	$person = new Person($db);
 
 ?>
-<div class="container">&nbsp
+&nbsp
 	<center>
 	<a href="viewlist" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to List</a>
 	<br>
-		<h1 class="display-4">Records</h1>
+		<h1 class="display-4">Records of Person</h1>
 	</center>
-	<div class="jumbotron">
-	<?php
-	echo '
-	<table id="tblRecord" class="table table-hover table-bordered">
-	  <thead class="thead-dark">
-	    <tr>
-	      <th scope="col">Date Recorded</th>
-	      <th scope="col">Reason</th>
-	      <th scope="col">Temperature</th>
-	      <th scope="col">Person Type</th>
-	      <th scope="col">Came from</th>
-	      <th scope="col">Headed Location</th>
-	      <th scope="col">Recorded By</th>
-	      <th scope="col">Action</th>
-	    </tr>
-	  </thead>
-	  	 <tbody>';
-	  $record->pid = $_GET['id'];
-	  $stmt = $record->readrelatedRecord();
-	  while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-		extract($row);
-		echo '
-	    <tr>
-	      <th scope="row">'.$row['date'].'</th>
-	      <td>'.$row['reason'].'</td>
-	      <td>'.$row['temp'].'</td>
-	      <td>'.$row['status'].'</td>
-	      <td>'.$row['point'].'</td>
-	      <td>'.$row['addressto'].'</td>
-	      <td>'.$row['fullname'].'</td>
-	      <td>
-	      	<a class="btn btn-warning text-dark delete-object" delete-id="'.$row['rid'].'">Archive</a>
-	      </td>
-	    </tr>';
-	  }
-	echo '
-		</tbody>
-	</table>';
-	?>
-	</div>
-</div>
+	<div class="card"><br>
+		<table id="tblRecord" class="table table-responsive table-light">
+		  <thead class="thead-light">
+		    <tr>
+		      <th scope="col">Date Recorded</th>
+		      <th scope="col">Reason</th>
+		      <th scope="col">Temperature</th>
+		      <th scope="col">Person Type</th>
+		      <th scope="col">Came from</th>
+		      <th scope="col">Destination</th>
+		      <th scope="col">Destination 2</th>
+		      <th scope="col">Destination 3</th>
+		      <th scope="col">Recorded By</th>
+		      <th scope="col">Brgy Cert</th>
+		      <th scope="col">Hlth Decl.</th>
+		      <th scope="col">Med Certificate</th>
+		      <th scope="col">Travel Auth</th>
+		      <th scope="col">Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<?php
+		  	$record->pid = $_GET['id'];
+		  	$stmt = $record->readrelatedRecord();
+		  	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		  	echo '
+		    <tr>
+		      <th scope="row">'.$row['date'].'</th>
+		      <td>'.$row['reason'].'</td>
+		      <td>'.$row['temp'].'</td>
+		      <td>'.$row['status'].'</td>
+		      <td>'.$row['point'].'</td>
+		      <td>'.$row['addressto'].'</td>';
 
-<center><h1 class="display-4">Picture of Documents</h1></center>
-<div class="container">
-	<div class='row'>
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<br>
-			<?php
-				$person->pid = $_GET['id'];
-				$stmt = $person->documentPic();
-				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-					extract($row);
-					echo "
-					<div class='row'>
-						<div class='col-sm-6'>
-							<h3>Barangay Certificate</h3>
-							<img src='../../assets/img/".$row['brgycert']."' height='520px' width='100%'>
-						</div>
-						<div class='col-sm-6'>
-							<h3>Health Declaration Form</h3>
-							<img src='../../assets/img/".$row['healthdeclaration']."' height='520px' width='100%'>
-						</div>
-					</div>
-					<br>
-					<div class='row'>
-						<div class='col-sm-6'>
-							<h3>Medical Certificate</h3>
-							<img src='../../assets/img/".$row['medcert']."' height='520px' width='100%'>
-						</div>
-						<div class='col-sm-6'>
-							<h3>Travel Authority</h3>
-							<img src='../../assets/img/".$row['travelauth']."' height='520px' width='100%'>
-						</div>
-					</div>
-					<br>
-					";
-				}
-			?>
-		</div>
-		<div class="col-md-2"></div>
+		      //addressto portion VVVVVVVVVVV
+		      if(empty($row['addressto2'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else{
+		      	echo '
+		      	<td>'.$row['addressto2'].'</td>
+		      	';
+		      }
+		      if(empty($row['addressto3'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else{
+		      	echo '
+		      	<td>'.$row['addressto3'].'</td>
+		      	';
+		      }
+		      //addressto portion ^^^^^^^^^^^^
+		      echo '
+
+		      <td>'.$row['fullname'].'</td>';
+
+		      //important docus
+		      if(empty($row['brgycert'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else {
+		      	echo '
+		      	<td><img src="../../assets/img/'.$row['brgycert'].'" width="120px" height="100px"></td>
+		      	';
+		      }
+		      if(empty($row['healthdecla'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else {
+		      	echo '
+		      	<td><img src="../../assets/img/'.$row['healthdecla'].'" width="120px" height="100px"></td>
+		      	';
+		      }
+		      if(empty($row['medcert'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else {
+		      	echo '
+		      	<td><img src="../../assets/img/'.$row['medcert'].'" width="120px" height="100px"></td>
+		      	';
+		      }
+		      if(empty($row['travelauth'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else {
+		      	echo '
+		      	<td><img src="../../assets/img/'.$row['travelauth'].'" width="120px" height="100px"></td>
+		      	';
+		      }		      			  			    
+
+		      echo '
+		      <td>
+		      	<a class="btn btn-warning text-dark delete-object" delete-id="'.$row['rid'].'">Archive</a>
+		      </td>
+		    </tr>';
+			}
+		    ?>
+		  </tbody>
+		</table>&nbsp
 	</div>
-</div>
 
 <script>
 $(document).ready(function() {
     $('#tblRecord').dataTable( {
-    "aLengthMenu": [[3, 8, -1], [3, 8, "All"]],
-    "pageLength": 3,
+    "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 	"bLengthChange": true,
 	"bInfo" : true,
-	"order": [[ 0, "desc" ]]
+	"order": [[ 0, "desc" ]],
     } );
-
 } );
 $(document).on('click', '.delete-object', function(){
     var id = $(this).attr('delete-id');

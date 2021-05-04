@@ -4,7 +4,7 @@ $title = 'Home Page';
 
 if(isset($_SESSION['uid'])){
 	if($_SESSION['type'] == 1){
-		if($_SESSION['status'] == 1){ header("Location: views/bhead/headhome"); }
+		if($_SESSION['status'] == 1){ header("Location: views/bhead/viewgroup"); }
 		else { header("Location: views/verification/accountonhold"); }
 	}
 	elseif($_SESSION['type'] == 2){

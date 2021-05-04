@@ -5,6 +5,12 @@
 		public $status;
 		public $pointoforigin;
 		public $addressto;
+		public $addressto2;
+		public $addressto3;
+		public $brgycert;
+		public $healthdeclaration;
+		public $medcert;
+		public $travelauth;
 		public $archive;
 		public $temp;
 		public $rid;
@@ -16,22 +22,28 @@
 		public $referral;
 
 		public $conn;
-		private $tableName = 'person';
+		private $tableName = 'record';
 
 		function __construct($db){
 			$this->conn=$db;
 		}
 		function createRecord(){
-			$query = "INSERT INTO record SET reason=?, status=?, archive=0, pointoforigin=?, addressto=?,daterecorded=?, temp=?, uid=?, pid=?";
+			$query = "INSERT INTO record SET reason=?, status=?, temp=?, pointoforigin=?, addressto=?, addressto2=?, addressto3=?, daterecorded=?, pid=?, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, uid=?, archive=0";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->reason);
 			$stmt->bindparam(2, $this->status);
-			$stmt->bindparam(3, $this->pointoforigin);
-			$stmt->bindparam(4, $this->addressto);
-			$stmt->bindparam(5, $this->daterecorded);
-			$stmt->bindparam(6, $this->temp);
-			$stmt->bindparam(7, $_SESSION['uid']);
-			$stmt->bindparam(8, $this->pid);
+			$stmt->bindparam(3, $this->temp);
+			$stmt->bindparam(4, $this->pointoforigin);
+			$stmt->bindparam(5, $this->addressto);
+			$stmt->bindparam(6, $this->addressto2);
+			$stmt->bindparam(7, $this->addressto3);
+			$stmt->bindparam(8, $this->daterecorded);
+			$stmt->bindparam(9, $this->pid);
+			$stmt->bindparam(10, $this->brgycert);
+			$stmt->bindparam(11, $this->healthdeclaration);
+			$stmt->bindparam(12, $this->medcert);
+			$stmt->bindparam(13, $this->travelauth);
+			$stmt->bindparam(14, $_SESSION['uid']);
 
 			if($stmt->execute()){
 				return true;
@@ -41,7 +53,7 @@
 			}
 		}
 		function readrelatedRecord(){
-			$query = "SELECT record.daterecorded AS 'date', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid
+			$query = "SELECT record.daterecorded AS 'date', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth'
 			FROM record
 			INNER JOIN user ON record.uid = user.uid
 			INNER JOIN person ON record.pid = person.pid
@@ -65,14 +77,14 @@
 			return $stmt;
 		}
 		function readAllRecord(){
-			$query = "SELECT CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', person.address AS 'address', person.gender AS 'gender'
+			$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname'
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
+            INNER JOIN user ON user.uid = record.uid
+            INNER JOIN barangay ON barangay.referral = user.referral
 			WHERE record.archive = 0
-			AND person.referral = ?
 			ORDER BY fullname ASC";
 			$stmt = $this->conn->prepare($query);
-			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}
@@ -124,6 +136,18 @@
 			$stmt->execute();
 			return $stmt;
 		}
+		function countRes(){//FOR DONUT CHART LOCAL RESIDENT
+			$query = "SELECT COUNT(DISTINCT record.pid) as 'number' 
+                    FROM record
+                    INNER JOIN person ON record.pid = person.pid
+                    WHERE record.archive = 0
+                    AND person.referral = ?
+                    And record.status = 'RESIDENT'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
 		function readAllAPOR(){//FOR BAR CHART
 			$query = "SELECT COUNT(*) as 'number' 
 				FROM record
@@ -167,6 +191,18 @@
 				WHERE record.archive = 0
 			    AND person.referral = ?
                 AND record.status = 'PUM'";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readAllRes(){//FOR BAR CHART
+			$query = "SELECT COUNT(*) as 'number' 
+				FROM record
+			    INNER JOIN person ON record.pid = person.pid
+				WHERE record.archive = 0
+			    AND person.referral = ?
+                AND record.status = 'RESIDENT'";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
@@ -297,8 +333,22 @@
 			$stmt->execute();
 			return $stmt;
 		}
+		function numRES($sDate, $eDate, $referral){
+			$query = "SELECT COUNT(DISTINCT record.pid, 0) as 'number' 
+			FROM record
+			INNER JOIN person ON record.pid = person.pid
+			WHERE
+			record.daterecorded BETWEEN '$sDate' AND '$eDate'
+			AND record.archive = 0 
+			AND record.status='RESIDENT'
+			AND person.referral = '$referral'";
+			$stmt = $this->conn->prepare($query);
+
+			$stmt->execute();
+			return $stmt;
+		}
 		function peopleStatus($sDate, $eDate, $referral){
-			$query = "SELECT DISTINCT(person.pid) AS 'id', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'datetimerecorded', record.reason AS 'reason',record.status AS 'status', person.address AS 'address'
+			$query = "SELECT DISTINCT(person.pid) AS 'pid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'datetimerecorded', record.reason AS 'reason',record.status AS 'status', person.address AS 'address'
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
 		    WHERE

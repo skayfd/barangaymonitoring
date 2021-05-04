@@ -7,14 +7,15 @@
 
 	    // The data for our dataset
 	    data: {
-	        labels: ['APOR', 'LSI', 'PUI', 'PUM'],
+	        labels: ['APOR', 'LSI', 'PUI', 'PUM', 'Local Resident'],
 	        datasets: [{
 	            label: 'Total Records',
 	            backgroundColor: [
 	            '#6eaa10',
 	            '#0275d8',
 	            '#931205',
-	            '#d7b620'
+	            '#d7b620',
+	            '#cc6acc'
 	            ],
 	            
 	            data: [
@@ -33,6 +34,10 @@
 		            	echo $row['number'].',';
 		            }
 		            $stmt = $record->readAllPUM();
+		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		            	echo $row['number'].',';
+		            }
+		            $stmt = $record->readAllRes();
 		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		            	echo $row['number'].',';
 		            }

@@ -9,6 +9,7 @@
 		public $token;
 		public $status;
 		public $profilepic;
+		public $barid;
 		public $type;
 		public $refferal;
 		public $promote;

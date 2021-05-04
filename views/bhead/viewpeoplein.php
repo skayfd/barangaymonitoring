@@ -36,7 +36,6 @@
 		<div class="col-md-8 bg-light"><br>
 		<?php		
 		echo '
-		<input type="button" class="btn btn-warning edit-object" edit-id="'.$_SESSION['uid'].'" value="Promotion Que"/><br><br>
 		<table id="peopleIn" class="table table-light">
 		  <thead class="thead-dark">
 		    <tr>
@@ -71,19 +70,6 @@
 		      <td>';
 		      if($row['promote'] == 1){
 		      	echo '<p style="color: #0c911d">Promoted/Head</p>';
-		      }
-		      elseif($row['promote'] == 2){
-		      	echo '<p style="color: #e99802">On Queue for Promotion.</p>';
-		      }
-		      elseif($row['promote'] == 0){
-		      	echo '
-		      	<button class="btn btn-warning check-object" check-id="'.$row['uid'].'" name="check">
-					<i class="fas fa-level-up-alt"></i> Promote
-				</button>
-				<button class="btn btn-info reset-object" reset-id="'.$row['uid'].'" name="reset">
-				 	<i class="fas fa-unlock-alt"></i> Reset Password
-				</button>
-		      	';
 		      }
 			  echo '			  
 		      </td>

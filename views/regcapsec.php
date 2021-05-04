@@ -5,7 +5,11 @@
 	session_start();
 	$title = "Barangay Head Registration";
 	include_once "include/header.php";
+	include_once '../classes/barangay.php';
+
 	require_once '../vendor/autoload.php';
+
+	$barangay = new Barangay($db);
 
 	if(isset($_SESSION['uid'])){
 		if($_SESSION['type'] == 1){
@@ -29,7 +33,7 @@
 		</div>
 		<div class="col-md-6">
 			<div class="card text-white bg-secondary">
-			  <h4 class="card-header"><p class="fas fa-user-shield" style="font-size:50px;"></p> Head Registration</h4>
+			  <h4 class="card-header"><p class="fas fa-user-plus" style="font-size:50px;"></p> User Registration</h4>
 			  <div class="card-body">
 			    	<form method="POST" action="regcapsec.php">
 			    	<?php
@@ -69,7 +73,8 @@
 									    	$newref = substr(md5(microtime()),rand(0,26),5);
 									        if($newref !== $randomreferral){
 									        	$user->password = $hashed_password;
-									        	$user->referral = $newref;
+									        	// $user->referral = $newref;
+									        	$user->referral = $_POST['referral'];
 									        	$user->token = $vkey;
 									        	require_once 'info.php';
 							    				// Create the Transport
@@ -82,28 +87,28 @@
 												$mailer = new Swift_Mailer($transport);
 
 												//#for localhost address VVVVVV
-												// $body = <<<EOD
-												// <html>
-												//     <head></head>
-												//     <body>
-												//         Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
-												//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-												//     </body>
-												// </html>
-												// EOD;
-												//#for localhost address ^^^^^^
-
-
-												//#for HEROKU address VVVVVV
 												$body = <<<EOD
 												<html>
 												    <head></head>
 												    <body>
-												        Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+												        Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
 												        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
 												    </body>
 												</html>
 												EOD;
+												//#for localhost address ^^^^^^
+
+
+												//#for HEROKU address VVVVVV
+												// $body = <<<EOD
+												// <html>
+												//     <head></head>
+												//     <body>
+												//         Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+												//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
+												//     </body>
+												// </html>
+												// EOD;
 												//#for HEROKU address ^^^^^^
 
 
@@ -142,7 +147,8 @@
 					    			}
 					    			elseif($user->existingref() == false) {
 					    				$user->password = $hashed_password;//--->stores hashed pass
-					    				$user->referral = $randomreferral;
+					    				// $user->referral = $randomreferral;
+					    				$user->referral = $_POST['referral'];
 					    				$user->token = $vkey;
 
 					    				require_once 'info.php';
@@ -156,27 +162,27 @@
 										$mailer = new Swift_Mailer($transport);
 
 										//#for localhost address VVVVVV
-										// $body = <<<EOD
-										// <html>
-										//     <head></head>
-										//     <body>
-										//         Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
-										//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-										//     </body>
-										// </html>
-										// EOD;
-										//#for localhost address ^^^^^^
-
-										//#for Heroku address VVVVVV
 										$body = <<<EOD
 										<html>
 										    <head></head>
 										    <body>
-										        Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+										        Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
 										        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
 										    </body>
 										</html>
 										EOD;
+										//#for localhost address ^^^^^^
+
+										//#for Heroku address VVVVVV
+										// $body = <<<EOD
+										// <html>
+										//     <head></head>
+										//     <body>
+										//         Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+										//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
+										//     </body>
+										// </html>
+										// EOD;
 										//#for HEROKU address ^^^^^^
 
 										// Create a message
@@ -257,6 +263,21 @@
 				   			<div class="col-md-12">
 				   				<label class="col-form-label col-form-label-sm">Email</label>
 							    <input type="email" name="email" class="form-control form-control-sm" placeholder="Enter your email" value='<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>' required>
+				   			</div>
+				   		</div>
+				   		<div class="row">
+				   			<div class="col-md-12">
+				   				<label class="col-form-label col-form-label-sm">Barangay</label>
+							    <select class="form-control" name="referral" required>
+									<option selected></option>
+									<?php
+										$stmt = $barangay->readbar();
+										while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+											extract($row);
+											echo "<option value='".$row['referral']."'>".$row['brgyname']."</option>";
+										}
+									?>
+								</select>
 				   			</div>
 				   		</div>
 				   		<div class="row">

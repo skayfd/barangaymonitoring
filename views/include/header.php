@@ -426,7 +426,7 @@
 				</div>
 				<div>
 					<a href="login" class="btn btn-outline-primary text-light"><i class="fas fa-sign-in-alt">&nbsp</i>Login</a>
-					<a href="regtype" class="btn btn-outline-success text-light"><i class="fas fa-file-signature">&nbsp</i>Sign Up</a>
+					<a href="regcapsec" class="btn btn-outline-success text-light"><i class="fas fa-file-signature">&nbsp</i>Sign Up</a>
 			</nav>
 			';
 		}

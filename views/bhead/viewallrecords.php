@@ -25,9 +25,12 @@
 		<table id="tblAllRec" class="table table-light">
 		  <thead>
 		    <tr>
+		      <th scope="col">Person ID Number</th>
 		      <th scope="col">Full Name</th>
 		      <th scope="col">Date Recorded</th>
+		      <th scope="col">Barangay Recorded In</th>
 		      <th scope="col">Address</th>
+		      <th scope="col">Destination</th>
 		      <th scope="col">Contact Number</th>
 		      <th scope="col">Reason</th>
 		      <th scope="col">Status</th>
@@ -39,9 +42,12 @@
 		  	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		  	echo '
 		    <tr>
-		      <th scope="row">'.$row['fullname'].'</th>
+		      <th scope="row">'.$row['personid'].'</th>
+		      <td>'.$row['fullname'].'</td>
 		      <td>'.$row['daterecorded'].'</td>
+		      <th scope="col">'.$row['barname'].'</th>
 		      <td>'.$row['address'].'</td>
+		      <td>'.$row['destination'].'</td>
 		      <td>'.$row['contactno'].'</td>
 		      <td>'.$row['reason'].'</td>
 		      <td>'.$row['status'].'</td>
@@ -60,7 +66,7 @@ $(document).ready(function() {
     "pageLength": 10,
 	"bLengthChange": true,
 	"bInfo" : true,
-	"order": [[ 1, "desc" ]]
+	"order": [[ 2, "desc" ]]
     } );
 
 } );

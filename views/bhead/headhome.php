@@ -35,8 +35,7 @@
 						<div class="card" style="width: 18rem;">
 						  <!--<img src="..." class="card-img-top" alt="...">-->
 						  <div class="card-body">
-						    <h4 class="card-title" style="color:black">'.$row['brgyname'].'</h4>
-						    <p class="card-text" style="color:black">'.$row['streetname'].'</p>';?>
+						    <h4 class="card-title" style="color:black">'.$row['brgyname'].'</h4>';?>
 
 						    <a href="viewgroup?id=<?php echo md5($row['referral']) ?>" class="btn btn-primary">Go to Group</a>
 

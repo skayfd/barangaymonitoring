@@ -27,7 +27,7 @@
 		}
 
 		function createperson(){
-			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, archive=0, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, uid=?";
+			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, archive=0, uid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->daterecorded);
 			$stmt->bindparam(2, $this->firstname);
@@ -37,11 +37,11 @@
 			$stmt->bindparam(6, $this->contactno);
 			$stmt->bindparam(7, $this->address);
 			$stmt->bindparam(8, $_SESSION['referral']);
-			$stmt->bindparam(9, $this->brgycert);
-			$stmt->bindparam(10, $this->healthdeclaration);
-			$stmt->bindparam(11, $this->medcert);
-			$stmt->bindparam(12, $this->travelauth);
-			$stmt->bindparam(13, $_SESSION['uid']);
+			// $stmt->bindparam(9, $this->brgycert);
+			// $stmt->bindparam(10, $this->healthdeclaration);
+			// $stmt->bindparam(11, $this->medcert);
+			// $stmt->bindparam(12, $this->travelauth);
+			$stmt->bindparam(9, $_SESSION['uid']);
 
 			if($stmt->execute()){
 				return true;
@@ -52,12 +52,12 @@
 		}
 
 		function readallpeople(){
-			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid'
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom'
 			FROM person 
 			INNER JOIN user ON user.uid = person.uid
-			WHERE person.referral = ? AND person.archive=0";
+            INNER JOIN barangay ON barangay.referral = person.referral";
 			$stmt = $this->conn->prepare($query);
-			$stmt->bindparam(1, $_SESSION['referral']);
+			// $stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}
@@ -76,10 +76,21 @@
 			$this->gender = $row['gender'];
 			$this->contactno = $row['contactno'];
 			$this->daterecorded = $row['daterecorded'];
-			$this->referral = $row['referral'];
+			$this->address = $row['address'];
 			$this->pid = $row['pid'];
 
 			return true;
+		}
+		function readPerBarangay(){
+			$query = "SELECT barangay.brgyname AS 'barname' FROM person
+			INNER JOIN user ON user.uid = person.uid
+		    INNER JOIN barangay ON barangay.referral = user.referral
+			WHERE pid=?
+			";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_GET['id']);
+			$stmt->execute();
+			return $stmt;
 		}
 		function readspecPersonRecord($rid){
 			$query = "SELECT * FROM person

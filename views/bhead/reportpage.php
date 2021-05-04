@@ -62,6 +62,7 @@
 	</div>
 </div>
 </form>
+
 <br>
 
 <center><h3>People Registered</h3></center>
@@ -134,8 +135,7 @@
 
 $(document).ready(function() {
     $('#tblpeople').dataTable( {
-    "aLengthMenu": [[3, 8, -1], [3, 8, "All"]],
-    "pageLength": 3,
+    "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
 	"bLengthChange": true,
 	"bInfo" : true,
 	"order": [[ 4, "desc" ]]

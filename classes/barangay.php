@@ -32,6 +32,20 @@
 				return false;
 			}
 		}
+		function readbar(){
+			$query = "SELECT * FROM barangay";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			return $stmt;
+		}
+		
+
+
+
+
+
+
+		
 		function createGroup(){
 			$query = "INSERT INTO barangay SET brgyname=?, streetname=?, referral=?, uid=?";
 			$stmt = $this->conn->prepare($query);
@@ -57,7 +71,6 @@
 
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			$this->brgyname = $row['brgyname'];
-			$this->streetname = $row['streetname'];
 			$this->streetname = $row['referral'];
 		}
 		function readGroupsByUser(){//for header, pang lagyan ng group homes
