@@ -60,7 +60,7 @@
               <a class="text-light" href="forgotpw" for="inputPassword"><b>Forgot Password</b></a>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" name="submit" type="submit">Login</button>
               <hr class="my-4">
-              <a class="btn btn-info btn-lg btn-block" href="regtype.php"><i class="fas fa-user-plus"></i> SIGN UP</a>
+              <a class="btn btn-info btn-lg btn-block" href="regcapsec"><i class="fas fa-user-plus"></i> SIGN UP</a>
             </form>
           </div>
         </div>
