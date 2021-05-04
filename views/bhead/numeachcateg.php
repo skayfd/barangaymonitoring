@@ -7,14 +7,15 @@
 
 	    // The data for our dataset
 	    data: {
-	        labels: ['APOR', 'PUI', 'PUM', 'LSI'],
+	        labels: ['APOR', 'PUI', 'PUM', 'LSI', 'Local Resident'],
 	        datasets: [{
 	            label: 'Number of People Categorized',
 	            backgroundColor: [
 	            '#5cb85c',
 	            '#d9534f',
 	            '#f0ad4e',
-	            '#5bc0de'
+	            '#5bc0de',
+	            '#ff85ff'
 	            ],
 	            
 	            data: [
@@ -33,6 +34,10 @@
 		            	echo $row['number'].',';
 		            }
 		            $stmt = $record->countLSI();
+		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		            	echo $row['number'].',';
+		            }
+		            $stmt = $record->countRes();
 		            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		            	echo $row['number'].',';
 		            }

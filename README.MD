@@ -1,22 +1,22 @@
-# :rocket: CURRENTLY ONLINE
+# :rocket: UNDER REVISION
 [Monitoring System](https://php-barangay-monitoring.herokuapp.com/)
 
 
 # Things Left 
 
-* :white_check_mark: RECORDS: arrange to latest to oldest
-* :white_check_mark: Show Archive to admin
-* :white_check_mark: add archive 
-* :white_check_mark: add an attach file button
-* :white_check_mark: Archive Person archives related records.
-* :white_check_mark: Activity History/Activity Logs
-	* :white_check_mark: Add person
-	* :white_check_mark: Add Record
-	* :white_check_mark: Archive Person
-	* :white_check_mark: Archive Record
-	* :white_check_mark: Requesting(also ignored list)
-	* :white_check_mark: Promotion
-	* :white_check_mark: also add history function on member side
+* add: change barangay function(on profile)
+* optional: kick user option
+* registraion of user needs barangay id of official
+
+* :white_check_mark: View Records of Person, datatables not working, no search, no sorting bug.
+* :white_check_mark: make people list viewable by all the barangay
+* :white_check_mark: documents will be added only if they are apor,pum, pui or lsi in the add record option.
+* :white_check_mark: all barangay records viewable by all the barangay
+* :white_check_mark: add the multiple destination(atleast 3)
+* :white_check_mark: make the random id to auto increment(for generate ID for specific user, generate ID)
+* :white_check_mark: Fix Reports(Number of entries & people registered errors)
+* :white_check_mark: Fix Graphs(Show Residents)
+
 # NOTE
 - CHANGE FILE DIRECTORY from **barangaymonitoring-main** TO **monitoring-main**
 
