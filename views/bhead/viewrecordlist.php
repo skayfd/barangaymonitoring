@@ -28,7 +28,8 @@
 		<table id="tblRecord" class="table table-responsive table-light">
 		  <thead class="thead-light">
 		    <tr>
-		      <th scope="col">Date Recorded</th>
+		      <th scope="col">Date Recorded/Time In</th>
+		      <th scope="col">Time Out</th>
 		      <th scope="col">Reason</th>
 		      <th scope="col">Temperature</th>
 		      <th scope="col">Person Type</th>
@@ -51,7 +52,21 @@
 		  	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		  	echo '
 		    <tr>
-		      <th scope="row">'.$row['date'].'</th>
+		      <th scope="row">'.$row['date'].'</th>';
+
+		      //check time out and time in
+		      if(empty($row['timeout'])){
+		      	echo '
+		      	<th scope="row">
+		      		<a class="btn btn-success text-light time-object" time-id="'.$row['rid'].'">Time Out</a>
+		      	</th>';
+		      }
+		      else{
+		      	echo '<td><p class="text-success">'.$row['timeout'].'</p></td>';
+		      }
+		      
+
+		      echo '
 		      <td>'.$row['reason'].'</td>
 		      <td>'.$row['temp'].'</td>
 		      <td>'.$row['status'].'</td>
@@ -157,6 +172,21 @@ $(document).on('click', '.delete-object', function(){
             location.reload();
         }).fail(function() {
             alert('Unable to delete.');
+        });
+    }
+});
+//time out script
+$(document).on('click', '.time-object', function(){
+    var id = $(this).attr('time-id');
+    var q = confirm("Time Out Record?");
+     
+    if (q == true){
+        $.post('recordTimeOut.php', {
+            rid: id
+        }, function(data){
+            location.reload();
+        }).fail(function() {
+            alert('Unable to Time Out.');
         });
     }
 });

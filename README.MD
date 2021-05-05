@@ -7,7 +7,7 @@
 * add: change barangay function(on profile)
 * optional: kick user option
 * registraion of user needs barangay id of official
-
+* :white_check_mark: Time out added, button on record of specified user.
 * :white_check_mark: View Records of Person, datatables not working, no search, no sorting bug.
 * :white_check_mark: make people list viewable by all the barangay
 * :white_check_mark: documents will be added only if they are apor,pum, pui or lsi in the add record option.

@@ -17,17 +17,18 @@
 	$record = new record($db);
 
 ?>
-<div class="container"><br>
+<br>
 	<center><a href="viewgroup" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
 	<h1 class="display-4 text-light">All Records</h1></center>
 	<div class="card">
-		<div class="container"><br>
-		<table id="tblAllRec" class="table table-light">
+		<br>
+		<table id="tblAllRec" class="table table-responsive table-light">
 		  <thead>
 		    <tr>
 		      <th scope="col">Person ID Number</th>
 		      <th scope="col">Full Name</th>
-		      <th scope="col">Date Recorded</th>
+		      <th scope="col">Date Recorded/Time In</th>
+		      <th scope="col">Time Out</th>
 		      <th scope="col">Barangay Recorded In</th>
 		      <th scope="col">Address</th>
 		      <th scope="col">Destination</th>
@@ -44,7 +45,17 @@
 		    <tr>
 		      <th scope="row">'.$row['personid'].'</th>
 		      <td>'.$row['fullname'].'</td>
-		      <td>'.$row['daterecorded'].'</td>
+		      <td><p style="color:blue">'.$row['daterecorded'].'</p></td>';
+
+		      //check timeout
+		      if(empty($row['tout'])){
+		      	echo '<td><p style="color:red"><i class="fas fa-times"></i> Time not set</p></td>';
+		      }
+		      else {
+		      	echo '<td><p style="color:green">'.$row['tout'].'</p></td>';
+		      }
+
+		      echo '
 		      <th scope="col">'.$row['barname'].'</th>
 		      <td>'.$row['address'].'</td>
 		      <td>'.$row['destination'].'</td>
@@ -56,9 +67,9 @@
 		    ?>
 		  </tbody>
 		</table>&nbsp
-		</div>
+
 	</div>
-</div><br>
+<br>
 <script>
 $(document).ready(function() {
     $('#tblAllRec').dataTable( {

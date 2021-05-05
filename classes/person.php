@@ -128,10 +128,9 @@
 		function numberofPeopleList(){
 			$query = "SELECT COUNT(*) AS 'total'
 				FROM person
-    			INNER JOIN barangay ON barangay.referral = person.referral
-    			WHERE barangay.referral = ? AND archive=0";
+    			WHERE archive=0";
 			$stmt = $this->conn->prepare($query);
-			$stmt->bindparam(1, $_SESSION['referral']);
+			// $stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}

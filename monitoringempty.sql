@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2021 at 04:25 PM
+-- Generation Time: May 05, 2021 at 12:04 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -100,6 +100,7 @@ CREATE TABLE `record` (
   `uid` int(11) DEFAULT NULL,
   `pid` int(11) DEFAULT NULL,
   `daterecorded` datetime NOT NULL,
+  `timeout` datetime DEFAULT NULL,
   `temp` decimal(4,2) NOT NULL,
   `reason` varchar(120) NOT NULL,
   `status` varchar(10) NOT NULL,

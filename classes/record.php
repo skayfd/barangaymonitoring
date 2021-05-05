@@ -1,6 +1,7 @@
 <?php
 	class Record{
 		public $daterecorded;
+		public $timeout;
 		public $reason;
 		public $status;
 		public $pointoforigin;
@@ -53,7 +54,7 @@
 			}
 		}
 		function readrelatedRecord(){
-			$query = "SELECT record.daterecorded AS 'date', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth'
+			$query = "SELECT record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth'
 			FROM record
 			INNER JOIN user ON record.uid = user.uid
 			INNER JOIN person ON record.pid = person.pid
@@ -77,7 +78,7 @@
 			return $stmt;
 		}
 		function readAllRecord(){
-			$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname'
+			$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.timeout AS 'tout', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname'
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
             INNER JOIN user ON user.uid = record.uid
@@ -227,10 +228,9 @@
 		function countRecords(){
 			$query = "SELECT COUNT(*) AS 'total' FROM record 
 				INNER JOIN user ON record.uid = user.uid
-				WHERE archive=0
-				AND user.referral = ?";
+				WHERE archive=0";
 			$stmt = $this->conn->prepare($query);
-			$stmt->bindparam(1, $_SESSION['referral']);
+			// $stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}
@@ -245,6 +245,14 @@
 			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
+		}
+		function timeoutrecord(){
+			$query = "UPDATE record SET timeout=? WHERE rid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->timeout);
+			$stmt->bindparam(2, $this->rid);
+
+			$stmt->execute();
 		}
 		function archiveRecord(){
 			$query = "UPDATE record SET archive=1 WHERE rid=?";

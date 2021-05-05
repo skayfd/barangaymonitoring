@@ -60,7 +60,7 @@
 			      <td>'.$row['contactno'].'</td>
 			      <td>'.$row['address'].'</td>
 			      <td>'.$row['addedby'].'</td>
-			      <td>'.$row['barfrom'].'</td>
+			      <td><b>'.$row['barfrom'].'</b></td>
 			      <td>'.$row['daterecorded'].'</td>
 			      <td>
 			      	<input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record as APOR/PUM/PUI/LSI"/><hr>

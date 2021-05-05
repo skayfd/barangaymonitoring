@@ -84,7 +84,10 @@
 			  			</div>
 			  		</div>&nbsp
 			  		<center>
-			  			<a href="changepass" class="btn btn-primary btn-lg">Change Password</a>
+			  			<a href="changepass" class="btn btn-primary btn-lg">Change Password</a>		  		
+			  		<hr>
+			  		<a href="changepass" class="btn btn-warning bt-sm"><i class="fas fa-user-cog"></i> Change Group</a>
+			  		<p class="text-dark"><em>* Please note, changing into different groups may get your account kicked. Please change if you accidentally chose the wrong barangay during sign-up.</em></p>
 			  		</center>
 			  	</div>
 			  </div>
