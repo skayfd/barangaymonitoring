@@ -4,9 +4,9 @@
 
 # Things Left 
 
-* add: change barangay function(on profile)
 * optional: kick user option
-* registraion of user needs barangay id of official
+* :white_check_mark: add: change barangay function(on profile)
+* :white_check_mark: registraion of user needs barangay id of official(need id upon registration)
 * :white_check_mark: Time out added, button on record of specified user.
 * :white_check_mark: View Records of Person, datatables not working, no search, no sorting bug.
 * :white_check_mark: make people list viewable by all the barangay
