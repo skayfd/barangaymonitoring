@@ -84,10 +84,19 @@
 			  			</div>
 			  		</div>&nbsp
 			  		<center>
+			  			<h4 class="text-dark">Barangay ID:</h4>
+			  			<?php		
+			  				echo '<img class="img-fluid" src="../../assets/img/'.$user->barid.'" width="520px" height="250px">';	
+			  			?>
+			  			
+			  		</center>
+			  		<hr>
+			  		<center>
 			  			<a href="changepass" class="btn btn-primary btn-lg">Change Password</a>		  		
 			  		<hr>
-			  		<a href="changepass" class="btn btn-warning bt-sm"><i class="fas fa-user-cog"></i> Change Group</a>
-			  		<p class="text-dark"><em>* Please note, changing into different groups may get your account kicked. Please change if you accidentally chose the wrong barangay during sign-up.</em></p>
+			  		<a href="changegroup" class="btn btn-warning bt-sm"><i class="fas fa-user-cog"></i> Change Barangay</a>
+			  		<!-- <p class="text-dark"><em>* Please note, changing into different groups may get your account kicked. Please change if you accidentally chose the wrong barangay during sign-up.</em></p> -->
+			  		<p class="text-dark"><em>* Change your barangay just incase you accidentally joined the wrong one</em></p>
 			  		</center>
 			  	</div>
 			  </div>

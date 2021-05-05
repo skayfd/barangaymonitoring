@@ -212,6 +212,7 @@
 			}
 		}	
 	}
+	
 ?>
 <form method="POST" action="addRecord.php?pid=<?php echo $person->pid; ?>" enctype="multipart/form-data">
 	<div class='row'>
@@ -283,6 +284,8 @@
 		</div>
 	</div>
 	<br>
+	<hr>
+	<p><small><i class="fas fa-exclamation-circle"></i><em> Files must be an Image(jpg/png) and under 1MB</em></small></p>
 	<div class='row'>
 		<div class='col-sm-4'>
 			<label>Picture of Barangay Certificate: </label>

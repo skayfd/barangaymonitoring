@@ -35,7 +35,7 @@
 			<?php
 			$stmt = $person->readallpeople();
 			echo '
-			<table id="tblpeople" class="table table-hover table-bordered">
+			<table id="tblpeople" class="table table-hover style="width:100%" table-bordered">
 			  <thead class="thead-light">
 			    <tr>
 			   	  <th scope="col">Person ID</th>

@@ -1,4 +1,8 @@
 <?php
+	define('KB', 1024);
+	define('MB', 1048576);
+	define('GB', 1073741824);
+	define('TB', 1099511627776);
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 
@@ -35,7 +39,7 @@
 			<div class="card text-white bg-secondary">
 			  <h4 class="card-header"><p class="fas fa-user-plus" style="font-size:50px;"></p> User Registration</h4>
 			  <div class="card-body">
-			    	<form method="POST" action="regcapsec.php">
+			    	<form method="POST" action="regcapsec" enctype="multipart/form-data">
 			    	<?php
 			    		$user = new User($db);
 
@@ -47,15 +51,18 @@
 			    			$password = $_POST['password'];
 			    			$passcon = $_POST['passcon'];
 
+			  				$baridfile = 0;
+			  				$baridsize = 0;
+
 			    			//hash pw for added security(note2self:$user->password in order to get the data)
 			    			$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 			    			//further info on this: https://stackoverflow.com/questions/30279321/how-to-use-phps-password-hash-to-hash-and-verify-passwords
 
 			    			//random referral code generator(5 digits of random characters)
-			    			$randomreferral = substr(md5(microtime()),rand(0,26),5);
+			    			// $randomreferral = substr(md5(microtime()),rand(0,26),5);
 			    			$vkey = md5(time().$passcon);
 
-			    			//originally:if($user->password == $passcon){
+			    			//check password match
 			    			if($password == $passcon){
 			    				if($user->existingmail()){
 			    					echo 
@@ -67,73 +74,121 @@
 							    </script>';
 			    				}
 			    				else {
-			    					if($user->existingref() == true){
-				    				//loop to generate random code until a unique code is made
-									    while($user->existingref()){
-									    	$newref = substr(md5(microtime()),rand(0,26),5);
-									        if($newref !== $randomreferral){
-									        	$user->password = $hashed_password;
-									        	// $user->referral = $newref;
-									        	$user->referral = $_POST['referral'];
-									        	$user->token = $vkey;
-									        	require_once 'info.php';
-							    				// Create the Transport
-												$transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
-												  ->setUsername(EMAIL)
-												  ->setPassword(PASS)
-												;
+			    					$user->password = $hashed_password;//--->stores hashed pass
+					    			$user->referral = $_POST['referral'];
+					    			$user->token = $vkey;
 
-												// Create the Mailer using your created Transport
-												$mailer = new Swift_Mailer($transport);
+					    			require_once 'info.php';
+					    			// Create the Transport
+									$transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+									  ->setUsername(EMAIL)
+									  ->setPassword(PASS)
+									;
 
-												//#for localhost address VVVVVV
-												$body = <<<EOD
-												<html>
-												    <head></head>
-												    <body>
-												        Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
-												        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-												    </body>
-												</html>
-												EOD;
-												//#for localhost address ^^^^^^
+									// Create the Mailer using your created Transport
+									$mailer = new Swift_Mailer($transport);
 
+									//#for localhost address VVVVVV
+									$body = <<<EOD
+									<html>
+									    <head></head>
+									    <body>
+									        Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
+									        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
+									    </body>
+									</html>
+									EOD;
+									//#for localhost address ^^^^^^
 
-												//#for HEROKU address VVVVVV
-												// $body = <<<EOD
-												// <html>
-												//     <head></head>
-												//     <body>
-												//         Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
-												//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-												//     </body>
-												// </html>
-												// EOD;
-												//#for HEROKU address ^^^^^^
+									//#for Heroku address VVVVVV
+									// $body = <<<EOD
+									// <html>
+									//     <head></head>
+									//     <body>
+									//         Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
+									//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
+									//     </body>
+									// </html>
+									// EOD;
+									//#for HEROKU address ^^^^^^
 
+									// Create a message
+									$message = (new Swift_Message('Email Verification'))
+									  ->setFrom(['barangaymonitoring@gmail.com' => 'Barangay Monitoring'])
+									  ->setTo([$user->email])
+									  ->setBody(
+									  	$body,
+									    'text/html' // Mark the content-type as HTML
+									  )
+									  ;
 
-												// Create a message
-												$message = (new Swift_Message('Email Verification'))
-												  ->setFrom(['barangaymonitoring@gmail.com' => 'Barangay Monitoring'])
-												  ->setTo([$user->email])
-												  ->setBody(
-												  	$body,
-												    'text/html' // Mark the content-type as HTML
-												  )
-												  ;
+									// Send the message
+									$result = $mailer->send($message);
 
-												// Send the message
-												$result = $mailer->send($message);
-
-												if(!$result){
-													echo "Something Went WRONG!";
+									//check result if sent or not
+									if(!$result){
+										echo "Something Went WRONG!";
+									}
+									else {
+										//barangay id
+										if (!file_exists($_FILES['barid']['tmp_name']) || !is_uploaded_file($_FILES['barid']['tmp_name'])){
+										    $temp = explode(".", $_FILES["barid"]["name"]);
+											$newfilename = substr(md5(microtime()),rand(0,26),21) . '.' . end($temp);
+											move_uploaded_file($_FILES['barid']['tmp_name'], "../assets/img/".$newfilename);
+											$imgname = "../../assets/img/".$newfilename;
+											$user->barid = $imgname;
+										}
+										else {
+											if($_FILES['barid']['type'] == 'image/jpeg' || $_FILES['barid']['type'] == 'image/jpg' || $_FILES['barid']['type'] == 'image/png'){
+												//check size
+												if($_FILES['barid']['size'] > 1*MB){
+													$baridsize = 1;
 												}
 												else {
-													$user->createuser();//create user
-												}
-												
+													$temp = explode(".", $_FILES["barid"]["name"]);
+													$newfilename = substr(md5(microtime()),rand(0,26),21) . '.' . end($temp);
+													move_uploaded_file($_FILES['barid']['tmp_name'], "../assets/img/".$newfilename);
+													$imgname = "../../assets/img/".$newfilename;
+													$user->barid = $imgname;
+												}			
+											}
+											else {
+												$baridfile = 1;
+											}
+										}
 
-							    				echo 
+
+										//check if file is valid
+										if($baridfile == 1){
+											echo
+											'
+											<script type="text/javascript">
+									        	swal({ 
+									        		icon: "error",
+									        		title: "INVALID FILE!",
+									        		text: "Please check if your file is an image.",
+									        	});
+										    </script>
+											';
+										}
+										else {
+											//check if file exceeds size
+											if($baridsize == 1){
+												echo
+												'
+												<script type="text/javascript">
+										        	swal({ 
+										        		icon: "error",
+										        		title: "FILE TOO BIG!",
+										        		text: "Please check if your file exceeds 1MB.",
+										        	});
+											    </script>
+												';
+											}
+											else {
+												$user->createuser();//create user
+												echo 
+
 							    				'<script type="text/javascript">
 										        	swal({ 
 										        		icon: "success",
@@ -141,90 +196,9 @@
 										        		text: "You may now use your account.",
 										        	});
 											    </script>';
-									        	break;
-									        }
-									    }
-					    			}
-					    			elseif($user->existingref() == false) {
-					    				$user->password = $hashed_password;//--->stores hashed pass
-					    				// $user->referral = $randomreferral;
-					    				$user->referral = $_POST['referral'];
-					    				$user->token = $vkey;
-
-					    				require_once 'info.php';
-					    				// Create the Transport
-										$transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
-										  ->setUsername(EMAIL)
-										  ->setPassword(PASS)
-										;
-
-										// Create the Mailer using your created Transport
-										$mailer = new Swift_Mailer($transport);
-
-										//#for localhost address VVVVVV
-										$body = <<<EOD
-										<html>
-										    <head></head>
-										    <body>
-										        Please verify your email by clicking this link: <a href="http://localhost/monitoring-main/views/util/userverification?key=$user->token" target="_blank">http://localhost/monitoring-main/views/util/userverification?key=$user->token</a>
-										        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-										    </body>
-										</html>
-										EOD;
-										//#for localhost address ^^^^^^
-
-										//#for Heroku address VVVVVV
-										// $body = <<<EOD
-										// <html>
-										//     <head></head>
-										//     <body>
-										//         Please verify your email by clicking this link: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/userverification?key=$user->token</a>
-										//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-										//     </body>
-										// </html>
-										// EOD;
-										//#for HEROKU address ^^^^^^
-
-										// Create a message
-										$message = (new Swift_Message('Email Verification'))
-										  ->setFrom(['barangaymonitoring@gmail.com' => 'Barangay Monitoring'])
-										  ->setTo([$user->email])
-										  ->setBody(
-										  	$body,
-										    'text/html' // Mark the content-type as HTML
-										  )
-										  ;
-
-										// Send the message
-										$result = $mailer->send($message);
-
-										if(!$result){
-											echo "Something Went WRONG!";
+											}
 										}
-										else {
-											$user->createuser();//create user
-										}
-
-
-					    				echo 
-					    				'<script type="text/javascript">
-								        	swal({ 
-								        		icon: "success",
-								        		title: "Account Created!",
-								        		text: "You may now use your account.",
-								        	});
-									    </script>';
-					    			}
-					    			else {
-					    				echo 
-					    				'<script type="text/javascript">
-								        	swal({ 
-								        		icon: "error",
-								        		title: "Error",
-								        		text: "Please Try Again.",
-								        	});
-									    </script>';
-					    			}
+									}
 			    				}
 			    			}
 			    			else {
@@ -237,9 +211,7 @@
 							    </script>';
 			    			}
 			    		}
-			    		else{
-			    			echo "<u>Please Enter Credentials</u>";
-			    		}
+			    		//end of if isset
 			    	?>
 				   		<div class="row">
 				   			<div class="col-md-12">
@@ -288,6 +260,14 @@
 				   			<div class="col-md-6">
 				   				<label class="col-form-label col-form-label-sm">Confirm Password</label>
 							    <input type="password" name="passcon" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control form-control-sm"  required>
+				   			</div>
+				   		</div>&nbsp
+				   		<hr>
+				   		<p><small><i class="fas fa-exclamation-circle"></i><em> File must be an Image(jpg/png) and under 1MB</em></small></p>
+				   		<div class="row">
+				   			<div class="col-md-12">
+				   				<label class="col-form-label col-form-label-sm">Barangay ID</label>		
+				   				<input type="file" class="form-control-file" accept='image/*' name="barid" required>	
 				   			</div>
 				   		</div>
 

@@ -31,15 +31,16 @@
 	<h1 class="display-4">Barangay Staff</h1>
 	</center>
 	<div class="row">	
-		<div class="col-md-2">
+		<div class="col-md-1">
 		</div>
-		<div class="col-md-8 bg-light"><br>
+		<div class="col-md-10 bg-light"><br>
 		<?php		
 		echo '
 		<table id="peopleIn" class="table table-light">
 		  <thead class="thead-dark">
 		    <tr>
-		      <th scope="col">Picture</th>
+		      <th scope="col">Profile Picture</th>
+		      <th scope="col">ID</th>
 		      <th scope="col">Name</th>
 		      <th scope="col">Email Address</th>
 		      <th scope="col">Actions</th>
@@ -65,6 +66,7 @@
 		      }
 		      echo '
 		      </td>
+		      <th scope="row"><img class="img-fluid" src="../../assets/img/'.$row['barid'].'" width="150px" height="150px"></th>
 		      <th scope="row">'.$row['fullname'].'</th>
 		      <td>'.$row['email'].'</td>
 		      <td>';
@@ -80,7 +82,7 @@
 		</table>';
 		?><br>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-1">
 		</div>
 	</div><br>
 </div>

@@ -38,7 +38,14 @@
 			$stmt->execute();
 			return $stmt;
 		}
-		
+		function readbarEX(){
+			$query = "SELECT DISTINCT barangay.bid AS 'bid', barangay.referral AS 'referral', barangay.brgyname AS 'brgyname' FROM barangay
+                WHERE NOT barangay.referral = ?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
 
 
 
@@ -130,7 +137,7 @@
 			return $stmt;
 		}
 		function readPeopleInside(){
-			$query = "SELECT CONCAT(user.firstname, ' ',user.middlename, ' ',user.lastname) AS 'fullname', user.email AS 'email', user.profilepic AS 'profilepic', user.uid AS 'uid', user.promote AS 'promote', barangay.referral AS 'referral'
+			$query = "SELECT CONCAT(user.firstname, ' ',user.middlename, ' ',user.lastname) AS 'fullname', user.email AS 'email', user.profilepic AS 'profilepic', user.barid AS 'barid', user.uid AS 'uid', user.promote AS 'promote', barangay.referral AS 'referral'
 				FROM user
     			INNER JOIN barangay ON user.referral = barangay.referral
     			WHERE NOT user.uid = ?

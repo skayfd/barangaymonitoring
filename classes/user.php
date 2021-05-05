@@ -24,7 +24,7 @@
 		}
 
 		function createuser(){
-			$query = "INSERT INTO user SET firstname=?, middlename=?, lastname=?, email=?, password=?, type=1, referral=?, token=?, status=0, authorize=0, promote = 1";
+			$query = "INSERT INTO user SET firstname=?, middlename=?, lastname=?, email=?, password=?, type=1, referral=?, token=?, status=0, authorize=0, promote = 1, barid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->firstname);
 			$stmt->bindparam(2, $this->middlename);
@@ -33,6 +33,7 @@
 			$stmt->bindparam(5, $this->password);
 			$stmt->bindparam(6, $this->referral);
 			$stmt->bindparam(7, $this->token);
+			$stmt->bindparam(8, $this->barid);
 
 			if($stmt->execute()){
 				return true;
@@ -339,6 +340,7 @@
 			$this->referral = $row['referral'];
 			$this->type = $row['type'];
 			$this->profilepic = $row['profilepic'];
+			$this->barid = $row['barid'];
 
 			return true;
 		}
@@ -368,6 +370,19 @@
 				return true;
 			else{
 				return false; 
+			}
+		}
+		function changeBarangay(){
+			$query = "UPDATE user SET referral=? WHERE uid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->referral);
+			$stmt->bindparam(2, $_SESSION['uid']);
+
+			if($stmt->execute()){
+				return true;
+			}
+			else {
+				return false;
 			}
 		}
 		function archiveUser(){
@@ -458,6 +473,7 @@
 					$_SESSION['referral'] = $row['referral'];
 					$_SESSION['password'] = $row['password'];
 					$_SESSION['profilepic'] = $row['profilepic'];
+					$_SESSION['barid'] = $row['barid'];
 					$_SESSION['status'] = $row['status'];
 					$_SESSION['authorize'] = $row['authorize'];
 					return true;
