@@ -13,8 +13,10 @@
 
 	include_once '../include/header.php';
 	include_once '../../classes/person.php';
+	include_once '../../classes/barangay.php';
 
 	$person = new Person($db);
+	$barangay = new Barangay($db);
 ?>
 <br>
 <div class="container">
@@ -32,10 +34,11 @@
 	</div>
 	<div class="row bg-light">
 		<div class="container">
-			<?php
-			$stmt = $person->readallpeople();
-			echo '
-			<table id="tblpeople" class="table table-hover style="width:100%" table-bordered">
+			<!-- <td>
+				<label class="control-label text-dark" for="NewPass">Specific Barangay: </label>
+				<input type="text" id="search-barangay" placeholder="Search Barangay">
+			</td> -->
+			<table id="tblpeople" class="table table-hover table-responsive table-bordered">
 			  <thead class="thead-light">
 			    <tr>
 			   	  <th scope="col">Person ID</th>
@@ -49,7 +52,9 @@
 			      <th scope="col">Action</th>
 			    </tr>
 			  </thead>
-			  <tbody>';
+			  <tbody>
+			  <?php
+			  $stmt = $person->readallpeople();
 			  while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				extract($row);
 				echo '
@@ -149,8 +154,15 @@ $(document).ready(function() {
 	"order": [[ 7, "desc" ]]
     } );
 
+    var table = $('#tblpeople').DataTable();
+    $('#search-barangay').on('change', function(){
+	    table
+	    .column(6)
+	    .search(this.value)
+	    .draw();
+	});
+
 } );
-//delete person
 
 </script>
 <?php
