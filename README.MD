@@ -25,7 +25,5 @@
 
 - CHANGE THESE FILES IF YOU WANT TO RUN IT ON LOCAL MACHINE(just incase naka pang deploy yung address):
 	- recgapsec.php
-	- regkag.php
 	- forgotpw.php
 	- database.php
-	- look for the swiftmailer adrresses and comment them down.
