@@ -165,29 +165,21 @@
 		}
 		//check if file is valid
 		if($brgycertfile == 1 || $healthfile == 1 || $medfile == 1 || $travelfile == 1){
-			echo
-			'
-			<script type="text/javascript">
-	        	swal({ 
-	        		icon: "error",
-	        		title: "INVALID FILE!",
-	        		text: "Please check if your file is an image.",
-	        	});
-		    </script>
+			echo '
+			<script>
+				alert("INVALID FILE! Please check if the file is an image.");
+				window.location.replace("viewlist");
+			</script>
 			';
 		}
 		else {
 			//check if file exceeds size
 			if($brgycertsize == 1 || $healthsize == 1 || $medsize == 1 || $travelsize == 1){
-				echo
-				'
-				<script type="text/javascript">
-		        	swal({ 
-		        		icon: "error",
-		        		title: "FILE TOO BIG!",
-		        		text: "Please check if your file exceeds 1MB.",
-		        	});
-			    </script>
+				echo '
+				<script>
+					alert("A file exceeds 1MB! Please check the size of your files.");
+					window.location.replace("viewlist");
+				</script>
 				';
 			}
 			else {
@@ -214,6 +206,15 @@
 	}
 	
 ?>
+<script src="../../assets/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+<script src="../../assets/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="../../assets/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="../../assets/sweetalert/sweetalert.min.js"></script>
+
+<link rel="stylesheet" href="../../assets/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../assets/font-awesome/css/all.min.css">
+
+
 <form method="POST" action="addRecord.php?pid=<?php echo $person->pid; ?>" enctype="multipart/form-data">
 	<div class='row'>
 		<div class='col-sm-4'>

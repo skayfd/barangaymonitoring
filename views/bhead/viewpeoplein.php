@@ -43,7 +43,7 @@
 		      <th scope="col">ID</th>
 		      <th scope="col">Name</th>
 		      <th scope="col">Email Address</th>
-		      <th scope="col">Actions</th>
+		      <!--<th scope="col">Actions</th>-->
 		    </tr>
 		  </thead>
 		  ';
@@ -69,12 +69,7 @@
 		      <th scope="row"><img class="img-fluid" src="../../assets/img/'.$row['barid'].'" width="150px" height="150px"></th>
 		      <th scope="row">'.$row['fullname'].'</th>
 		      <td>'.$row['email'].'</td>
-		      <td>';
-		      if($row['promote'] == 1){
-		      	echo '<p style="color: #0c911d">Promoted/Head</p>';
-		      }
-			  echo '			  
-		      </td>
+		      <!--<td></td>-->
 		    </tr>
 		  </tbody>';
 		}
