@@ -40,27 +40,27 @@
 						// Create the Mailer using your created Transport
 						$mailer = new Swift_Mailer($transport);
 						//#for localhost address VVVVVV
-						// $body = <<<EOD
-						// <html>
-						//     <head></head>
-						//     <body>
-						//         Please click this link to change your password: <a href="http://localhost/monitoring/views/util/chpass?key=$pwd_reset->token" target="_blank">http://localhost/monitoring/views/util/chpass?key=$pwd_reset->token</a>
-						//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
-						//     </body>
-						// </html>
-						// EOD;
-						//#for localhost address ^^^^^^
-
-						//#for HEROKU address VVVVVV
 						$body = <<<EOD
 						<html>
 						    <head></head>
 						    <body>
-						        Please click this link to change your password: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/chpass?key=$pwd_reset->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/chpass?key=$pwd_reset->token</a>
+						        Please click this link to change your password: <a href="http://localhost/monitoring/views/util/chpass?key=$pwd_reset->token" target="_blank">http://localhost/monitoring/views/util/chpass?key=$pwd_reset->token</a>
 						        Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
 						    </body>
 						</html>
 						EOD;
+						//#for localhost address ^^^^^^
+
+						//#for HEROKU address VVVVVV
+						// $body = <<<EOD
+						// <html>
+						//     <head></head>
+						//     <body>
+						//         Please click this link to change your password: <a href="https://php-barangay-monitoring.herokuapp.com/views/util/chpass?key=$pwd_reset->token" target="_blank">https://php-barangay-monitoring.herokuapp.com/views/util/chpass?key=$pwd_reset->token</a>
+						//         Please don't reply to this message. This is an automated mail from Barangay Monitoring. Thank you and Godbless.
+						//     </body>
+						// </html>
+						// EOD;
 						//#for HEROKU address ^^^^^^
 
 						$message = (new Swift_Message('Password Reset Verification'))
