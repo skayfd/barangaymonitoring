@@ -47,9 +47,24 @@
 		<a href="viewhistory" class="btn btn-dark"><i class="fas fa-receipt"></i> History/Activity Log</a>
 		<!-- <a href="viewpum" class="btn btn-danger"><i class="fas fa-user-clock"></i> View PUMs Under Quarantine: <span class="badge badge-light"><?php $stmt0 = $person->countPUM(); while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ extract($row); echo $row['count']; }?></span></a> -->
 		<br><br>
+		
+		<!--notification button -->
 		<a href="viewpum" class="notification btn-danger">
-		  <span><i class="fas fa-user-clock"></i> PUMs Under Quarantine</span>
-		  <span class="badge"><?php $stmt0 = $person->countPUM(); while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ extract($row); echo $row['count']; }?></span>
+		  <?php
+			  $stmt0 = $person->countPUM(); 
+			  while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ 
+			  	extract($row); 
+			  	if($row['count'] == 0){
+			  		echo '<span><i class="fas fa-user-clock"></i> PUMs Under Quarantine</span>';
+			  	}
+			  	else {
+			  		echo '
+			  		<span><i class="fas fa-user-clock"></i> PUMs Under Quarantine</span>
+		  			<span class="badge">'.$row['count'].'</span>
+			  		';
+			  	}		  	
+			  }
+		  ?>
 		</a>
 
 		<style>

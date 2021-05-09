@@ -38,7 +38,7 @@
 		      <th scope="col">Destination 2</th>
 		      <th scope="col">Destination 3</th>
 		      <th scope="col">Recorded By</th>
-		      <th scope="col">Work ID</th>
+		      <th scope="col">Valid ID</th>
 		      <th scope="col">Brgy Cert</th>
 		      <th scope="col">Hlth Decl.</th>
 		      <th scope="col">Med Certificate</th>

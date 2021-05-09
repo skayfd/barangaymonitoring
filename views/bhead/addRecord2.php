@@ -206,7 +206,7 @@
 	<p><small><i class="fas fa-exclamation-circle"></i><em> Files must be an Image(jpg/png) and under 1MB</em></small></p>
 	<div class='row'>
 		<div class='col-sm-4'>
-			<label>Picture of Working ID: </label>
+			<label>Picture of Valid ID: </label>
 		</div>
 		<div class='col-sm-8'>
 			<input type="file" class="form-control-file" accept='image/*' name="workingid" required>
