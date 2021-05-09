@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2021 at 12:04 PM
+-- Generation Time: May 09, 2021 at 06:52 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -74,7 +74,10 @@ CREATE TABLE `person` (
   `gender` tinytext NOT NULL,
   `contactno` varchar(12) NOT NULL,
   `address` varchar(80) NOT NULL,
-  `archive` tinyint(1) NOT NULL
+  `archive` tinyint(1) NOT NULL,
+  `personStatus` varchar(50) NOT NULL,
+  `datequar` datetime DEFAULT NULL,
+  `quarantinedby` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -112,6 +115,7 @@ CREATE TABLE `record` (
   `healthdeclaration` blob DEFAULT NULL,
   `medcert` blob DEFAULT NULL,
   `travelauth` blob DEFAULT NULL,
+  `workingid` blob DEFAULT NULL,
   `archive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -123,6 +127,7 @@ CREATE TABLE `record` (
 
 CREATE TABLE `user` (
   `uid` int(11) NOT NULL,
+  `bid` int(11) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
@@ -180,7 +185,8 @@ ALTER TABLE `record`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`uid`);
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `bid` (`bid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -238,6 +244,12 @@ ALTER TABLE `person`
 ALTER TABLE `record`
   ADD CONSTRAINT `PersonFK` FOREIGN KEY (`pid`) REFERENCES `person` (`pid`) ON DELETE SET NULL ON UPDATE SET NULL,
   ADD CONSTRAINT `UserFK` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `bid` FOREIGN KEY (`bid`) REFERENCES `barangay` (`bid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
