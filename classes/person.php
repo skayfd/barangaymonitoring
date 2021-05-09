@@ -9,6 +9,8 @@
 		public $address;
 		public $archive;
 		public $referral;
+		public $datequar;
+		public $quarantinedby;
 
 		public $brgycert;
 		public $healthdeclaration;
@@ -18,6 +20,8 @@
 		public $pid;
 		public $uid;
 		public $rid;
+
+
 
 		public $conn;
 		private $tableName = 'person';
@@ -52,12 +56,47 @@
 		}
 
 		function readallpeople(){
-			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom'
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus'
 			FROM person 
 			INNER JOIN user ON user.uid = person.uid
             INNER JOIN barangay ON barangay.referral = person.referral";
 			$stmt = $this->conn->prepare($query);
 			// $stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readallPUM(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus', DATEDIFF(CURRENT_DATE(), person.datequar) AS 'days', person.datequar AS 'datequar'
+			FROM person 
+			INNER JOIN user ON user.uid = person.uid
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'PUM'";
+			$stmt = $this->conn->prepare($query);
+			// $stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function countPUM(){
+			$query = "SELECT count(person.pid) AS 'count'
+			FROM person 
+			INNER JOIN user ON user.uid = person.quarantinedby
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'PUM'
+			";
+			$stmt = $this->conn->prepare($query);
+			// $stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readQuarBy(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'quarby'
+			FROM person 
+			INNER JOIN user ON user.uid = person.quarantinedby
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'PUM'
+            AND person.pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
 			$stmt->execute();
 			return $stmt;
 		}
@@ -142,6 +181,35 @@
 
 			$stmt->execute();
 		}
+
+		function personStatus(){
+			$query = " UPDATE person SET personStatus='PUM', quarantinedby=?, datequar=?  WHERE pid=?";
+			
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['uid']);
+			$stmt->bindparam(2, $this->datequar);
+			$stmt->bindparam(3, $this->pid);
+
+			$stmt->execute();
+		}
+
+		function personStatus2(){
+			$query = "UPDATE person SET personStatus='Cleared' WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
+
+			$stmt->execute();
+		}
+
+		function personStatus3(){
+			$query = "UPDATE person SET personStatus='COVID Positive' WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
+
+			$stmt->execute();
+		}
+
+
 		function documentPic(){
 			$query = "SELECT pid, brgycert, healthdeclaration, medcert, travelauth
 				FROM person

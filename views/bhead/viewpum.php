@@ -17,6 +17,7 @@
 
 	$person = new Person($db);
 	$barangay = new Barangay($db);
+
 ?>
 <br>
 <div class="container">
@@ -27,7 +28,7 @@
 	<div class="row">
 		<div class="card-header container-fluid bg-light">
 			<div clas="col-md-6 float-left">
-				<h1 class="display-4 text-dark"><i class="fas fa-list-ul"></i> Listed People</h1>
+				<h1 class="display-4 text-dark"><i class="fas fa-address-book text-warning"></i> Listed PUMs</h1>
 				<a  type="button" href="personAdd" class="btn btn-success"><i class="far fa-plus-square"></i> Add Person</a>
 			</div>
 		</div>
@@ -49,15 +50,16 @@
 			      <th scope="col">Address</th>
 			      <th scope="col">Listed By</th>
 			      <th scope="col">Barangay from</th>
-			      <th scope="col">Date Added</th>
+			      <th scope="col">Date Quarantined</th>
+			      <th scope="col">No. of Days in Quarantine</th>
 			      <th scope="col">Current Status</th>
-			      <th scope="col">Action</th>
+			      <th scope="col">Qarantined By</th>
 			      <th scope="col">Change Status</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  <?php
-			  $stmt = $person->readallpeople();
+			  $stmt = $person->readallPUM();
 			  while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				extract($row);
 				echo '
@@ -69,8 +71,18 @@
 			      <td>'.$row['address'].'</td>
 			      <td>'.$row['addedby'].'</td>
 			      <td><b>'.$row['barfrom'].'</b></td>
-			      <td>'.$row['daterecorded'].'</td>
+			      <td>'.$row['datequar'].'</td>
 			      <td>';
+			      //number of days quarantined
+			      if($row['days'] >= 14){
+			      	echo '<p class="text-success"><b>Finished Self Quarantine</b></p>';
+			      }
+			      else {
+			      	echo "<center><b><p class='text-info'>".$row['days']."</p></b></center>";
+			      }
+			      echo '</td>;
+			      <td>';
+			      //status
 			      if($row['personStatus'] == 'Cleared'){
 			      	echo '<p class="text-success"><b>CLEARED</b></p>';
 			      }
@@ -80,13 +92,20 @@
 			      elseif($row['personStatus'] == 'COVID Positive'){
 			      	echo '<p class="text-danger"><b>POSITIVE</b></p>';
 			      }
-			      echo '</td>
-			      <td>
-			      	<input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record as APOR/LSI"/><hr>
-			      	<input type="button" class="btn btn-secondary btn-sm edit2-object" edit2-id="'.$row['pid'].'" value="Add Record as Resident"/><hr>
-			      	<a href="viewrecordlist?id='.$row['pid'].'" class="btn btn-info btn-sm">View Records And Documents</a>
-	      		  </td>
+			      echo 
+			      '</td>';
+			      //quaratined by
+			      $person->pid = $row['pid'];
+			      $stmt2 = $person->readQuarBy();
+			      while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+			      	extract($row2);
+			      	echo '
+			      	<td>'
+				    	.$row2['quarby']. 	
+		      		'</td>';
+			      }
 
+	      		  echo '
 	      		  <td>
 					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/><hr>
 					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$row['pid'].'" value="Change status to Cleared"/><hr>

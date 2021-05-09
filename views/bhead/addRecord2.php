@@ -1,9 +1,14 @@
 <?php
+	define('KB', 1024);
+	define('MB', 1048576);
+	define('GB', 1073741824);
+	define('TB', 1099511627776);
 	session_start();
 	include_once "../../config/database.php";
 	include_once "../../classes/person.php";
 	include_once "../../classes/record.php";
 	include_once "../../classes/history.php";
+	include_once "../../classes/barangay.php";
 
 	if(!isset($_SESSION['uid'])){
 		header("Location: ../login.php");
@@ -20,6 +25,7 @@
 	$person = new Person($db);
 	$record = new Record($db);
 	$history = new History($db);
+	$barangay = new Barangay($db);
 
 	if(isset($_POST['pid'])){
 		$person->pid = $_POST['pid'];
@@ -42,25 +48,81 @@
 		$person->pid = $pid;
 		$person->readspecPerson($person->pid);
 
-		//history
-		$history->daterecorded = date("Y-m-d h:i:s");
-		$avar = "Added record for";
-		$into = "in the system.";
-		$history->action = $avar.' '.$person->firstname.' '.$person->lastname.' '.$into;	
-		$history->pid = $pid;
-		$history->createPersonHis();
 
+		$workfile = 0;
+		$worksize = 0;
 
-		$record->createRecord();
-		echo 
-		"<script>
-			alert('Record Added!');
-			window.location.href = 'viewlist.php';
-		</script>";
+		//workid
+		if (!file_exists($_FILES['workingid']['tmp_name']) || !is_uploaded_file($_FILES['workingid']['tmp_name'])){
+		    $temp = explode(".", $_FILES["workingid"]["name"]);
+			$newfilename = substr(md5(microtime()),rand(0,26),21) . '.' . end($temp);
+			move_uploaded_file($_FILES['workingid']['tmp_name'], "../../assets/img/".$newfilename);
+			$imgname = "../../assets/img/".$newfilename;
+			$record->workingid = $imgname;
+		}
+		else {
+			if($_FILES['workingid']['type'] == 'image/jpeg' || $_FILES['workingid']['type'] == 'image/jpg' || $_FILES['workingid']['type'] == 'image/png'){
+				//check size
+				if($_FILES['workingid']['size'] > 1*MB){
+					$worksize = 1;
+				}
+				else {
+					$temp = explode(".", $_FILES["workingid"]["name"]);
+					$newfilename = substr(md5(microtime()),rand(0,26),21) . '.' . end($temp);
+					move_uploaded_file($_FILES['workingid']['tmp_name'], "../../assets/img/".$newfilename);
+					$imgname = "../../assets/img/".$newfilename;
+					$record->workingid = $imgname;
+				}			
+			}
+			else {
+				$workfile = 1;
+			}
+		}
+
+		//check if file is valid
+		if($workfile == 1){
+			echo '
+			<script>
+				alert("INVALID FILE! Please check if the file is an image.");
+				window.location.replace("viewlist");
+			</script>
+			';
+		}
+		else {
+			//check if file exceeds size
+			if($worksize == 1){
+				echo '
+				<script>
+					alert("A file exceeds 1MB! Please check the size of your files.");
+					window.location.replace("viewlist");
+				</script>
+				';
+			}
+			else {
+				if($record->createRecord()){
+					//history
+					$history->daterecorded = date("Y-m-d h:i:s");
+					$avar = "Added record for";
+					$into = "in the system.";
+					$history->action = $avar.' '.$person->firstname.' '.$person->lastname.' '.$into;	
+					$history->pid = $pid;
+					$history->createPersonHis();
+
+					echo 
+					"<script>
+						alert('Record Added!');
+						window.location.href = 'viewlist.php';
+					</script>";
+				}
+				else {
+					echo "Something's Wrong";
+				}
+			}
+		}
 	}
 	
 ?>
-<form method="POST" action="addRecord2.php?pid=<?php echo $person->pid; ?>">
+<form method="POST" action="addRecord2.php?pid=<?php echo $person->pid; ?>" enctype="multipart/form-data">
 	<div class='row'>
 		<div class='col-sm-4'>
 			<label>Reason: </label>
@@ -100,7 +162,17 @@
 			<label>Point of Origin: </label>
 		</div>
 		<div class='col-sm-8'>
-			<textarea class="form-control" id="exampleFormControlTextarea2" rows="2" name='pointoforigin' required></textarea>
+			<select class="form-control" name="pointoforigin" required>
+				<option selected></option>
+				<?php
+					$stmt = $barangay->readbar();
+					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+						extract($row);
+						echo "
+						<option value='".$row['brgyname']."'>".$row['brgyname']."</option>";
+					}
+				?>
+			</select>
 		</div>
 	</div>
 	<br>
@@ -128,6 +200,16 @@
 		</div>
 		<div class='col-sm-8'>
 			<textarea class="form-control" id="exampleFormControlTextarea5" rows="2" name='addressto3'></textarea>
+		</div>
+	</div>
+	<br>
+	<p><small><i class="fas fa-exclamation-circle"></i><em> Files must be an Image(jpg/png) and under 1MB</em></small></p>
+	<div class='row'>
+		<div class='col-sm-4'>
+			<label>Picture of Working ID: </label>
+		</div>
+		<div class='col-sm-8'>
+			<input type="file" class="form-control-file" accept='image/*' name="workingid" required>
 		</div>
 	</div>
 	<br>

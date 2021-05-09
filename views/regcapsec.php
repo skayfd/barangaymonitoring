@@ -75,7 +75,12 @@
 			    				}
 			    				else {
 			    					$user->password = $hashed_password;//--->stores hashed pass
-					    			$user->referral = $_POST['referral'];
+
+			    					$result = $_POST['referral'];
+			    					$result_explode = explode('|', $result);	
+
+					    			$user->referral = $result_explode[0];
+					    			$user->bid = $result_explode[1];
 					    			$user->token = $vkey;
 
 					    			require_once 'info.php';
@@ -246,7 +251,8 @@
 										$stmt = $barangay->readbar();
 										while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 											extract($row);
-											echo "<option value='".$row['referral']."'>".$row['brgyname']."</option>";
+											echo "
+											<option value='".$row['referral']."|".$row['bid']."'>".$row['brgyname']."</option>";
 										}
 									?>
 								</select>

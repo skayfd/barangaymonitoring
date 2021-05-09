@@ -33,11 +33,12 @@
 		      <th scope="col">Reason</th>
 		      <th scope="col">Temperature</th>
 		      <th scope="col">Person Type</th>
-		      <th scope="col">Came from</th>
+		      <th scope="col">Point of Origin</th>
 		      <th scope="col">Destination</th>
 		      <th scope="col">Destination 2</th>
 		      <th scope="col">Destination 3</th>
 		      <th scope="col">Recorded By</th>
+		      <th scope="col">Work ID</th>
 		      <th scope="col">Brgy Cert</th>
 		      <th scope="col">Hlth Decl.</th>
 		      <th scope="col">Med Certificate</th>
@@ -58,18 +59,18 @@
 		      if(empty($row['timeout'])){
 		      	echo '
 		      	<th scope="row">
-		      		<a class="btn btn-success text-light time-object" time-id="'.$row['rid'].'">Time Out</a>
+		      		<a class="btn btn-success text-light time-object" time-id="'.$row['rid'].'">Time Out</a><hr>
+		      		<input type="button" class="btn btn-secondary btn-sm time2-object" time2-id="'.$row['rid'].'" value="Manual TO"/>
 		      	</th>';
 		      }
 		      else{
 		      	echo '<td><p class="text-success">'.$row['timeout'].'</p></td>';
 		      }
-		      
 
 		      echo '
 		      <td>'.$row['reason'].'</td>
 		      <td>'.$row['temp'].'</td>
-		      <td>'.$row['status'].'</td>
+		      <td><b>'.$row['status'].'</b></td>
 		      <td>'.$row['point'].'</td>
 		      <td>'.$row['addressto'].'</td>';
 
@@ -100,6 +101,17 @@
 		      <td>'.$row['fullname'].'</td>';
 
 		      //important docus
+		      if(empty($row['workingid'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else {
+		      	echo '
+		      	<td><img src="../../assets/img/'.$row['workingid'].'" width="120px" height="100px"></td>
+		      	';
+		      }
+
 		      if(empty($row['brgycert'])){
 		      	echo '
 		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
@@ -151,8 +163,49 @@
 		  </tbody>
 		</table>&nbsp
 	</div>
+<!--MODAL for Timepickert-->
+<div class="modal fade" id="addTime" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary">
+        <h5 class="modal-title" id="addRecordLabel"> Manual Time Out</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
 
+      <div class="modal-body bg-secondary" id="timepicker">
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+.datepicker {
+    background: #333;
+    border: 1px solid #555;
+    color: #EEE;  
+}
+.datepicker table tr td.day:hover,
+.datepicker table tr td.day.focused {
+  background: #474747;
+  cursor: pointer;
+}
+.without_ampm::-webkit-datetime-edit-ampm-field {
+   		display: none;
+	}
+	input[type=time]::-webkit-clear-button {
+	   -webkit-appearance: none;
+	   -moz-appearance: none;
+	   -o-appearance: none;
+	   -ms-appearance:none;
+	   appearance: none;
+	   margin: -10px; 
+	}
+</style>
 <script>
+//datatables
 $(document).ready(function() {
     $('#tblRecord').dataTable( {
     "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -189,6 +242,20 @@ $(document).on('click', '.time-object', function(){
             alert('Unable to Time Out.');
         });
     }
+});
+//script for manual timout
+$(document).on('click', '.time2-object', function(){
+    var rid = $(this).attr("time2-id");
+  
+    $.ajax({
+		url:'timeout.php',
+		method: "POST",
+		data:{rid:rid},
+		success:function(data){
+		  $('#timepicker').html(data);
+		  $('#addTime').modal('show');
+		}
+    });
 });
 </script>
 <?php

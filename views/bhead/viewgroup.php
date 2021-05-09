@@ -45,6 +45,7 @@
 		<a href="reportpage" class="btn btn-info"><i class="far fa-file-alt"></i> Make Report</a>
 		<a href="archives" class="btn btn-warning text-dark"><i class="fas fa-archive"></i> Archives</a>
 		<a href="viewhistory" class="btn btn-dark"><i class="fas fa-receipt"></i> History/Activity Log</a>
+		<a href="viewpum" class="btn btn-danger"><i class="fas fa-user-clock"></i> View PUMs Under Quarantine: <span class="badge badge-light"><?php $stmt0 = $person->countPUM(); while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ extract($row); echo $row['count']; }?></span></a>
 	  </div>
 	</div>
 	<div class="row">
@@ -203,7 +204,7 @@
 				?>
 			</div>
 			<div class="col-md-6 text-light">
-				<center><h3>Number of All Records Per Category</h3></center>
+				<center><h3>Total Number of All Records Per Category</h3></center>
 				<?php
 					$stmt = $record->countStatus();
 					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){

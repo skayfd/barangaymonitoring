@@ -31,6 +31,7 @@
 		      <th scope="col">Time Out</th>
 		      <th scope="col">Barangay Recorded In</th>
 		      <th scope="col">Address</th>
+		      <th scope="col">Point of Origin</th>
 		      <th scope="col">Destination</th>
 		      <th scope="col">Contact Number</th>
 		      <th scope="col">Reason</th>
@@ -58,6 +59,7 @@
 		      echo '
 		      <th scope="col">'.$row['barname'].'</th>
 		      <td>'.$row['address'].'</td>
+		      <td>'.$row['porigin'].'</td>
 		      <td>'.$row['destination'].'</td>
 		      <td>'.$row['contactno'].'</td>
 		      <td>'.$row['reason'].'</td>

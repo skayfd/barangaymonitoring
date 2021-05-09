@@ -12,6 +12,7 @@
 		public $healthdeclaration;
 		public $medcert;
 		public $travelauth;
+		public $workingid;
 		public $archive;
 		public $temp;
 		public $rid;
@@ -29,7 +30,7 @@
 			$this->conn=$db;
 		}
 		function createRecord(){
-			$query = "INSERT INTO record SET reason=?, status=?, temp=?, pointoforigin=?, addressto=?, addressto2=?, addressto3=?, daterecorded=?, pid=?, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, uid=?, archive=0";
+			$query = "INSERT INTO record SET reason=?, status=?, temp=?, pointoforigin=?, addressto=?, addressto2=?, addressto3=?, daterecorded=?, pid=?, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, workingid=?, uid=?, archive=0";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->reason);
 			$stmt->bindparam(2, $this->status);
@@ -44,7 +45,8 @@
 			$stmt->bindparam(11, $this->healthdeclaration);
 			$stmt->bindparam(12, $this->medcert);
 			$stmt->bindparam(13, $this->travelauth);
-			$stmt->bindparam(14, $_SESSION['uid']);
+			$stmt->bindparam(14, $this->workingid);
+			$stmt->bindparam(15, $_SESSION['uid']);
 
 			if($stmt->execute()){
 				return true;
@@ -54,7 +56,7 @@
 			}
 		}
 		function readrelatedRecord(){
-			$query = "SELECT record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth'
+			$query = "SELECT record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid'
 			FROM record
 			INNER JOIN user ON record.uid = user.uid
 			INNER JOIN person ON record.pid = person.pid
@@ -78,7 +80,7 @@
 			return $stmt;
 		}
 		function readAllRecord(){
-			$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.timeout AS 'tout', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname'
+			$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.timeout AS 'tout', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.pointoforigin AS 'porigin', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname'
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
             INNER JOIN user ON user.uid = record.uid

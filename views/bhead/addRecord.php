@@ -8,7 +8,7 @@
 	include_once "../../classes/person.php";
 	include_once "../../classes/record.php";
 	include_once "../../classes/history.php";
-
+	include_once "../../classes/barangay.php";
 
 	if(!isset($_SESSION['uid'])){
 		header("Location: ../login.php");
@@ -25,6 +25,8 @@
 	$person = new Person($db);
 	$record = new Record($db);
 	$history = new History($db);
+	$barangay = new Barangay($db);
+
 
 	if(isset($_POST['pid'])){
 		$person->pid = $_POST['pid'];
@@ -234,8 +236,6 @@
 			  <option></option>
 			  <option value="APOR">APOR</option>
 			  <option value="LSI">LSI</option>
-			  <option value="PUI">PUI</option>
-			  <option value="PUM">PUM</option>
 			</select>
 		</div>
 	</div>
@@ -254,7 +254,17 @@
 			<label>Point of Origin: </label>
 		</div>
 		<div class='col-sm-8'>
-			<textarea class="form-control" id="exampleFormControlTextarea2" rows="2" name='pointoforigin' required></textarea>
+			<select class="form-control" name="pointoforigin" required>
+				<option selected></option>
+				<?php
+					$stmt = $barangay->readbar();
+					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+						extract($row);
+						echo "
+						<option value='".$row['brgyname']."'>".$row['brgyname']."</option>";
+					}
+				?>
+			</select>
 		</div>
 	</div>
 	<br>

@@ -15,6 +15,7 @@
 		public $promote;
 		public $authorize;
 		public $uid;
+		public $bid;
 
 		public $conn;
 		private $tableName = 'user';
@@ -24,7 +25,7 @@
 		}
 
 		function createuser(){
-			$query = "INSERT INTO user SET firstname=?, middlename=?, lastname=?, email=?, password=?, type=1, referral=?, token=?, status=0, authorize=0, promote = 1, barid=?";
+			$query = "INSERT INTO user SET firstname=?, middlename=?, lastname=?, email=?, password=?, type=1, referral=?, token=?, status=0, authorize=0, promote = 1, barid=?, bid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->firstname);
 			$stmt->bindparam(2, $this->middlename);
@@ -33,7 +34,8 @@
 			$stmt->bindparam(5, $this->password);
 			$stmt->bindparam(6, $this->referral);
 			$stmt->bindparam(7, $this->token);
-			$stmt->bindparam(8, $this->barid);
+			$stmt->bindparam(8, $this->barid);//picture
+			$stmt->bindparam(9, $this->bid);
 
 			if($stmt->execute()){
 				return true;
@@ -181,11 +183,11 @@
 				return false;
 			}
 		}
-		function reAuth(){
-			$query = "SELECT * FROM user WHERE uid = ?";
+		function reAuth($uid){
+			$query = "SELECT * FROM user WHERE uid = '$uid'";
 			$stmt = $this->conn->prepare($query);
 
-			$stmt->bindparam(1, $_SESSION['uid']);
+			// $stmt->bindparam(1, $_SESSION['uid']);
 
 			$stmt->execute();
 			
@@ -203,6 +205,7 @@
 				$_SESSION['referral'] = $row['referral'];
 				$_SESSION['password'] = $row['password'];
 				$_SESSION['profilepic'] = $row['profilepic'];
+				$_SESSION['barid'] = $row['barid'];
 				$_SESSION['status'] = $row['status'];
 				$_SESSION['authorize'] = $row['authorize'];
 				return true;
@@ -373,10 +376,11 @@
 			}
 		}
 		function changeBarangay(){
-			$query = "UPDATE user SET referral=? WHERE uid=?";
+			$query = "UPDATE user SET referral=?, bid=? WHERE uid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->referral);
-			$stmt->bindparam(2, $_SESSION['uid']);
+			$stmt->bindparam(2, $this->bid);
+			$stmt->bindparam(3, $_SESSION['uid']);
 
 			if($stmt->execute()){
 				return true;

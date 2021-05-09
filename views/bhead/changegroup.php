@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 	$title = "Barangay Staff";
 	if(!isset($_SESSION['uid'])){
 		header("Location: ../login.php");
@@ -21,18 +23,34 @@
 	$user = new User($db);
 	$barangay = new Barangay($db);
 
+	
+
 	if(isset($_POST['submit'])){
-		$user->referral = $_POST['referral'];
+		$result = $_POST['referral'];
+		$result_explode = explode('|', $result);	
+
+		$user->referral = $result_explode[0];
+		$user->bid = $result_explode[1];
+
+		$user->uid = $_SESSION['uid'];//store uid on variable to user again on reauth
 
 		if($user->changeBarangay()){
-			echo 
-			'<script type="text/javascript">
-	        	swal({ 
-	        		icon: "success",
-	        		title: "Barangay Changed!",
-	        		text: "You now have now joined the chosen barangay! Please log-out to take effect.",
-	        	});
-		    </script>';
+			session_destroy();
+			$user->reAuth($user->uid);
+			// echo 
+			// '<script type="text/javascript">
+	  //       	swal({ 
+	  //       		icon: "success",
+	  //       		title: "Barangay Changed!",
+	  //       		text: "You now have now joined the chosen barangay! Please log-out to take effect.",
+	  //       	});
+		 //    </script>';
+			echo "
+				<script>
+					alert('Barangay Changed!!!');
+					window.location.replace('viewgroup');
+				</script>
+			";
 		}
 		else{
 			echo 
@@ -74,7 +92,7 @@
 				$stmt = $barangay->readbarEX();
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 					extract($row);
-					echo "<option value='".$row['referral']."'>".$row['brgyname']."</option>";
+					echo "<option value='".$row['referral']."|".$row['bid']."'>".$row['brgyname']."</option>";
 				}
 			?>
 		  </select>
