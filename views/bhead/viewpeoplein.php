@@ -40,7 +40,7 @@
 		  <thead class="thead-dark">
 		    <tr>
 		      <th scope="col">Profile Picture</th>
-		      <th scope="col">ID</th>
+		      <th scope="col">Barangay ID</th>
 		      <th scope="col">Name</th>
 		      <th scope="col">Email Address</th>
 		      <!--<th scope="col">Actions</th>-->

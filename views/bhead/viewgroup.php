@@ -45,7 +45,39 @@
 		<a href="reportpage" class="btn btn-info"><i class="far fa-file-alt"></i> Make Report</a>
 		<a href="archives" class="btn btn-warning text-dark"><i class="fas fa-archive"></i> Archives</a>
 		<a href="viewhistory" class="btn btn-dark"><i class="fas fa-receipt"></i> History/Activity Log</a>
-		<a href="viewpum" class="btn btn-danger"><i class="fas fa-user-clock"></i> View PUMs Under Quarantine: <span class="badge badge-light"><?php $stmt0 = $person->countPUM(); while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ extract($row); echo $row['count']; }?></span></a>
+		<!-- <a href="viewpum" class="btn btn-danger"><i class="fas fa-user-clock"></i> View PUMs Under Quarantine: <span class="badge badge-light"><?php $stmt0 = $person->countPUM(); while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ extract($row); echo $row['count']; }?></span></a> -->
+		<br><br>
+		<a href="viewpum" class="notification btn-danger">
+		  <span><i class="fas fa-user-clock"></i> PUMs Under Quarantine</span>
+		  <span class="badge"><?php $stmt0 = $person->countPUM(); while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ extract($row); echo $row['count']; }?></span>
+		</a>
+
+		<style>
+			.notification {
+			  background-color: #ff5100;
+			  color: white;
+			  text-decoration: none;
+			  padding: 15px 26px;
+			  position: relative;
+			  display: inline-block;
+			  border-radius: 2px;
+			}
+
+			.notification:hover {
+			  background: black;
+			}
+
+			.notification .badge {
+			  position: absolute;
+			  top: -10px;
+			  right: -10px;
+			  padding: 5px 10px;
+			  border-radius: 50%;
+			  background: white;
+			  color: black;
+			}
+		</style>
+
 	  </div>
 	</div>
 	<div class="row">
