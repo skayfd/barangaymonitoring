@@ -2,7 +2,18 @@
 [Monitoring System](https://php-barangay-monitoring.herokuapp.com/)
 
 
-# Things Left 
+# Things Left (Part 2)
+
+* notification
+* :white_check_mark: Verification and Validation process lacking -Resident(Working ID)
+* :white_check_mark: Change barangay – database refresh automatically
+* :white_check_mark: Visitor visited barangay reflected(dropdown list of barangay from add record)
+* :white_check_mark: Filters, searching 
+* :white_check_mark: Changing of status from PUI to cleared and vice versa updated by barangay official
+* :white_check_mark: Visitor exceeded time, what to do?(Added manual time In just incase timeout not set)
+* :white_check_mark: Barangay table and user table should connected
+
+# Things Left (Part 1)
 
 * optional: kick user option
 * :white_check_mark: add: change barangay function(on profile)
