@@ -25,7 +25,7 @@
 	} 
 	?>" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
 	</center><br>
-	<center><h3>Number of Entries</h3></center>
+	<center><h3>Number of Records</h3></center>
 	<div class='row'>
 		<div class='col-sm-3'>
 		</div>
@@ -65,7 +65,7 @@
 
 <br>
 
-<center><h3>People Registered</h3></center>
+<center><h3>People Registered in this Barangay</h3></center>
 <div class="container">
 	<div class="jumbotron">
 		<?php
@@ -79,7 +79,7 @@
 		      <th scope="col">Address</th>
 		      <th scope="col">Listed By</th>
 		      <th scope="col">Date Added</th>
-		      <th scope="col">Print</th>
+		      <th scope="col">Print Record</th>
 		    </tr>
 		  </thead>
 		  <tbody>';

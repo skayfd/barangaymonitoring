@@ -48,7 +48,7 @@
 		<!-- <a href="viewpum" class="btn btn-danger"><i class="fas fa-user-clock"></i> View PUMs Under Quarantine: <span class="badge badge-light"><?php $stmt0 = $person->countPUM(); while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ extract($row); echo $row['count']; }?></span></a> -->
 		<br><br>
 		
-		<!--notification button -->
+		<!--notification button PUM -->
 		<a href="viewpum" class="notification btn-danger">
 		  <?php
 			  $stmt0 = $person->countPUM(); 
@@ -60,6 +60,24 @@
 			  	else {
 			  		echo '
 			  		<span><i class="fas fa-user-clock"></i> PUMs Under Quarantine</span>
+		  			<span class="badge">'.$row['count'].'</span>
+			  		';
+			  	}		  	
+			  }
+		  ?>
+		</a>&nbsp&nbsp
+		<!--notification button PUI -->
+		<a href="viewpui" class="notification2 btn-danger">
+		  <?php
+			  $stmt0 = $person->countPUI(); 
+			  while($row = $stmt0->fetch(PDO::FETCH_ASSOC)){ 
+			  	extract($row); 
+			  	if($row['count'] == 0){
+			  		echo '<span><i class="fas fa-user-clock"></i> PUIs</span>';
+			  	}
+			  	else {
+			  		echo '
+			  		<span><i class="fas fa-user-clock"></i> PUIs</span>
 		  			<span class="badge">'.$row['count'].'</span>
 			  		';
 			  	}		  	
@@ -83,6 +101,30 @@
 			}
 
 			.notification .badge {
+			  position: absolute;
+			  top: -10px;
+			  right: -10px;
+			  padding: 5px 10px;
+			  border-radius: 50%;
+			  background: white;
+			  color: black;
+			}
+
+			.notification2 {
+			  background-color: #b30c00;
+			  color: white;
+			  text-decoration: none;
+			  padding: 15px 26px;
+			  position: relative;
+			  display: inline-block;
+			  border-radius: 2px;
+			}
+
+			.notification2:hover {
+			  background: black;
+			}
+
+			.notification2 .badge {
 			  position: absolute;
 			  top: -10px;
 			  right: -10px;

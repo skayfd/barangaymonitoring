@@ -28,7 +28,7 @@
 	<div class="row">
 		<div class="card-header container-fluid bg-light">
 			<div clas="col-md-6 float-left">
-				<h1 class="display-4 text-dark"><i class="fas fa-address-book text-warning"></i> Listed PUMs</h1>
+				<h1 class="display-4 text-dark"><i class="fas fa-procedures text-danger"></i> Listed PUIs</h1>
 				<a  type="button" href="personAdd" class="btn btn-success"><i class="far fa-plus-square"></i> Add Person</a>
 			</div>
 		</div>
@@ -51,14 +51,13 @@
 			      <th scope="col">Listed By</th>
 			      <th scope="col">Barangay from</th>
 			      <th scope="col">Date Quarantined</th>
-			      <th scope="col">No. of Days in Quarantine</th>
-			      <th scope="col">Qarantined By</th>
+			      <th scope="col">Marked Positive by</th>
 			      <th scope="col">Change Status</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  <?php
-			  $stmt = $person->readallPUM();
+			  $stmt = $person->readallPUI();
 			  while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				extract($row);
 				echo '
@@ -70,30 +69,21 @@
 			      <td>'.$row['address'].'</td>
 			      <td>'.$row['addedby'].'</td>
 			      <td><b>'.$row['barfrom'].'</b></td>
-			      <td>'.$row['datequar'].'</td>
-			      <td>';
-			      //number of days quarantined
-			      if($row['days'] >= 14){
-			      	echo '<p class="text-success"><b>Finished Self Quarantine</b></p>';
-			      }
-			      else {
-			      	echo "<center><b><p class='text-info'>".$row['days']."</p></b></center>";
-			      }
-			      //quarantined by
+			      <td>'.$row['datequar'].'</td>';
+			      //quaratined by
 			      $person->pid = $row['pid'];
-			      $stmt2 = $person->readQuarBy();
+			      $stmt2 = $person->positiveBy();
 			      while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
 			      	extract($row2);
 			      	echo '
 			      	<td>'
-				    	.$row2['quarby']. 	
+				    	.$row2['markedby']. 	
 		      		'</td>';
 			      }
-
 	      		  echo '
 	      		  <td>
-					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$row['pid'].'" value="Change status to Cleared"/><hr>
-					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$row['pid'].'" value="Mark as Covid Positive"/>
+					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/><hr>
+					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$row['pid'].'" value="Change status to Cleared"/>
 				  </td>
 			    </tr>';
 			  }

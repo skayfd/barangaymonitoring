@@ -74,7 +74,7 @@
 	$pdf->Cell(30,15," Reason ",1,0);
 	$pdf->Cell(15,15," Status ",1,0);
 	$pdf->Cell(40,15," Point of Origin ",1,0);
-	$pdf->Cell(30,15," Headed to ",1,0);
+	$pdf->Cell(30,15," Destination ",1,0);
 	$pdf->ln();
 	//loop data
 	$record->pid = $_GET['id'];

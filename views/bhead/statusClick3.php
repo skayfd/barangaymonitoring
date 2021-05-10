@@ -18,9 +18,12 @@
  
 	$person = new Person($db);
 if($_POST){
-
+	date_default_timezone_set("Asia/Manila");
 	$person->pid = $_POST['pid'];
+	$person->datequar = date("Y-m-d h:i:s");
+ 
  
 	$person->personStatus3();
+
 }
 ?>
