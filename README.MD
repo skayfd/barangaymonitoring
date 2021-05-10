@@ -4,7 +4,7 @@
 
 # Things Left (Part 2)
 
-* notification
+* :white_check_mark: notification
 * :white_check_mark: Verification and Validation process lacking -Resident(Working ID)
 * :white_check_mark: Change barangay – database refresh automatically
 * :white_check_mark: Visitor visited barangay reflected(dropdown list of barangay from add record)
