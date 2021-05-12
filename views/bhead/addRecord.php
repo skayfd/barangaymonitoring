@@ -220,23 +220,21 @@
 <form method="POST" action="addRecord.php?pid=<?php echo $person->pid; ?>" enctype="multipart/form-data">
 	<div class='row'>
 		<div class='col-sm-4'>
-			<label>Reason: </label>
+			<label>Person Type: </label>
 		</div>
 		<div class='col-sm-8'>
-			<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name='reason' required></textarea>
+			<input type="radio" name="status" id="apor" value="APOR" required> APOR
+			<br>
+			<input type="radio" name="status" id="resident" value="Resident" required> Resident
 		</div>
 	</div>
 	<br>
 	<div class='row'>
 		<div class='col-sm-4'>
-			<label>Person Type: </label>
+			<label>Reason: </label>
 		</div>
 		<div class='col-sm-8'>
-			<select class="custom-select" name="status" required>
-			  <option></option>
-			  <option value="APOR">APOR</option>
-			  <option value="LSI">LSI</option>
-			</select>
+			<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name='reason' required></textarea>
 		</div>
 	</div>
 	<br>
@@ -297,39 +295,53 @@
 	<br>
 	<hr>
 	<p><small><i class="fas fa-exclamation-circle"></i><em> Files must be an Image(jpg/png) and under 1MB</em></small></p>
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Picture of Barangay Certificate: </label>
+
+	<div id="pictures">
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Picture of Barangay Certificate: </label>
+			</div>
+			<div class='col-sm-8'>
+				<input type="file" class="form-control-file" accept='image/*' name="brgycert" required>
+			</div>
 		</div>
-		<div class='col-sm-8'>
-			<input type="file" class="form-control-file" accept='image/*' name="brgycert" required>
+		<br>
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Picture of Health Declaration Form: </label>
+			</div>
+			<div class='col-sm-8'>
+				<input type="file" class="form-control-file" accept='image/*' name="healthdeclaration" required>
+			</div>
+		</div>
+		<br>
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Picture of Medical Certificate: </label>
+			</div>
+			<div class='col-sm-8'>
+				<input type="file" class="form-control-file" accept='image/*' name="medcert" required>
+			</div>
+		</div>
+		<br>
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Picture of Travel Authority: </label>
+			</div>
+			<div class='col-sm-8'>
+				<input type="file" class="form-control-file" accept='image/*' name="travelauth" required>
+			</div>
 		</div>
 	</div>
-	<br>
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Picture of Health Declaration Form: </label>
-		</div>
-		<div class='col-sm-8'>
-			<input type="file" class="form-control-file" accept='image/*' name="healthdeclaration" required>
-		</div>
-	</div>
-	<br>
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Picture of Medical Certificate: </label>
-		</div>
-		<div class='col-sm-8'>
-			<input type="file" class="form-control-file" accept='image/*' name="medcert" required>
-		</div>
-	</div>
-	<br>
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Picture of Travel Authority: </label>
-		</div>
-		<div class='col-sm-8'>
-			<input type="file" class="form-control-file" accept='image/*' name="travelauth" required>
+
+	<div id="pictures2">
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Picture of Valid ID: </label>
+			</div>
+			<div class='col-sm-8'>
+				<input type="file" class="form-control-file" accept='image/*' name="workingid" required>
+			</div>
 		</div>
 	</div>
 	<br>
@@ -341,3 +353,22 @@
 		</div>
   	</div>  
 </form>
+
+<script>
+$(document).ready(function() {
+	var x = document.getElementById("pictures");
+	var y = document.getElementById("pictures2");
+    $('input:radio[name=status]').change(function() {
+        if (this.value == 'APOR') {
+            y.style.display = "none";
+            x.style.display = "block";
+         	$("#pictures2 :input").prop('required',null);          
+        }
+        else if (this.value == 'Resident') {
+            x.style.display = "none";
+            y.style.display = "block";
+            $("#pictures :input").prop('required',null);  
+        }
+    });
+});
+</script>

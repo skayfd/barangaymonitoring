@@ -48,26 +48,19 @@
 
 		if($record->timeoutrecord()){
 			//does not pass here but executes for some reason
-		}
-		else {
-			// echo 
-			// 	"<script>
-			// 		alert('Manually Timed Out!');
-			// 		window.location.href = 'viewlist.php';
-			// 	</script>";
 			echo 
 				"<script>
 					alert('Manually Timed Out!');
 				</script>";
-			header("Location: viewrecordlist.php?id=" . $person->pid);
 		}
-
-		// $date = $_POST['date'];
-		// $time = $_POST['time'];
-		// $combinedDT = date('Y-m-d h:i:s', strtotime("$date $time"));
-
-		// echo $record->rid."<br>";
-		// echo $combinedDT;
+		else {
+			echo 
+				"<script>
+					alert('Manually Timed Out!');
+				</script>";
+				header("Location: viewlist");
+		}
+		
 	}
 
 ?>
@@ -99,11 +92,10 @@
 	<div class="form-row float-right">
 		<div class="col-lg-12 mb-3">  
 		  <input type="submit" class="btn btn-success ml-2" name="save" value="Time Out"/>
-		  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
 		</div>
   	</div>  
 </form>
-
 <script>
 //datepicer script
 $(document).ready(function() {

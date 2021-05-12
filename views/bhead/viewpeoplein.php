@@ -26,7 +26,7 @@
 		extract($row); 
 		echo md5($row['referral']);
 	} 
-	?>" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
+	?>" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Dashboard</a>
 	<br>
 	<h1 class="display-4">Barangay Staff</h1>
 	</center>

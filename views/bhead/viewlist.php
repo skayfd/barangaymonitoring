@@ -21,7 +21,7 @@
 <br>
 <div class="container">
 	<center>
-	<a href="viewgroup" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
+	<a href="viewgroup" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Dashboard</a>
 	<br><br>
 	</center>
 	<div class="row">
@@ -33,13 +33,13 @@
 		</div>
 	</div>
 	<div class="row bg-light">
-		<div class="container table-responsive overflow-auto">
+		<div class="container">
 			<!-- <td>
 				<label class="control-label text-dark" for="NewPass">Specific Barangay: </label>
 				<input type="text" id="search-barangay" placeholder="Search Barangay">
 			</td> -->
 
-			<table id="tblpeople" class="table table-hover compact nowrap table-bordered" cellspacing="0">
+			<table id="tblpeople" class="table table-hover table-bordered" cellspacing="0">
 			  <thead class="thead-light">
 			    <tr>
 			   	  <th scope="col">Person ID</th>
@@ -52,7 +52,6 @@
 			      <th scope="col">Date Added</th>
 			      <th scope="col">Current Status</th>
 			      <th scope="col">Action</th>
-			      <th scope="col">Change Status</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -82,16 +81,11 @@
 			      }
 			      echo '</td>
 			      <td>
-			      	<input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record as APOR/LSI"/><hr>
-			      	<input type="button" class="btn btn-secondary btn-sm edit2-object" edit2-id="'.$row['pid'].'" value="Add Record as Resident"/><hr>
-			      	<a href="viewrecordlist?id='.$row['pid'].'" class="btn btn-info btn-sm">View Records And Documents</a>
-	      		  </td>
-
-	      		  <td>
-					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/><hr>
-					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$row['pid'].'" value="Change status to Cleared"/><hr>
-					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$row['pid'].'" value="Mark as Covid Positive"/>
-				  </td>
+			      	<div class="btn-group" role="group" aria-label="Basic example">
+					  <input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record"/>
+					  <input type="button" class="btn btn-info btn-sm record-object" record-id="'.$row['pid'].'" value="View Records"/>
+					</div>			      			      	
+	      		  </td>	      		  
 			    </tr>';
 			  }
 			echo '
@@ -120,12 +114,12 @@
     </div>
   </div>
 </div>
-<!--ADD RECORD for Local Resident-->
-<div class="modal fade" id="addRecord2" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!--View RECORD of Person-->
+<div class="modal fade" id="recordPerson" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header bg-secondary">
-        <h5 class="modal-title" id="addRecordLabel"> Add Record for Resident</h5>
+        <h5 class="modal-title" id="addRecordLabel"> Records of Person</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
 
@@ -138,7 +132,12 @@
   </div>
 </div>
 
-
+<!-- Change Modal Width -->
+<style>
+.modal-lg {
+    max-width: 130%;
+}
+</style>
 
 <script>
 //script for APOR/PUM/PUI/LSI
@@ -156,73 +155,74 @@ $(document).on('click', '.edit-object', function(){
     });
 });
 //script for Resident
-$(document).on('click', '.edit2-object', function(){
-    var pid = $(this).attr("edit2-id");
+$(document).on('click', '.record-object', function(){
+    var pid = $(this).attr("record-id");
   
     $.ajax({
-		url:'addRecord2.php',
-		method: "POST",
+		url:'viewrecord.php',
 		data:{pid:pid},
 		success:function(data){
 		  $('#addRecordContent2').html(data);
-		  $('#addRecord2').modal('show');
+		  $('#recordPerson').modal('show');
 		}
     });
 });
-//script for marking PUI
-$(document).on('click', '.edit3-object', function(){
-    var pid = $(this).attr("edit3-id");
-	var r = confirm("Are you sure you want to update the status?");
-	if (r == true) {
-    $.ajax({
-		url:'statusClick.php',
-		method: "POST",
-		data:{pid:pid},
-		success:function(data){
-		  window.location.reload();
-		  alert("Status Updated");
-		}
-    });}
-	else{
-		window.alert("Status update cancelled");
-	}
-});
-//script for marking changing to resident
-$(document).on('click', '.edit4-object', function(){
-    var pid = $(this).attr("edit4-id");
-	var r = confirm("Are you sure you want to update the status?");
-	if (r == true) {
-    $.ajax({
-		url:'statusClick2.php',
-		method: "POST",
-		data:{pid:pid},
-		success:function(data){
-		  window.location.reload();
-		  alert("Status Updated");
-		}
-    });}
-	else{
-		window.alert("Status update cancelled");
-	}
-});
-//script for marking resident as a COVID positive patient
-$(document).on('click', '.edit5-object', function(){
-    var pid = $(this).attr("edit5-id");
-	var r = confirm("Are you sure you want to update the status?");
-	if (r == true) {
-    $.ajax({
-		url:'statusClick3.php',
-		method: "POST",
-		data:{pid:pid},
-		success:function(data){
-		  window.location.reload();
-		  alert("Status Updated");
-		}
-    });}
-	else{
-		window.alert("Status update cancelled");
-	}
-});
+
+
+// //script for marking PUI
+// $(document).on('click', '.edit3-object', function(){
+//     var pid = $(this).attr("edit3-id");
+// 	var r = confirm("Are you sure you want to update the status?");
+// 	if (r == true) {
+//     $.ajax({
+// 		url:'statusClick.php',
+// 		method: "POST",
+// 		data:{pid:pid},
+// 		success:function(data){
+// 		  window.location.reload();
+// 		  alert("Status Updated");
+// 		}
+//     });}
+// 	else{
+// 		window.alert("Status update cancelled");
+// 	}
+// });
+// //script for marking changing to resident
+// $(document).on('click', '.edit4-object', function(){
+//     var pid = $(this).attr("edit4-id");
+// 	var r = confirm("Are you sure you want to update the status?");
+// 	if (r == true) {
+//     $.ajax({
+// 		url:'statusClick2.php',
+// 		method: "POST",
+// 		data:{pid:pid},
+// 		success:function(data){
+// 		  window.location.reload();
+// 		  alert("Status Updated");
+// 		}
+//     });}
+// 	else{
+// 		window.alert("Status update cancelled");
+// 	}
+// });
+// //script for marking resident as a COVID positive patient
+// $(document).on('click', '.edit5-object', function(){
+//     var pid = $(this).attr("edit5-id");
+// 	var r = confirm("Are you sure you want to update the status?");
+// 	if (r == true) {
+//     $.ajax({
+// 		url:'statusClick3.php',
+// 		method: "POST",
+// 		data:{pid:pid},
+// 		success:function(data){
+// 		  window.location.reload();
+// 		  alert("Status Updated");
+// 		}
+//     });}
+// 	else{
+// 		window.alert("Status update cancelled");
+// 	}
+// });
 
 
 
@@ -236,28 +236,8 @@ $(document).ready(function() {
 		"bLengthChange": true,
 		"bInfo" : true,
 		"order": [[ 7, "desc" ]],
-		"sDom":"ltipr"
     } );
 
-
-    // Setup - add a text input to each footer cell
-    $('#tblpeople thead tr').clone(true).appendTo( '#tblpeople thead' );
-    $('#tblpeople thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-
-        $(this).html( '<input type="text" class="form-control input-sm" placeholder="Search '+title+'" />' );
-
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-
-
-    } );
 } );
 </script>
 <?php

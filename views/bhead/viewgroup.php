@@ -143,7 +143,7 @@
 				<div class="card bg-success">
 				  <center>
 				  	<p class="fas fa-user-friends text-light" style="font-size:90px;"></p>
-					<h3 class="text-light">People Inside: 
+					<h3 class="text-light">Barangay Officials Inside: 
 						<?php
 							$stmt = $barangay->numberofPeople();
 							while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -310,6 +310,7 @@
 		</div>	
 		</div><br>
 	</div>
+	
 <style>
 a:link, a:visited {
   color: white;
