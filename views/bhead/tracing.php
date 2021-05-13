@@ -44,7 +44,7 @@
 			<br>
 			<center><h3>Selected Date: <u class='text-warning'>".$from_date."</u></h3></center>
 			<center>
-			<div class='card' style='width: 18rem;'>
+			<div class='card' style='width: 16rem;'>
 			  <div class='card-body'>
 			    <h3 class='card-title text-dark'>".$row['Name']."</h3><hr>
 			    <h5 class='text-dark'>Hours Recorded: </h5>
@@ -62,7 +62,7 @@
 			    echo "</p>
 			  </div>
 			</div>
-			</center>
+			</center><br>
 			";
 		}
 		//place people on current date here, not automatic but sees and compares
@@ -72,11 +72,37 @@
 			$rdate = $row2['dates'];
 			$rdest = $row2['Destination'];
 			$rnames = $row2['names'];
+
 			$rowrayDate = explode(',',$rdate);
 			$rowrayDest = explode(',',$rdest);
 			$rowrayNames = explode(',',$rnames);
 
+			$rowDateDest = array_combine($rowrayDate,$rowrayDest);
+			print_r($rowrayNames);
+			print_r($rowDateDest);
 
+			// foreach($rowrayNames AS $name){
+			foreach(array_combine($rowrayNames, $rowDateDest) as $name => $datedest){
+				
+					echo "
+					<div class='container'>
+					<div class='row'>
+						<div class='gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe'>
+							<div class='card' style='width: 14rem;'>
+							  <div class='card-body'>
+							    <h5 class='card-title text-dark'>".$name."</h5>
+							    <h5 class='card-title text-dark'>";
+							    echo $datedest;
+							    echo "
+							    </h5>
+							  </div>
+							</div><br>
+						</div><br>
+					</div>
+					</div>
+					";
+				
+			}
 		}
 	}
 ?>
