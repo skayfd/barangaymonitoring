@@ -21,7 +21,7 @@
 		public $uid;
 		public $rid;
 
-
+		public $date;
 
 		public $conn;
 		private $tableName = 'person';
@@ -246,7 +246,6 @@
 			$stmt->execute();
 		}
 
-
 		function documentPic(){
 			$query = "SELECT pid, brgycert, healthdeclaration, medcert, travelauth
 				FROM person
@@ -254,6 +253,34 @@
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->pid);
 
+			$stmt->execute();
+			return $stmt;
+		}
+
+		function specPersonTrace($date, $pid){
+			$query = "SELECT GROUP_CONCAT(TIME(record.daterecorded)) AS 'dates', CONCAT(person.firstname,' ',person.lastname) AS 'Name', GROUP_CONCAT(record.pointoforigin) AS 'Origin', GROUP_CONCAT(record.addressto, record.addressto2, record.addressto3) AS 'Destination'
+				FROM person
+			    LEFT JOIN record ON record.pid = person.pid
+			    WHERE DATE(record.daterecorded) = '$date'
+				AND person.pid = '$pid'
+			    GROUP BY DATE(record.daterecorded)";
+			$stmt = $this->conn->prepare($query);
+			// $stmt->bindparam(1, $this->date);
+			// $stmt->bindparam(2, $this->pid);
+
+			$stmt->execute();
+			return $stmt;
+		}
+		function PersonTrace($date, $pid){//traces person ---> Needs to 
+			$query = "SELECT GROUP_CONCAT(person.pid)AS 'ids', GROUP_CONCAT(TIME(record.daterecorded)) AS 'dates', GROUP_CONCAT(CONCAT(person.firstname,' ',person.lastname)) AS 'names', GROUP_CONCAT(record.pointoforigin) AS 'origin', GROUP_CONCAT(record.addressto, record.addressto2, record.addressto3) AS 'Destination'
+				FROM person
+			    LEFT JOIN record ON record.pid = person.pid
+			    WHERE DATE(record.daterecorded) = '$date'
+			    
+			    AND person.pid NOT IN (SELECT person.pid FROM person WHERE person.pid = '$pid')
+			    GROUP BY DATE(record.daterecorded)
+			    ";
+			$stmt = $this->conn->prepare($query);
 			$stmt->execute();
 			return $stmt;
 		}

@@ -56,7 +56,7 @@
 			}
 		}
 		function readrelatedRecord(){
-			$query = "SELECT record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid'
+			$query = "SELECT person.pid AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid'
 			FROM record
 			INNER JOIN user ON record.uid = user.uid
 			INNER JOIN person ON record.pid = person.pid

@@ -81,11 +81,31 @@
 			      }
 			      echo '</td>
 			      <td>
-			      	<div class="btn-group" role="group" aria-label="Basic example">
-					  <input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record"/>
-					  <input type="button" class="btn btn-info btn-sm record-object" record-id="'.$row['pid'].'" value="View Records"/>
-					</div>			      			      	
+			      	';
+			      	if($row['personStatus'] == 'PUM'){
+			      		echo '
+			      		<div class="btn-group" role="group" aria-label="Basic example">
+				      		<input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record"/>
+						  	<input type="button" class="btn btn-info btn-sm record-object" record-id="'.$row['pid'].'" value="View Records"/>
+						 	
+					  	</div>
+					  	<center>
+					  	<input type="button" class="btn btn-warning btn-sm trace-object" trace-id="'.$row['pid'].'" value="Trace"/>
+					  	</center>
+			      		';
+			      	}
+			      	else {
+			      		echo '
+			      		<div class="btn-group" role="group" aria-label="Basic example">
+				      		<input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record"/>
+						  	<input type="button" class="btn btn-info btn-sm record-object" record-id="'.$row['pid'].'" value="View Records"/>
+						</div>
+			      		';
+			      	}					  
+					echo '
+							      			      	
 	      		  </td>	      		  
+			      	}
 			    </tr>';
 			  }
 			echo '
@@ -131,11 +151,41 @@
     </div>
   </div>
 </div>
+<!--Datepicker for Trace-->
+<div class="modal fade" id="tracemodal" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary">
+        <h5 class="modal-title" id="addRecordLabel"> Trace Date</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
 
-<!-- Change Modal Width -->
+      <div class="modal-body bg-secondary" id="addRecordContent3">
+		
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Change Modal Width of view record -->
 <style>
 .modal-lg {
-    max-width: 130%;
+    max-width: 90%;
+}
+.datepicker {
+    background: #333;
+    border: 1px solid #555;
+    color: #EEE;  
+}
+.datepicker table tr td.day:hover,
+.datepicker table tr td.day.focused {
+  background: #474747;
+  cursor: pointer;
 }
 </style>
 
@@ -154,7 +204,7 @@ $(document).on('click', '.edit-object', function(){
 		}
     });
 });
-//script for Resident
+//script for View Records
 $(document).on('click', '.record-object', function(){
     var pid = $(this).attr("record-id");
   
@@ -164,6 +214,19 @@ $(document).on('click', '.record-object', function(){
 		success:function(data){
 		  $('#addRecordContent2').html(data);
 		  $('#recordPerson').modal('show');
+		}
+    });
+});
+//script for tracing date
+$(document).on('click', '.trace-object', function(){
+    var pid = $(this).attr("trace-id");
+  
+    $.ajax({
+		url:'tracedate.php',
+		data:{pid:pid},
+		success:function(data){
+		  $('#addRecordContent3').html(data);
+		  $('#tracemodal').modal('show');
 		}
     });
 });

@@ -33,8 +33,11 @@
 				<h4 class="text-warning"><?php echo "Person ID: ".$person->pid; ?></h4>
 			</div>
 			<div class="col-sm-4">
-				<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/>
-				<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$row['pid'].'" value="Mark as Covid Positive"/>
+				<?php
+					echo '
+					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$person->pid.'" value="Mark as PUM"/>
+					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$person->pid.'" value="Mark as PUI"/>';
+				?>			
 			</div>
 		</div><br>
 		<table id="tblRecord" class="table table-responsive table-light">
@@ -278,12 +281,48 @@ $(document).on('click', '.time2-object', function(){
     $.ajax({
 		url:'timeout.php',
 		method: "POST",
-		data:{rid:rid},
+		data:{pid:pid},
 		success:function(data){
 		  $('#timepicker').html(data);
 		  $('#addTime').modal('show');
 		}
     });
+});
+//script for making person PUM
+$(document).on('click', '.edit3-object', function(){
+    var pid = $(this).attr("edit3-id");
+	var r = confirm("Are you sure you want to update the status?");
+	if (r == true) {
+    $.ajax({
+		url:'statusClick.php',
+		method: "POST",
+		data:{pid:pid},
+		success:function(data){
+		  window.location.reload();
+		  alert("Status Updated");
+		}
+    });}
+	else{
+		window.alert("Status update cancelled");
+	}
+});
+// //script for marking resident as a COVID positive patient
+$(document).on('click', '.edit5-object', function(){
+    var pid = $(this).attr("edit5-id");
+	var r = confirm("Are you sure you want to update the status?");
+	if (r == true) {
+    $.ajax({
+		url:'statusClick3.php',
+		method: "POST",
+		data:{pid:pid},
+		success:function(data){
+		  window.location.reload();
+		  alert("Status Updated");
+		}
+    });}
+	else{
+		window.alert("Status update cancelled");
+	}
 });
 </script>
 <?php
