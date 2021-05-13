@@ -65,7 +65,7 @@
 			</center><br>
 			";
 		}
-		//place people on current date here, not automatic but sees and compares
+		//place people on current date here, not automatic but sees date
 		$stmt2 = $person->PersonTrace($person->date, $person->pid);
 		while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
 			extract($row2);
@@ -78,7 +78,7 @@
 			$rowrayNames = explode(',',$rnames);
 
 			$rowDateDest = array_combine($rowrayDate,$rowrayDest);
-			print_r($rowrayNames);
+			
 			print_r($rowDateDest);
 
 			// foreach($rowrayNames AS $name){
@@ -92,7 +92,7 @@
 							  <div class='card-body'>
 							    <h5 class='card-title text-dark'>".$name."</h5>
 							    <h5 class='card-title text-dark'>";
-							    echo $datedest;
+							    echo $datedest;//display date and time
 							    echo "
 							    </h5>
 							  </div>
