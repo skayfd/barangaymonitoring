@@ -13,36 +13,23 @@
 	include_once '../include/header.php';
 	include_once '../include/sidebar/officials.php';
 	include_once '../../classes/barangay.php';
+	include_once '../../classes/user.php';
+	include_once '../../classes/person.php';
+	include_once '../../classes/record.php';
 
 	$barangay = new Barangay($db);
 	$user = new User($db);
+	$person = new Person($db);
+	$record = new Record($db);
 
 ?>
+
 <br>
-<<<<<<< HEAD
 
 	<h2 class="text-dark">Barangay Staff</h2>
 	
 
 		<div class="col-md-12 bg-light"><br>
-=======
-<div class="container">
-	<center>
-	<a href="viewgroup?id=
-	<?php $stmt = $barangay->readrelatedGroup(); 
-	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-		extract($row); 
-		echo md5($row['referral']);
-	} 
-	?>" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Dashboard</a>
-	<br>
-	<h1 class="display-4">Barangay Staff</h1>
-	</center>
-	<div class="row">	
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-10 bg-light"><br>
->>>>>>> parent of 3ffc982 (new ui)
 		<?php		
 		echo '
 		<table id="peopleIn" class="table table-light">
@@ -87,16 +74,8 @@
 		</table>';
 		?><br>
 		</div>
-<<<<<<< HEAD
 
 <!-- MODAL 
-=======
-		<div class="col-md-1">
-		</div>
-	</div><br>
-</div>
-<!-- MODAL -->
->>>>>>> parent of 3ffc982 (new ui)
 <div class="modal fade" id="addRecord" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -112,22 +91,22 @@
 
     </div>
   </div>
-</div>
+</div>-->
 
 <script>
-$(document).on('click', '.edit-object', function(){
-    var uid = $(this).attr("edit-id");
+	$(document).on('click', '.edit-object', function(){
+		var uid = $(this).attr("edit-id");
 
-    $.ajax({
-		url:'confirmpwque.php',
-		method: "POST",
-		data:{uid:uid},
-		success:function(data){
-		  $('#confirmPass').html(data);
-		  $('#addRecord').modal('show');
-		}
-    });
-});
+		$.ajax({
+			url:'confirmpwque.php',
+			method: "POST",
+			data:{uid:uid},
+			success:function(data){
+			$('#confirmPass').html(data);
+			$('#addRecord').modal('show');
+			}
+		});
+	});
 
 $(document).on('click', '.check-object', function(){
     var uid = $(this).attr("check-id");
@@ -160,16 +139,16 @@ $(document).on('click', '.reset-object', function(){
       return false;
 });
 
-$(document).ready(function() {
-    $('#peopleIn').dataTable( {
-    "aLengthMenu": [[8, -1], [8, "All"]],
-    "pageLength": 8,
-	"bLengthChange": true,
-	"bInfo" : true,	
-	"order": [[ 1, "asc" ]]
-    } );
+	$(document).ready(function() {
+		$('#peopleIn').dataTable( {
+		"aLengthMenu": [[8, -1], [8, "All"]],
+		"pageLength": 8,
+		"bLengthChange": true,
+		"bInfo" : true,	
+		"order": [[ 1, "asc" ]]
+		} );
 
-} );
+	} );
 </script>
 <?php
 	include_once '../include/footer.php';

@@ -19,9 +19,8 @@
 	$person = new Person($db);
 	$record = new Record($db);
 if($_POST){
-
+	date_default_timezone_set("Asia/Manila");
 	$person->pid = $_POST['pid'];
-<<<<<<< HEAD
 	$person->datequar = date("Y-m-d h:i:s");
 	$person->datequar = date("Y-m-d");
 
@@ -37,9 +36,6 @@ if($_POST){
 	$record->timeout1 = date("Y-m-d h:i:s ");
 	$record->pid = $_POST['pid'];
 
-=======
- 
->>>>>>> parent of 3ffc982 (new ui)
 	$person->personStatus2();
 	$record->createRecord();
 }

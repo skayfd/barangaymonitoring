@@ -59,11 +59,7 @@
 			}
 		}
 		function readrelatedRecord(){
-<<<<<<< HEAD
 			$query = "SELECT person.pid AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.healthStatus AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid', record.healthStatus AS 'healthStatus'
-=======
-			$query = "SELECT record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid'
->>>>>>> parent of 3ffc982 (new ui)
 			FROM record
 			INNER JOIN user ON record.uid = user.uid
 			INNER JOIN person ON record.pid = person.pid
@@ -94,6 +90,29 @@
             INNER JOIN barangay ON barangay.referral = user.referral
 			WHERE record.archive = 0
 			ORDER BY fullname ASC";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			return $stmt;
+		}
+		function searchrec(){
+			$page = $this->page1;
+			$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.timeout AS 'tout', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.pointoforigin AS 'porigin', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname' 
+			FROM record 
+			INNER JOIN person ON record.pid = person.pid 
+			INNER JOIN user ON user.uid = record.uid 
+			INNER JOIN barangay ON barangay.referral = user.referral 
+			WHERE record.addressto LIKE '%$this->search%' or record.daterecorded LIKE '%$this->search%' limit $page,5";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			return $stmt;
+		}
+		function searchrec2(){
+			$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.timeout AS 'tout', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.pointoforigin AS 'porigin', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname' 
+			FROM record 
+			INNER JOIN person ON record.pid = person.pid 
+			INNER JOIN user ON user.uid = record.uid 
+			INNER JOIN barangay ON barangay.referral = user.referral 
+			WHERE record.addressto LIKE '%$this->search%' or record.daterecorded LIKE '%$this->search%' ORDER BY record.daterecorded DESC ";
 			$stmt = $this->conn->prepare($query);
 			$stmt->execute();
 			return $stmt;

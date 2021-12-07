@@ -15,10 +15,10 @@
 	include_once '../include/sidebar/viewpui.php';
 	include_once '../../classes/person.php';
 	include_once '../../classes/barangay.php';
+	include_once '../../classes/record.php';
 
 	$person = new Person($db);
 	$barangay = new Barangay($db);
-<<<<<<< HEAD
 	$record = new record($db);
 
 	
@@ -151,43 +151,17 @@
             </div>
 
 			<table id="tblpeople" class="table table-responsive table-light table-hover compact nowrap table-bordered" cellspacing="0">
-=======
-
-?>
-<br>
-<div class="container">
-	<center>
-	<a href="viewgroup" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
-	<br><br>
-	</center>
-	<div class="row">
-		<div class="card-header container-fluid bg-light">
-			<div clas="col-md-6 float-left">
-				<h1 class="display-4 text-dark"><i class="fas fa-procedures text-danger"></i> Listed PUIs</h1>
-				<a  type="button" href="personAdd" class="btn btn-success"><i class="far fa-plus-square"></i> Add Person</a>
-			</div>
-		</div>
-	</div>
-	<div class="row bg-light">
-		<div class="container table-responsive overflow-auto">
-			<!-- <td>
-				<label class="control-label text-dark" for="NewPass">Specific Barangay: </label>
-				<input type="text" id="search-barangay" placeholder="Search Barangay">
-			</td> -->
-
-			<table id="tblpeople" class="table table-hover compact nowrap table-bordered" cellspacing="0">
->>>>>>> parent of 3ffc982 (new ui)
 			  <thead class="thead-light">
 			    <tr>
-			   	  <th scope="col">Person ID</th>
+			   	  <th scope="col">ID</th>
 			      <th scope="col">Full Name</th>
-			      <th scope="col">Gender</th>
-			      <th scope="col">Contact Number</th>
+				  <th scope="col">Date Recorded</th>
+			      <th scope="col">Start Quarantined</th>   
 			      <th scope="col">Address</th>
 			      <th scope="col">Listed By</th>
 			      <th scope="col">Barangay from</th>
-			      <th scope="col">Date Quarantined</th>
-			      <th scope="col">Marked Positive by</th>
+				  <!--<th scope="col">Destination</th>-->
+			      <th scope="col">Marked by</th>
 			      <th scope="col">Change Status</th>
 			    </tr>
 			  </thead>
@@ -198,15 +172,16 @@
 				extract($row);
 				echo '
 			    <tr>
-			      <th scope="row"><center>'.$row['pid'].'<br><a href="genId?id='.$row['pid'].'" target="_blank" class="btn btn btn-warning btn-sm"><i class="far fa-id-badge"></i> Create ID</a></center></th>
-			      <td>'.$row['fullname'].'</td>
-			      <td>'.$row['gender'].'</td>
-			      <td>'.$row['contactno'].'</td>
+			      <td>'.$row['pid'].'</td> 
+				  <td>'.$row['fullname'].'</td>
+				  <td>'.$row['daterecorded'].'</td>
+			      <td>'.$row['datequar'].'</td> 
 			      <td>'.$row['address'].'</td>
 			      <td>'.$row['addedby'].'</td>
 			      <td><b>'.$row['barfrom'].'</b></td>
-			      <td>'.$row['datequar'].'</td>';
-			      //quaratined by
+				  
+			      ';
+			      //quaratined by <td>'.$row['destination'].'</td>
 			      $person->pid = $row['pid'];
 			      $stmt2 = $person->positiveBy();
 			      while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
@@ -218,13 +193,8 @@
 			      }
 	      		  echo '
 	      		  <td>
-<<<<<<< HEAD
 					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/>
 					
-=======
-					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/><hr>
-					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$row['pid'].'" value="Change status to Cleared"/>
->>>>>>> parent of 3ffc982 (new ui)
 				  </td>
 			    </tr>';
 			  }
@@ -236,7 +206,7 @@
 			<br>
 		</div>
 	</div><br>
-</div>
+
 <!--ADD RECORD for APOR/PUM/PUI/LSI MODAL-->
 <div class="modal fade" id="addRecord" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -382,26 +352,6 @@ $(document).ready(function() {
 		"bInfo" : true,
 		"order": [[ 7, "desc" ]],
 		
-    } );
-
-
-    // Setup - add a text input to each footer cell
-    $('#tblpeople thead tr').clone(true).appendTo( '#tblpeople thead' );
-    $('#tblpeople thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-
-        $(this).html( '<input type="text" class="form-control input-sm" placeholder="Search '+title+'" />' );
-
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-
-
     } );
 } );
 </script>

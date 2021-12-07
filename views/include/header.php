@@ -43,39 +43,8 @@
       			<!--FAVICON-->
       			<link rel="icon" href="../../assets/img/favicon.ico" type="image/ico">
 
-<<<<<<< HEAD
 				 ';
         
-=======
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-				  <a class="navbar-brand" href="../../index">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
-				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				    <span class="navbar-toggler-icon"></span>
-				  </button>
-				  <div class="collapse navbar-collapse" id="navbarNav">
-				    <ul class="navbar-nav">
-				      <li class="nav-item">
-				        <a href="viewgroup" class="nav-link"><i class="fas fa-columns"></i> Panel</a>
-				      </li>
-				      <li class="nav-item">
-				        <a href="headprofile" class="nav-link"><i class="far fa-id-badge"></i> Profile</a>
-				      </li>
-				      ';
-				        
-				        echo '
-				    </ul>
-				  </div>
-
-				  <div class="navbar-nav">
-				  
-				  </div>
-				  </div>
-				  <div>
-					<a href="../util/logout" class="btn btn-danger btn-lg"><i class="fas fa-sign-out-alt"></i></a>
-
-				</nav>
-				';
->>>>>>> parent of 3ffc982 (new ui)
 				}
 				else {
 				echo '
@@ -91,7 +60,7 @@
 				<script src="../../assets/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 				<script src="../../assets/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav class="navbar navbar-expand-lg navbar-dark">
 				  <a class="navbar-brand" href="../../index">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
@@ -148,7 +117,7 @@
       			<!--FAVICON-->
       			<link rel="icon" href="../../assets/img/favicon.ico" type="image/ico">
 
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav class="navbar navbar-expand-lg navbar-dark">
 				  <a class="navbar-brand" href="../../index">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
@@ -156,7 +125,7 @@
 				  <div class="collapse navbar-collapse" id="navbarNav">
 				    <ul class="navbar-nav">
 				      <li class="nav-item">
-				        <a href="memhome" class="nav-link"><i class="fas fa-columns"></i> Panel</a>
+				        <a href="memhome" class="nav-link"><i class="fas fa-columns"></i> Dashboard</a>
 				      </li>
 				      <li class="nav-item">
 				        <a href="memprofile" class="nav-link"><i class="far fa-id-badge"></i> Profile</a>
@@ -187,7 +156,7 @@
 				<script src="../../assets/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 				<script src="../../assets/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav class="navbar navbar-expand-lg navbar-dark">
 				  <a class="navbar-brand" href="../../index">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
@@ -243,7 +212,7 @@
       			<!--FAVICON-->
       			<link rel="icon" href="../../assets/img/favicon.ico" type="image/ico">
 
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav class="navbar navbar-expand-lg navbar-dark">
 				  <a class="navbar-brand" href="../../index.php">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
@@ -282,7 +251,7 @@
 				<script src="../../assets/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 				<script src="../../assets/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav class="navbar navbar-expand-lg navbar-dark">
 				  <a class="navbar-brand" href="../../index">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
@@ -337,7 +306,7 @@
       			<!--FAVICON-->
       			<link rel="icon" href="../../assets/img/favicon.ico" type="image/ico">
 
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav class="navbar navbar-expand-lg navbar-dark">
 				  <a class="navbar-brand" href="../../index.php">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
@@ -376,7 +345,7 @@
 				<script src="../../assets/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 				<script src="../../assets/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<nav class="navbar navbar-expand-lg navbar-dark">
 				  <a class="navbar-brand" href="../../index">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
@@ -416,11 +385,7 @@
 
 			
 
-<<<<<<< HEAD
 			<!--<nav class="navbar navbar-expand-lg " style="background: #05246C;">
-=======
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
->>>>>>> parent of 3ffc982 (new ui)
 			  <a class="navbar-brand" href="../index.php">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
@@ -448,7 +413,6 @@
 	?>
 
 	<title><?php echo $title; ?></title>
-<<<<<<< HEAD
 <!--<script>
 	$(document).ready(function(){
     $('#search_text').keyup(function(){
@@ -532,8 +496,6 @@
             }
 </style>
 
-=======
->>>>>>> parent of 3ffc982 (new ui)
 	</head>
 	<!--TO HERE ANG AFFECTED AREAS(as for now)-->
-	<body style="background-color:#121212; color:#FFFFFF">
+	<body style="background: #E5ECFD;">

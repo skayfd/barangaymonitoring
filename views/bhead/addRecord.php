@@ -284,14 +284,9 @@
 		<div class='col-sm-2'>
 			<label>#1: </label>
 		</div>
-<<<<<<< HEAD
 		<div class='col-sm-10'>
 			<textarea class="form-control" id="exampleFormControlTextarea3" rows="2" name='addressto'></textarea>
 			
-=======
-		<div class='col-sm-8'>
-			<textarea class="form-control" id="exampleFormControlTextarea3" rows="2" name='addressto' required></textarea>
->>>>>>> parent of 3ffc982 (new ui)
 		</div>
 	</div>
 	<br>
@@ -323,41 +318,21 @@
 		<div class='row'>
 			<div id="pictures" class='col-sm-12'>
 				<label>Picture of Barangay Certificate: </label>
-<<<<<<< HEAD
 				<input type="file" class="form-control-file" accept='image/*' name="brgycert" >
-=======
-			</div>
-			<div class='col-sm-8'>
-				<input type="file" class="form-control-file" accept='image/*' name="brgycert" required>
->>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
 		<hr>
 		<div class='row'>
-<<<<<<< HEAD
 			<div id="pictures" class='col-sm-12'>
 			<label>Picture of Health Declaration Form: </label>
 				<input type="file" class="form-control-file" accept='image/*' name="healthdeclaration" >
-=======
-			<div class='col-sm-4'>
-				<label>Picture of Health Declaration Form: </label>
-			</div>
-			<div class='col-sm-8'>
-				<input type="file" class="form-control-file" accept='image/*' name="healthdeclaration" required>
->>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
 		<hr>
 		<div class='row'>
 			<div id="pictures" class='col-sm-8'>
 				<label>Picture of Medical Certificate: </label>
-<<<<<<< HEAD
 				<input type="file" class="form-control-file" accept='image/*' name="medcert" >
-=======
-			</div>
-			<div class='col-sm-8'>
-				<input type="file" class="form-control-file" accept='image/*' name="medcert" required>
->>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
     </div>
@@ -366,7 +341,6 @@
 		<div class='row'>
 			<div id="pictures" class='col-sm-8'>
 				<label>Picture of Travel Authority: </label>
-<<<<<<< HEAD
 				<input type="file" class="form-control-file" accept='image/*' name="travelauth" >
 			</div>
 		</div>
@@ -377,22 +351,6 @@
 					<label>Picture of Valid ID: </label>
 					<input type="file" class="form-control-file" accept='image/*' name="workingid" >
 				</div>
-=======
-			</div>
-			<div class='col-sm-8'>
-				<input type="file" class="form-control-file" accept='image/*' name="travelauth" required>
-			</div>
-		</div>
-	</div>
-
-	<div id="pictures2">
-		<div class='row'>
-			<div class='col-sm-4'>
-				<label>Picture of Valid ID: </label>
-			</div>
-			<div class='col-sm-8'>
-				<input type="file" class="form-control-file" accept='image/*' name="workingid" required>
->>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
 		<hr>

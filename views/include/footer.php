@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 		</main>
       </div>
     </div>
@@ -26,8 +25,6 @@
       feather.replace()
     </script>
 	
-=======
->>>>>>> parent of 3ffc982 (new ui)
 	</body>
 	<!--Same goes from here-->
 	<footer>

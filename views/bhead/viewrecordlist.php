@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	$title = "Records";
+	$id = $_GET['id'];
 	if(!isset($_SESSION['uid'])){
 		header("Location: ../login.php");
 	}
@@ -14,8 +15,11 @@
 	include_once '../../classes/record.php';
 	include_once '../../classes/person.php';
 
+
 	$record = new Record($db);
 	$person = new Person($db);
+
+
 
 ?>
 &nbsp
@@ -23,6 +27,7 @@
 	<a href="viewlist" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to List</a>
 	<br>
 		<h1 class="display-4">Records of Person</h1>
+
 	</center>
 	<div class="card"><br>
 		<table id="tblRecord" class="table table-responsive table-light">

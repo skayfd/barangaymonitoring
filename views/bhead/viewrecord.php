@@ -25,7 +25,6 @@
 ?>
 
 		<div class="row">
-<<<<<<< HEAD
 			<div class="col-sm-12">
 			<h5 class="text-dark">&nbsp<?php echo "Person ID : ".$person->pid; ?></h4>
 			<h5 class="text-dark">&nbsp<?php echo "Fullname : ".$person->fullname; ?></h4>
@@ -64,38 +63,21 @@
 			}
 				?>	
 							
-=======
-			<div class="col-sm-4">
-				<h4 class="text-success"><?php echo $person->firstname."'s Records"; ?></h4>
->>>>>>> parent of 3ffc982 (new ui)
 			</div>
-			<div class="col-sm-4">
-				<h4 class="text-warning"><?php echo "Person ID: ".$person->pid; ?></h4>
-			</div>
-			<div class="col-sm-4">
-				<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/>
-				<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$row['pid'].'" value="Mark as Covid Positive"/>
-			</div>
-		</div><br>
-		<table id="tblRecord" class="table table-responsive table-light">
-		  <thead class="thead-light">
+		</div>
+
+		<div class="collapse" id="collapseExample">
+			<div class="card card-body">
+				
+			<table  class="table table-responsive table-light">
+		  <thead class="thead-dark">
 		    <tr>
 		      <th scope="col">Date Recorded/Time In</th>
-		      <th scope="col">Time Out</th>
-		      <th scope="col">Reason</th>
-		      <th scope="col">Temperature</th>
-		      <th scope="col">Person Type</th>
-		      <th scope="col">Point of Origin</th>
-		      <th scope="col">Destination</th>
-		      <th scope="col">Destination 2</th>
-		      <th scope="col">Destination 3</th>
-		      <th scope="col">Recorded By</th>
 		      <th scope="col">Valid ID</th>
 		      <th scope="col">Brgy Cert</th>
 		      <th scope="col">Hlth Decl.</th>
 		      <th scope="col">Med Certificate</th>
 		      <th scope="col">Travel Auth</th>
-		      <th scope="col">Action</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -107,52 +89,7 @@
 		    <tr>
 		      <th scope="row">'.$row['date'].'</th>';
 
-		      //check time out and time in
-		      if(empty($row['timeout'])){
-		      	echo '
-		      	<th scope="row">
-		      		<a class="btn btn-success text-light time-object" time-id="'.$row['rid'].'">Time Out</a><hr>
-		      		<input type="button" class="btn btn-secondary btn-sm time2-object" time2-id="'.$row['rid'].'" value="Manual TO"/>
-		      	</th>';
-		      }
-		      else{
-		      	echo '<td><p class="text-success">'.$row['timeout'].'</p></td>';
-		      }
-
-		      echo '
-		      <td>'.$row['reason'].'</td>
-		      <td>'.$row['temp'].'</td>
-		      <td><b>'.$row['status'].'</b></td>
-		      <td>'.$row['point'].'</td>
-		      <td>'.$row['addressto'].'</td>';
-
-		      //addressto portion VVVVVVVVVVV
-		      if(empty($row['addressto2'])){
-		      	echo '
-		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
-		      	';
-		      }
-		      else{
-		      	echo '
-		      	<td>'.$row['addressto2'].'</td>
-		      	';
-		      }
-		      if(empty($row['addressto3'])){
-		      	echo '
-		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
-		      	';
-		      }
-		      else{
-		      	echo '
-		      	<td>'.$row['addressto3'].'</td>
-		      	';
-		      }
-		      //addressto portion ^^^^^^^^^^^^
-		      echo '
-
-		      <td>'.$row['fullname'].'</td>';
-
-		      //important docus
+		     //important docus
 		      if(empty($row['workingid'])){
 		      	echo '
 		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
@@ -183,7 +120,26 @@
 		      	echo '
 		      	<td><img src="../../assets/img/'.$row['healthdecla'].'" width="120px" height="100px"></td>
 		      	';
-<<<<<<< HEAD
+		      }
+		      if(empty($row['medcert'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else {
+		      	echo '
+		      	<td><img src="../../assets/img/'.$row['medcert'].'" width="120px" height="100px"></td>
+		      	';
+		      }
+		      if(empty($row['travelauth'])){
+		      	echo '
+		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
+		      	';
+		      }
+		      else {
+		      	echo '
+		      	<td><img src="../../assets/img/'.$row['travelauth'].'" width="120px" height="100px"></td>
+		      	';
 		      }		      			  			    
 
 		      echo '
@@ -237,29 +193,35 @@
 		      }
 		      else{
 		      	echo '<td><p class="text-success">'.$row['timeout'].'</p></td>';
-=======
->>>>>>> parent of 3ffc982 (new ui)
 		      }
-		      if(empty($row['medcert'])){
+
+		      echo '
+		      <td>'.$row['reason'].'</td>
+		      <td>'.$row['temp'].'</td>
+		      <td><b>'.$row['status'].'</b></td>
+		      <td>'.$row['point'].'</td>
+		      <td>'.$row['addressto'].'</td>';
+
+		      //addressto portion VVVVVVVVVVV
+		      if(empty($row['addressto2'])){
 		      	echo '
 		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
 		      	';
 		      }
-		      else {
+		      else{
 		      	echo '
-		      	<td><img src="../../assets/img/'.$row['medcert'].'" width="120px" height="100px"></td>
+		      	<td>'.$row['addressto2'].'</td>
 		      	';
 		      }
-		      if(empty($row['travelauth'])){
+		      if(empty($row['addressto3'])){
 		      	echo '
 		      	<td><p class="text-danger"> <i class="fas fa-times"></i> Empty</p></td>
 		      	';
 		      }
-		      else {
+		      else{
 		      	echo '
-		      	<td><img src="../../assets/img/'.$row['travelauth'].'" width="120px" height="100px"></td>
+		      	<td>'.$row['addressto3'].'</td>
 		      	';
-<<<<<<< HEAD
 		      }
 		      //addressto portion ^^^^^^^^^^^^
 		      echo '
@@ -269,14 +231,9 @@
 
 		      //important docus
 		          			  			    
-=======
-		      }		      			  			    
->>>>>>> parent of 3ffc982 (new ui)
 
 		      echo '
-		      <td>
-		      	<a class="btn btn-warning text-dark delete-object" delete-id="'.$row['rid'].'">Archive</a>
-		      </td>
+		      
 		    </tr>';
 			}
 		    ?>
@@ -332,7 +289,6 @@
 <script>
 //datatables
 $(document).ready(function() {
-<<<<<<< HEAD
 	 var table = $('#tblRecord').DataTable({
         orderCellsTop: true,
         fixedHeader: true,
@@ -340,15 +296,6 @@ $(document).ready(function() {
 		"bLengthChange": true,
 		"bInfo" : true,
 		"order": [[ 7, "desc" ]],
-=======
-    $('#tblRecord').dataTable( {
-    "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-	"bLengthChange": true,
-	"bInfo" : true,
-	"order": [[ 0, "desc" ]],
-    } );
-} );
->>>>>>> parent of 3ffc982 (new ui)
 
     });
 });
@@ -393,14 +340,13 @@ $(document).on('click', '.time2-object', function(){
     $.ajax({
 		url:'timeout.php',
 		method: "POST",
-		data:{rid:rid},
+		data:{pid:pid},
 		success:function(data){
 		  $('#timepicker').html(data);
 		  $('#addTime').modal('show');
 		}
     });
 });
-<<<<<<< HEAD
 //script for making person PUM
 $(document).on('click', '.edit3-object', function(){
     var pid = $(this).attr("edit3-id");
@@ -513,9 +459,3 @@ $(document).on('click','.smb1-object',function(){
 });
 
 </script>
-=======
-</script>
-<?php
-	include_once '../include/footer.php';
-?>
->>>>>>> parent of 3ffc982 (new ui)

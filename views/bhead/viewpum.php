@@ -23,7 +23,6 @@
 
 ?>
 <br>
-<<<<<<< HEAD
 
 
 <div class="table-responsive">
@@ -51,42 +50,6 @@
 			      <th style="max-width: 7rem;">Days of <br>Quarantine</th>
 
 			      <th>Action</th>
-=======
-<div class="container">
-	<center>
-	<a href="viewgroup" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
-	<br><br>
-	</center>
-	<div class="row">
-		<div class="card-header container-fluid bg-light">
-			<div clas="col-md-6 float-left">
-				<h1 class="display-4 text-dark"><i class="fas fa-address-book text-warning"></i> Listed PUMs</h1>
-				<a  type="button" href="personAdd" class="btn btn-success"><i class="far fa-plus-square"></i> Add Person</a>
-			</div>
-		</div>
-	</div>
-	<div class="row bg-light">
-		<div class="container table-responsive overflow-auto">
-			<!-- <td>
-				<label class="control-label text-dark" for="NewPass">Specific Barangay: </label>
-				<input type="text" id="search-barangay" placeholder="Search Barangay">
-			</td> -->
-
-			<table id="tblpeople" class="table table-hover compact nowrap table-bordered" cellspacing="0">
-			  <thead class="thead-light">
-			    <tr>
-			   	  <th scope="col">Person ID</th>
-			      <th scope="col">Full Name</th>
-			      <th scope="col">Gender</th>
-			      <th scope="col">Contact Number</th>
-			      <th scope="col">Address</th>
-			      <th scope="col">Listed By</th>
-			      <th scope="col">Barangay from</th>
-			      <th scope="col">Date Quarantined</th>
-			      <th scope="col">No. of Days in Quarantine</th>
-			      <th scope="col">Qarantined By</th>
-			      <th scope="col">Change Status</th>
->>>>>>> parent of 3ffc982 (new ui)
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -331,7 +294,7 @@ $(document).ready(function() {
 
     } );
 
-
+/** 
     // Setup - add a text input to each footer cell
     $('#tblpeople thead tr').clone(true).appendTo( '#tblpeople thead' );
     $('#tblpeople thead tr:eq(1) th').each( function (i) {
@@ -350,7 +313,6 @@ $(document).ready(function() {
 
 
     } );
-<<<<<<< HEAD
 	
 	//change Date1
 $(document).on('click', '.edit8-object', function(){
@@ -371,8 +333,6 @@ $(document).on('click', '.edit8-object', function(){
 		window.alert("Status update cancelled");
 	}
 });*/ 
-=======
->>>>>>> parent of 3ffc982 (new ui)
 } );
 </script>
 <?php

@@ -1,4 +1,4 @@
-<canvas id="myChart2" class="bg-transparent"></canvas>
+<canvas id="myChart2" class="bg-dark"></canvas>
 <script type="text/javascript">
 	var ctx = document.getElementById('myChart2').getContext('2d');
 	var chart = new Chart(ctx, {

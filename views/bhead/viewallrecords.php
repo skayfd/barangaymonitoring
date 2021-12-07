@@ -15,14 +15,40 @@
 	include_once '../../classes/record.php';
 
 	$record = new record($db);
+	
+	$record->search = isset($_GET['search']) ? $_GET['search']:"";
+
+	$page = isset($_GET['page']) ? $_GET['page']:"1";
+	if($page == "" || $page == "1"){
+		$page1 = 0;
+	}else{
+		$page1 = ($page*5)-5;
+	}
+
+	$record->page1 = $page1;
+	$stmt2 = $record->searchrec2(); //CHANGE
+	$count = $stmt2->rowCount();
+	$num = ceil($count/5);
 
 ?>
 <br>
 	<center><a href="viewgroup" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
 	<h1 class="display-4 text-light">All Records</h1></center>
+
+	<div class="position-static">
+	<form class="form-inline">
+	<input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" aria-label="Search" required>
+	<input class="form-control mr-sm-2" type="time" name="search" placeholder="Search" aria-label="Search" required>
+      <input class="form-control mr-sm-2" type="date" name="search" placeholder="Search" aria-label="Search" required>
+      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search &#128269;</button>
+    </form>
+</div>
+<?php
+$stmt = $record->searchrec();
+?>
 	<div class="card">
 		<br>
-		<table id="tblAllRec" class="table table-responsive table-light">
+		<table id="datarecord" class="table table-responsive table-light">
 		  <thead>
 		    <tr>
 		      <th scope="col">Person ID Number</th>
@@ -40,7 +66,7 @@
 		  </thead>
 		  <tbody>
 		  	<?php
-		  	$stmt = $record->readAllRecord();
+		  	$stmt = $record->searchrec2();
 		  	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		  	echo '
 		    <tr>
@@ -71,19 +97,22 @@
 		</table>&nbsp
 
 	</div>
-<br>
+
+<button><a href='viewallrecords.php'><div class='img-slider'>$x</div></a></button>
+
 <script>
 $(document).ready(function() {
-    $('#tblAllRec').dataTable( {
-    "aLengthMenu": [[10, 20, 40,-1], [10, 20, 40,"All"]],
-    "pageLength": 10,
+    $('#datarecord').dataTable( {
+    "aLengthMenu": [[5, 10, 20, 40,-1], [5, 10, 20, 40,"All"]],
+    "pageLength": 5,
 	"bLengthChange": true,
 	"bInfo" : true,
-	"order": [[ 2, "desc" ]]
+	"order": [[ 5, "desc" ]]
     } );
 
 } );
 </script>
+
 <?php
 	include_once '../include/footer.php';
 ?>

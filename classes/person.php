@@ -11,6 +11,7 @@
 		public $referral;
 		public $datequar;
 		public $quarantinedby;
+		public $personStatus;
 
 		public $brgycert;
 		public $healthdeclaration;
@@ -21,7 +22,7 @@
 		public $uid;
 		public $rid;
 
-
+		public $date;
 
 		public $conn;
 		private $tableName = 'person';
@@ -119,13 +120,12 @@
 			FROM person 
 			INNER JOIN user ON user.uid = person.uid
             INNER JOIN barangay ON barangay.referral = person.referral
-            WHERE person.personStatus = 'Covid Positive'";
+            WHERE person.personStatus = 'PUI'";
 			$stmt = $this->conn->prepare($query);
 			// $stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}
-<<<<<<< HEAD
 		function readallPUMbrgy(){
 			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus', DATEDIFF(CURRENT_DATE(), person.datequar) AS 'days', person.datequar AS 'datequar'
 			FROM person 
@@ -172,8 +172,6 @@
 			$stmt->execute();
 			return $stmt;
 		}
-=======
->>>>>>> parent of 3ffc982 (new ui)
 		function countPUM(){
 			$query = "SELECT count(person.pid) AS 'count'
 			FROM person 
@@ -186,12 +184,60 @@
 			$stmt->execute();
 			return $stmt;
 		}
+		function countRecoveredbrgy(){
+			$query = "SELECT count(person.pid) AS 'count'
+			FROM person 
+			INNER JOIN user ON user.uid = person.quarantinedby
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'Recovered' AND person.referral = ?
+			";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function countPUIbrgy(){
+			$query = "SELECT count(person.pid) AS 'count'
+			FROM person 
+			INNER JOIN user ON user.uid = person.quarantinedby
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'PUI' AND person.referral = ?
+			";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function countPUMbrgy(){
+			$query = "SELECT count(person.pid) AS 'count'
+			FROM person 
+			INNER JOIN user ON user.uid = person.quarantinedby
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'PUM' AND person.referral = ?
+			";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function countDeceasedbrgy(){
+			$query = "SELECT count(person.pid) AS 'count'
+			FROM person 
+			INNER JOIN user ON user.uid = person.quarantinedby
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'Deceased' AND person.referral = ?
+			";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
 		function countPUI(){
 			$query = "SELECT count(person.pid) AS 'count'
 			FROM person 
 			INNER JOIN user ON user.uid = person.quarantinedby
             INNER JOIN barangay ON barangay.referral = person.referral
-            WHERE person.personStatus = 'Covid Positive'
+            WHERE person.personStatus = 'PUI'
 			";
 			$stmt = $this->conn->prepare($query);
 			// $stmt->bindparam(1, $_SESSION['referral']);
@@ -215,7 +261,7 @@
 			FROM person 
 			INNER JOIN user ON user.uid = person.quarantinedby
             INNER JOIN barangay ON barangay.referral = person.referral
-            WHERE person.personStatus = 'Covid Positive'
+            WHERE person.personStatus = 'PUI'
             AND person.pid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->pid);
@@ -240,11 +286,11 @@
 			$this->contactno = $row['contactno'];
 			$this->daterecorded = $row['daterecorded'];
 			$this->address = $row['address'];
+			$this->personStatus = $row['personStatus'];
 			$this->pid = $row['pid'];
 
 			return true;
 		}
-<<<<<<< HEAD
 		function readspecPerson2(){
 			$query = "SELECT *, CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.address FROM person WHERE pid=?";
 			$stmt = $this->conn->prepare($query);
@@ -259,8 +305,6 @@
 			$stmt->execute();
 			return $stmt;
 		}
-=======
->>>>>>> parent of 3ffc982 (new ui)
 		function readPerBarangay(){
 			$query = "SELECT barangay.brgyname AS 'barname' FROM person
 			INNER JOIN user ON user.uid = person.uid
@@ -335,15 +379,7 @@
 		}
 
 		function personStatus2(){
-			$query = "UPDATE person SET personStatus='Cleared' WHERE pid=?";
-			$stmt = $this->conn->prepare($query);
-			$stmt->bindparam(1, $this->pid);
-
-			$stmt->execute();
-		}
-
-		function personStatus3(){
-			$query = "UPDATE person SET personStatus='COVID Positive', quarantinedby=?, datequar=? WHERE pid=?";
+			$query = "UPDATE person SET personStatus='Recovered', quarantinedby=?, datequar=? WHERE pid=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $_SESSION['uid']);
 			$stmt->bindparam(2, $this->datequar);
@@ -352,7 +388,22 @@
 			$stmt->execute();
 		}
 
-<<<<<<< HEAD
+		function personStatus3(){
+			$query = "UPDATE person SET personStatus='PUI', quarantinedby=?, datequar=? WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['uid']);
+			$stmt->bindparam(2, $this->datequar);
+			$stmt->bindparam(3, $this->pid);
+
+			$stmt->execute();
+		}
+		function personStatus4(){
+			$query = "UPDATE person SET personStatus='Deceased', quarantinedby=?, datequar=? WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['uid']);
+			$stmt->bindparam(2, $this->datequar);
+			$stmt->bindparam(3, $this->pid);
+
 			$stmt->execute();
 		}
 		function changeDatequar(){
@@ -364,8 +415,6 @@
 			$stmt->execute();
 			return true;
 		}
-=======
->>>>>>> parent of 3ffc982 (new ui)
 
 		function documentPic(){
 			$query = "SELECT pid, brgycert, healthdeclaration, medcert, travelauth
@@ -387,7 +436,6 @@
 			$stmt->execute();
 			return $stmt;
 		}
-<<<<<<< HEAD
 
 		function specPersonTrace($date, $pid){
 			$query = "SELECT GROUP_CONCAT(TIME(record.daterecorded)) AS 'dates', CONCAT(person.firstname,' ',person.lastname) AS 'Name', GROUP_CONCAT(record.pointoforigin) AS 'Origin', GROUP_CONCAT(record.addressto, record.addressto2, record.addressto3) AS 'Destination'
@@ -434,7 +482,5 @@
 				 return false;
 			 
 		 }
-=======
->>>>>>> parent of 3ffc982 (new ui)
 	}
 ?>

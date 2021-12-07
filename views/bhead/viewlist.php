@@ -30,7 +30,6 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
 	<div class="row bg-light">-->
 
 
@@ -44,14 +43,6 @@
                     </div>
                 </div>
             </div>
-=======
-	<div class="row bg-light">
-		<div class="container">
-			<!-- <td>
-				<label class="control-label text-dark" for="NewPass">Specific Barangay: </label>
-				<input type="text" id="search-barangay" placeholder="Search Barangay">
-			</td> -->
->>>>>>> parent of 3ffc982 (new ui)
 
 			<table id="tblpeople" class="table table-hover table-bordered" cellspacing="0">
 			  <thead>
@@ -84,18 +75,20 @@
 			      <td><b>'.$row['barfrom'].'</b></td>
 			      <td>'.$row['daterecorded'].'</td>
 			      <td>';
-			      if($row['personStatus'] == 'Cleared'){
-			      	echo '<p class="text-success"><b>CLEARED</b></p>';
+			      if($row['personStatus'] == 'Recovered'){
+			      	echo '<p class="text-success"><b>RECOVERED</b></p>';
 			      }
 			      elseif($row['personStatus'] == 'PUM'){
 			      	echo '<p class="text-warning"><b>PUM</b></p>';
 			      }
-			      elseif($row['personStatus'] == 'COVID Positive'){
+				  elseif($row['personStatus'] == 'Deceased'){
+					echo '<p class="text-dark"><b>DECEASED</b></p>';
+				  }
+			      elseif($row['personStatus'] == 'PUI'){
 			      	echo '<p class="text-danger"><b>POSITIVE</b></p>';
 			      }
 			      echo '</td>
 			      <td>
-<<<<<<< HEAD
 			      	';
 			      	if($row['personStatus'] == 'PUI'){
 			      		echo '
@@ -128,14 +121,6 @@
 						';
 					}					  
 					echo '</td></tr>';
-=======
-			      	<div class="btn-group" role="group" aria-label="Basic example">
-					  <input type="button" class="btn btn-success btn-sm edit-object" edit-id="'.$row['pid'].'" value="Add Record"/>
-					  <input type="button" class="btn btn-info btn-sm record-object" record-id="'.$row['pid'].'" value="View Records"/>
-					</div>			      			      	
-	      		  </td>	      		  
-			    </tr>';
->>>>>>> parent of 3ffc982 (new ui)
 			  }
 			echo '
 			  </tbody>
@@ -280,7 +265,6 @@
     </div>
   </div>
 </div>
-<<<<<<< HEAD
 <!--Datepicker for Trace-->
 <div class="modal fade" id="tracemodal" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -298,13 +282,10 @@
     </div>
   </div>
 </div>
-=======
->>>>>>> parent of 3ffc982 (new ui)
 
-<!-- Change Modal Width -->
+<!-- Change Modal Width of view record -->
 <style>
 .modal-lg {
-<<<<<<< HEAD
     max-width: 80%;
 }
 .modal {
@@ -317,12 +298,8 @@
 .modal .modal-fixed {
     position: fixed;
     background-color:white;
-=======
-    max-width: 130%;
->>>>>>> parent of 3ffc982 (new ui)
 }
 </style>
-
 <script>
 //script for APOR/PUM/PUI/LSI
 $(document).on('click', '.edit-object', function(){
@@ -338,7 +315,7 @@ $(document).on('click', '.edit-object', function(){
 		}
     });
 });
-//script for Resident
+//script for View Records
 $(document).on('click', '.record-object', function(){
     var pid = $(this).attr("record-id");
   
@@ -351,65 +328,19 @@ $(document).on('click', '.record-object', function(){
 		}
     });
 });
-
-
-// //script for marking PUI
-// $(document).on('click', '.edit3-object', function(){
-//     var pid = $(this).attr("edit3-id");
-// 	var r = confirm("Are you sure you want to update the status?");
-// 	if (r == true) {
-//     $.ajax({
-// 		url:'statusClick.php',
-// 		method: "POST",
-// 		data:{pid:pid},
-// 		success:function(data){
-// 		  window.location.reload();
-// 		  alert("Status Updated");
-// 		}
-//     });}
-// 	else{
-// 		window.alert("Status update cancelled");
-// 	}
-// });
-// //script for marking changing to resident
-// $(document).on('click', '.edit4-object', function(){
-//     var pid = $(this).attr("edit4-id");
-// 	var r = confirm("Are you sure you want to update the status?");
-// 	if (r == true) {
-//     $.ajax({
-// 		url:'statusClick2.php',
-// 		method: "POST",
-// 		data:{pid:pid},
-// 		success:function(data){
-// 		  window.location.reload();
-// 		  alert("Status Updated");
-// 		}
-//     });}
-// 	else{
-// 		window.alert("Status update cancelled");
-// 	}
-// });
-// //script for marking resident as a COVID positive patient
-// $(document).on('click', '.edit5-object', function(){
-//     var pid = $(this).attr("edit5-id");
-// 	var r = confirm("Are you sure you want to update the status?");
-// 	if (r == true) {
-//     $.ajax({
-// 		url:'statusClick3.php',
-// 		method: "POST",
-// 		data:{pid:pid},
-// 		success:function(data){
-// 		  window.location.reload();
-// 		  alert("Status Updated");
-// 		}
-//     });}
-// 	else{
-// 		window.alert("Status update cancelled");
-// 	}
-// });
-
-
-
+//script for tracing date
+$(document).on('click', '.trace-object', function(){
+    var pid = $(this).attr("trace-id");
+  
+    $.ajax({
+		url:'tracedate.php',
+		data:{pid:pid},
+		success:function(data){
+		  $('#addRecordContent3').html(data);
+		  $('#tracemodal').modal('show');
+		}
+    });
+});
 
 //script for archiving person
 $(document).on('click', '.a-object', function(){
@@ -435,11 +366,7 @@ $(document).ready(function() {
 	 var table = $('#tblpeople').DataTable( {
         orderCellsTop: true,
         fixedHeader: true,
-<<<<<<< HEAD
         "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
-=======
-        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
->>>>>>> parent of 3ffc982 (new ui)
 		"bLengthChange": true,
 		"bInfo" : true,
 		"order": [[ 7, "desc" ]],
