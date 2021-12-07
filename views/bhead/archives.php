@@ -11,6 +11,7 @@
 		if($_SESSION['status'] == 1){ header("Location: views/request/reqhome"); }
 	}
 	include_once '../include/header.php';
+	include_once '../include/sidebar/archives.php';
 	include_once '../../classes/barangay.php';
 	include_once '../../classes/record.php';
 	include_once '../../classes/person.php';

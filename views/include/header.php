@@ -24,8 +24,13 @@
 				<script src="../../assets/bootbox/bootbox.min.js"></script>
 				<script src="../../assets/bootbox/bootbox.locales.min.js"></script>
 
+				
+
 				<link rel="stylesheet" href="../../assets/bootstrap/4.3.1/css/bootstrap.min.css">
 				<link rel="stylesheet" href="../../assets/font-awesome/css/all.min.css">
+				<link rel="stylesheet" href="../../assets/dashboard.css">
+				<link rel="stylesheet" href="../../assets/tblstyle.css">
+				<link rel="stylesheet" href="../assets/feather.min.js">
 
 				<!--Datatables-->
 				<link rel="stylesheet" type="text/css" href="../../assets/dataTables/datatables/css/jquery.dataTables.css">
@@ -38,6 +43,10 @@
       			<!--FAVICON-->
       			<link rel="icon" href="../../assets/img/favicon.ico" type="image/ico">
 
+<<<<<<< HEAD
+				 ';
+        
+=======
 				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 				  <a class="navbar-brand" href="../../index">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +75,7 @@
 
 				</nav>
 				';
+>>>>>>> parent of 3ffc982 (new ui)
 				}
 				else {
 				echo '
@@ -401,11 +411,16 @@
 			<script src="../assets/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 			<link rel="stylesheet" href="../assets/bootstrap/4.3.1/css/bootstrap.min.css">
 			<link rel="stylesheet" href="../assets/font-awesome/css/all.min.css">
+			
 			<script src="../assets/sweetalert/sweetalert.min.js"></script>
 
 			
 
+<<<<<<< HEAD
+			<!--<nav class="navbar navbar-expand-lg " style="background: #05246C;">
+=======
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+>>>>>>> parent of 3ffc982 (new ui)
 			  <a class="navbar-brand" href="../index.php">Barangay Monitoring <span class="badge badge-secondary">MSAPOR</span></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
@@ -415,8 +430,8 @@
 			      <li class="nav-item">
 			        <a class="nav-link" href="../index.php">HOME<span class="sr-only">(current)</span></a>
 			      </li>
-			      <li class="nav-item">
-			        <!-- EMPTY LINK SPACE -->
+			      <li class="nav-item"> -->
+			        <!-- EMPTY LINK SPACE
 			      </li>
 			    </ul>
 			  </div>
@@ -427,12 +442,98 @@
 				<div>
 					<a href="login" class="btn btn-outline-primary text-light"><i class="fas fa-sign-in-alt">&nbsp</i>Login</a>
 					<a href="regcapsec" class="btn btn-outline-success text-light"><i class="fas fa-file-signature">&nbsp</i>Sign Up</a>
-			</nav>
+			</nav>-->
 			';
 		}
 	?>
 
 	<title><?php echo $title; ?></title>
+<<<<<<< HEAD
+<!--<script>
+	$(document).ready(function(){
+    $('#search_text').keyup(function(){
+        var txt = $(this).val();
+        if(txt != '')
+        {
+            $.ajax({
+                url:"search2.php",
+                method:"POST",
+                data:{search:txt},
+                datatype:"text",
+                success:function(data)
+                {
+                    $('#result').html(data);
+                }
+            });
+        }
+        else
+        {
+            $('#result').html('');  
+        }
+    });
+	});
+</script>-->
+
+	<style>
+			.notification {
+			  background-color: #ff5100;
+			  color: white;
+			  text-decoration: none;
+			  padding: 15px 26px;
+			  position: relative;
+			  display: inline-block;
+			  border-radius: 2px;
+			}
+
+			.notification:hover {
+			  background: black;
+			}
+
+			.notification .badge {
+			  position: absolute;
+			  top: -10px;
+			  right: -10px;
+			  padding: 5px 10px;
+			  border-radius: 50%;
+			  background: white;
+			  color: black;
+			}
+
+			.notification2 {
+			  background-color: #b30c00;
+			  color: white;
+			  text-decoration: none;
+			  padding: 15px 26px;
+			  position: relative;
+			  display: inline-block;
+			  border-radius: 2px;
+			}
+
+			.notification2:hover {
+			  background: black;
+			}
+
+			.notification2 .badge {
+			  position: absolute;
+			  top: -10px;
+			  right: -10px;
+			  padding: 5px 10px;
+			  border-radius: 50%;
+			  background: white;
+			  color: black;
+			}
+            a:link, a:visited {
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            }
+            a:hover, a:active {
+            background-color: none;
+            }
+</style>
+
+=======
+>>>>>>> parent of 3ffc982 (new ui)
 	</head>
 	<!--TO HERE ANG AFFECTED AREAS(as for now)-->
 	<body style="background-color:#121212; color:#FFFFFF">

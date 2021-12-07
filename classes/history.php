@@ -28,6 +28,7 @@
 				return false;
 			}
 		}
+		
 		function readUserReq(){
 			$query = "SELECT * FROM user
 				WHERE type = 3 OR type = 4

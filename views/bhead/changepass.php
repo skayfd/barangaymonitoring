@@ -12,6 +12,7 @@
 	}
 
 	include_once '../include/header.php';
+	include_once '../include/sidebar/profile.php';
 	include_once '../../classes/user.php';
 
 	$user = new User($db);

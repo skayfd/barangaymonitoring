@@ -30,17 +30,73 @@
 		}
 	}
 ?>
-<div class="container">
-	<br><br>
-	<div class="row">
-		<div class="col-md-3">
-		</div>
-		<div class="col-md-6">
-			<div class="card text-white bg-secondary">
-			  <h4 class="card-header"><p class="fas fa-user-plus" style="font-size:50px;"></p> User Registration</h4>
-			  <div class="card-body">
-			    	<form method="POST" action="regcapsec" enctype="multipart/form-data">
-			    	<?php
+<style>
+	body {
+		color: #999;
+		background: #fafafa;
+		font-family: 'Roboto', sans-serif;
+	}
+	.form-control {
+		min-height: 41px;
+		box-shadow: none;
+		border-color: #e6e6e6;
+	}
+	.form-control:focus {
+		border-color: #00c1c0;
+	}
+	.form-control, .btn {        
+		border-radius: 3px;
+	}
+	.signup-form {
+		width: 800px;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+	.signup-form h2 {
+		color: #333;
+		font-weight: bold;
+		margin: 0 0 25px;
+	}
+	.signup-form form {
+		margin-bottom: 15px;
+		background: #fff;
+		border: 1px solid #f4f4f4;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+		padding: 40px 50px;
+	}
+	.signup-form .form-group {
+		margin-bottom: 20px;
+	}
+	.signup-form label {
+		font-weight: normal;
+		font-size: 14px;
+	}
+	.signup-form input[type="checkbox"] {
+		position: relative;
+		top: 1px;
+	}    
+	.signup-form .btn, .signup-form .btn:active {        
+		font-size: 16px;
+		font-weight: bold;
+		background: #00c1c0 !important;
+		border: none;
+		min-width: 140px;
+	}
+	.signup-form .btn:hover, .signup-form .btn:focus {
+		background: #00b3b3 !important;
+	}
+	.signup-form a {
+		color: #00c1c0;
+		text-decoration: none;
+	}	
+	.signup-form a:hover {
+		text-decoration: underline;
+	}
+</style>
+
+<div class="signup-form">
+	<form method="POST" action="regcapsec" enctype="multipart/form-data">
+					<?php
 			    		$user = new User($db);
 
 			    		if(isset($_POST['submit'])){
@@ -197,8 +253,8 @@
 							    				'<script type="text/javascript">
 										        	swal({ 
 										        		icon: "success",
-										        		title: "Account Created!",
-										        		text: "You may now use your account.",
+										        		title: "Successfully Register!",
+										        		text: "Please verify first your Email acount before you login.",
 										        	});
 											    </script>';
 											}
@@ -218,75 +274,72 @@
 			    		}
 			    		//end of if isset
 			    	?>
-				   		<div class="row">
-				   			<div class="col-md-12">
-							    <label class="col-form-label col-form-label-sm">First Name</label>
-							    <input type="text" name="firstname" class="form-control form-control-sm" pattern="[A-Za-z ]{3,}" title="3 or more letters required" placeholder="Enter your first name" value='<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>' required>
-				   			</div>
-				   		</div>
-				   		<div class="row">
-				   			<div class="col-md-12">
-				   				<label class="col-form-label col-form-label-sm">Middle Name</label>
-							    <input type="text" name="middlename" class="form-control form-control-sm" pattern="[A-Za-z ]{1,}" placeholder="Optional" value='<?php echo isset($_POST['middlename']) ? $_POST['middlename'] : '' ?>'>
-				   			</div>
-				   		</div>
-				   		<div class="row">
-				   			<div class="col-md-12">
-				   				<label class="col-form-label col-form-label-sm">Last Name</label>
-							    <input type="text" name="lastname" class="form-control form-control-sm" pattern="[A-Za-z\s]{3,}" title="3 or more letters required" placeholder="Enter your last name" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>' required>
-				   			</div>
-				   		</div>
-				   		<div class="row">
-				   			<div class="col-md-12">
-				   				<label class="col-form-label col-form-label-sm">Email</label>
-							    <input type="email" name="email" class="form-control form-control-sm" placeholder="Enter your email" value='<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>' required>
-				   			</div>
-				   		</div>
-				   		<div class="row">
-				   			<div class="col-md-12">
-				   				<label class="col-form-label col-form-label-sm">Barangay</label>
-							    <select class="form-control" name="referral" required>
-									<option selected></option>
-									<?php
-										$stmt = $barangay->readbar();
-										while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-											extract($row);
-											echo "
-											<option value='".$row['referral']."|".$row['bid']."'>".$row['brgyname']."</option>";
-										}
-									?>
-								</select>
-				   			</div>
-				   		</div>
-				   		<div class="row">
-				   			<div class="col-md-6">
-				   				<label class="col-form-label col-form-label-sm">Password</label>
-							    <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control form-control-sm" required>
-				   			</div>
-				   			<div class="col-md-6">
-				   				<label class="col-form-label col-form-label-sm">Confirm Password</label>
-							    <input type="password" name="passcon" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control form-control-sm"  required>
-				   			</div>
-				   		</div>&nbsp
-				   		<hr>
-				   		<p><small><i class="fas fa-exclamation-circle"></i><em> File must be an Image(jpg/png) and under 1MB</em></small></p>
-				   		<div class="row">
-				   			<div class="col-md-12">
-				   				<label class="col-form-label col-form-label-sm">Barangay ID</label>		
-				   				<input type="file" class="form-control-file" accept='image/*' name="barid" required>	
-				   			</div>
-				   		</div>
-
-				   		<br>
-				   		<input class="btn btn-primary" type="submit" name="submit" value="Register">
-			   		</form>
-			  </div>
+		<h2>Sign Up</h2>
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<input type="text" name="firstname" class="form-control" pattern="[A-Za-z ]{3,}" title="3 or more letters required" placeholder="Firstname" value='<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>' required>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<input type="text" name="middlename" class="form-control" pattern="[A-Za-z ]{1,}" placeholder="Middlename (Optional)" value='<?php echo isset($_POST['middlename']) ? $_POST['middlename'] : '' ?>'>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<input type="text" name="lastname" class="form-control" pattern="[A-Za-z\s]{3,}" title="3 or more letters required" placeholder="Lastname" value='<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>' required>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
+
+        <div class="form-group">
+			<input type="email" name="email" class="form-control" placeholder="Email" value='<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>' required>
+        </div>
+		<div class="form-group">
+			<label class="col-form-label col-form-label-sm">Barangay</label>
+			<select class="form-control" name="referral" required>
+				<option selected></option>
+					<?php
+						$stmt = $barangay->readbar();
+						while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+						extract($row);
+						echo "
+						<option value='".$row['referral']."|".$row['bid']."'>".$row['brgyname']."</option>";
+						}
+					?>
+			</select>
+        </div>
+
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<input type="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" required>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<input type="password" name="passcon" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control"  required>
+				</div>
+			</div>
 		</div>
-	</div>
+		<hr>       
+        <div class="form-group">
+		<label class="form-check-label"><a href="#"><p><small><i class="fas fa-exclamation-circle"></i><em> File must be an Image(jpg/png) and under 1MB</em></small></p></a></label>
+				<div class="row">
+				   	<div class="col-md-12">
+				   		<label class="col-form-label col-form-label-sm">Barangay ID</label>		
+				   		<input type="file" class="form-control-file" accept='image/*' name="barid" required>	
+				   	</div>
+				</div>
+		</div>
+		<div class="form-group">
+		<input class="btn btn-primary" type="submit" name="submit" value="Register">
+        </div>
+    </form>
+	<div class="text-center">Already have an account? <a href="login">Login here</a></div>
 </div>
+
 <?php
 	include_once "include/footer.php";
 ?>

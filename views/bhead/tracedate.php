@@ -22,36 +22,46 @@
 	$record = new Record($db);
 	$history = new History($db);
 
-	echo $_GET['pid'];
+	#echo $_GET['pid'];
 ?>
-<form target="_blank" method="POST" action="tracing?id=<?php echo $_GET['pid']; ?>"><!-- POSTS to tracing.php -->
-	
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label for="email">Date:</label>
-		</div>
-		<div class='col-sm-8'>
-		    <input type="text" class="form-control date" name="date" required>				    
-		</div>
-	</div>
-	<br>
-	<!-- <div class='row'>
-		<div class='col-sm-4'>
-			<label>Time: </label>
-		</div>
-		<div class='col-sm-8'>
-			<input id="timepicker1" type="time" class="form-control input-small without_ampm" name="time" required>
-		</div>
-	</div>
-	<br> -->
 
-	<div class="form-row float-right">
-		<div class="col-lg-12 mb-3">  
-		  <input type="submit" class="btn btn-success ml-2" name="save" value="Trace"/>
-		  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+<form target="_blank" action="tracing?id=<?php echo $_GET['pid']; ?>" method="GET">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="">From Date</label>
+				<input type="date" class="form-control" value="<?php if(isset($_GET['from_date'])){echo $_GET['from_date'];}else{}?>" name="from_date"  placeholder="From Date">
+				<input type="text" class="form-control" value="<?php echo $_GET['pid'];?>" name="id" hidden>
+			</div>
 		</div>
-  	</div>  
+		</div>
+		<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="">To Date</label>
+				<input type="date" class="form-control" value="<?php if(isset($_GET['to_date'])){echo $_GET['to_date'];}else{}?>" name="to_date" placeholder="To Date">
+			</div>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-2">
+			<div class="form-group">
+			<input type="submit" class="btn btn-success" name="save" value="Trace"/>
+			</div>
+		</div>
+	</div>
 </form>
+
+
+
+
+<style>
+.ui-datepicker {
+   background: #333;
+   border: 1px solid #555;
+   color: #EEE;
+}
+</style>
 <script>
 //datepicer script
 $(document).ready(function() {

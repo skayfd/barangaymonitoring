@@ -27,40 +27,41 @@ var $lineHeight;
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(30,40,'Republic of the Philippines',0,0,'C');
+        $this->Cell(30,70,'Republic of the Philippines',0,0,'C');
         $this->Ln(10);
         $this->Cell(80);
         $this->SetFont('Arial','B',19);
-        $this->Cell(30,40,$barangay->brgyname,0,0,'C');
+        $this->Cell(30,70,$barangay->brgyname,0,0,'C');
         $this->Ln(10);
         $this->Cell(80);
         $this->SetFont('Arial','',20);
-        $this->Cell(30,40,'OFFICE OF THE PUNONG BARANGAY',0,0,'C');
+        $this->Cell(30,70,'OFFICE OF THE PUNONG BARANGAY',0,0,'C');
         // Line break
         $this->Ln(10);
         $this->Cell(80);
-        $this->SetFont('Arial','B',19);
-        $this->Cell(30,60,'Number of Entries',0,0,'C');
+        $this->SetFont('Arial','B',20);
+        $this->Cell(30,70,'All Generated Report',0,0,'C');
         $this->Ln(10);
         $this->Cell(80);
-        $this->Cell(30,60,date('M/d/Y', strtotime($_POST['sDate'])).' - '.date('M/d/y', strtotime($_POST['eDate'])),0,0,'C');
+        $this->SetFont('Arial','',15);
+        $this->Cell(30,70,date('M d, Y', strtotime($_POST['sDate'])).' - '.date('M d, Y', strtotime($_POST['eDate'])),0,0,'C');
         $this->Ln(33);
     }
     function Header2()
     {
         // Logo
-        $this->Image('../../../assets/img/logo.png',90,6,30);
+        $this->Image('../../../assets/img/logo.png',85,1,40);
         // Arial bold 15
-        $this->SetFont('Arial','B',20);
+       // $this->SetFont('Arial','B',20);
         // Move to the right
-        $this->Cell(80);
+        //$this->Cell(80);
         // Title
-        $this->Cell(30,60,'',0,0,'C');
+        //$this->Cell(30,60,'',0,0,'C');
         // Line break
-        $this->Ln(10);
-        $this->Cell(80);
-        $this->Cell(30,70,'Placeholder Title',0,0,'C');
-        $this->Ln(33);
+       // $this->Ln(10);
+       // $this->Cell(80);
+        //$this->Cell(30,70,'Placeholder Title',0,0,'C');
+        //$this->Ln(33);
     }
     // Page footer
     function Footer()

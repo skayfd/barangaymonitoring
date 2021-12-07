@@ -17,13 +17,25 @@
     $db = $database->getConnection();
  
 	$person = new Person($db);
+	$record = new Record($db);
 if($_POST){
 	date_default_timezone_set("Asia/Manila");
 	$person->pid = $_POST['pid'];
 	$person->datequar = date("Y-m-d h:i:s");
- 
+
+	$record->reason = 'Changed Status to PUI';
+	$record->healthStatus = 'PUI';
+	$record->addressto2 = ' ';
+	$record->status = ' ';
+	$record->temp = '  ';
+	$record->pointoforigin = ' ';
+	$record->addressto = ' ';
+	$record->addressto3 = ' ';
+	$record->daterecorded = date("Y-m-d h:i:s");
+	$record->timeout1 = date("Y-m-d h:i:s ");
+	$record->pid = $_POST['pid'];
  
 	$person->personStatus3();
-
+	$record->createRecord();
 }
 ?>

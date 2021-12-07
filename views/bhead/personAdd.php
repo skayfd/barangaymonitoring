@@ -62,11 +62,11 @@
 <div class="container">
 	<div class="container">
 		<div class="container">
-			<center><a href="viewlist" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to List</a></center><br>
+			<br>
 			<form method="POST" action="personAdd" enctype="multipart/form-data">
-		      <div class="jumbotron bg-secondary">
-		      	<h1 class="display-4">Add Person</h1>
-		      	<p><small>* are shown as required.</small></p>
+		      <div>
+		      	<h2>Add Person</h2>
+		      	<p class="text-danger"><small>* are shown as required.</small></p>
 		      	<hr>
 				<div class="row">
 					<div class="col-md-4">

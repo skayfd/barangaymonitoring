@@ -18,6 +18,8 @@
 		public $rid;
 		public $pid;
 		public $uid;
+		public $healthStatus;
+		public $timeout1;
 
 		public $sDate;
 		public $eDate;
@@ -30,7 +32,7 @@
 			$this->conn=$db;
 		}
 		function createRecord(){
-			$query = "INSERT INTO record SET reason=?, status=?, temp=?, pointoforigin=?, addressto=?, addressto2=?, addressto3=?, daterecorded=?, pid=?, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, workingid=?, uid=?, archive=0";
+			$query = "INSERT INTO record SET reason=?, status=?, temp=?, pointoforigin=?, addressto=?, addressto2=?, addressto3=?, daterecorded=?, pid=?, brgycert=?, healthdeclaration=?, medcert=?, travelauth=?, workingid=?, uid=?, archive=0, healthStatus=?, timeout=?";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindparam(1, $this->reason);
 			$stmt->bindparam(2, $this->status);
@@ -47,7 +49,8 @@
 			$stmt->bindparam(13, $this->travelauth);
 			$stmt->bindparam(14, $this->workingid);
 			$stmt->bindparam(15, $_SESSION['uid']);
-
+			$stmt->bindparam(16, $this->healthStatus);
+			$stmt->bindparam(17, $this->timeout1);
 			if($stmt->execute()){
 				return true;
 			}
@@ -56,7 +59,11 @@
 			}
 		}
 		function readrelatedRecord(){
-			$query = "SELECT person.pid AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid'
+<<<<<<< HEAD
+			$query = "SELECT person.pid AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.healthStatus AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid', record.healthStatus AS 'healthStatus'
+=======
+			$query = "SELECT record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.status AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid'
+>>>>>>> parent of 3ffc982 (new ui)
 			FROM record
 			INNER JOIN user ON record.uid = user.uid
 			INNER JOIN person ON record.pid = person.pid
@@ -263,6 +270,13 @@
 
 			$stmt->execute();
 		}
+		function archivePersonRecords(){
+			$query = "UPDATE record SET archive=1 WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
+
+			$stmt->execute();
+		}
 		function archiveRelatedRecord(){
 			$query = "UPDATE record
 			INNER JOIN person on record.pid = person.pid
@@ -302,13 +316,13 @@
 			return $stmt;
 		}
 		function numPUI($sDate, $eDate, $referral){
-			$query = "SELECT COUNT(DISTINCT record.pid, 0) as 'number' 
+			$query = "SELECT COUNT(DISTINCT record.rid, 0) as 'number' 
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
 			WHERE
-			record.daterecorded BETWEEN '$sDate' AND '$eDate'
+			record.daterecorded BETWEEN '$sDate' AND '$eDate' 
+			AND record.healthStatus='PUI'
 			AND record.archive = 0 
-			AND record.status='PUI'
 			AND person.referral = '$referral'";
 			$stmt = $this->conn->prepare($query);
 
@@ -316,13 +330,41 @@
 			return $stmt;
 		}
 		function numPUM($sDate, $eDate, $referral){
-			$query = "SELECT COUNT(DISTINCT record.pid, 0) as 'number' 
+			$query = "SELECT COUNT(DISTINCT record.rid, 0) as 'number' 
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
 			WHERE
-			record.daterecorded BETWEEN '$sDate' AND '$eDate'
+			record.daterecorded BETWEEN '$sDate' AND '$eDate' 
+			AND record.healthStatus='PUM'
 			AND record.archive = 0 
-			AND record.status='PUM'
+			AND person.referral = '$referral'";
+			$stmt = $this->conn->prepare($query);
+
+			$stmt->execute();
+			return $stmt;
+		}
+		function numREC($sDate, $eDate, $referral){
+			$query = "SELECT COUNT(DISTINCT record.rid, 0) as 'number' 
+			FROM record
+			INNER JOIN person ON record.pid = person.pid
+			WHERE
+			record.daterecorded BETWEEN '$sDate' AND '$eDate' 
+			AND record.healthStatus='Recovered'
+			AND record.archive = 0 
+			AND person.referral = '$referral'";
+			$stmt = $this->conn->prepare($query);
+
+			$stmt->execute();
+			return $stmt;
+		}
+		function numDEC($sDate, $eDate, $referral){
+			$query = "SELECT COUNT(DISTINCT record.rid, 0) as 'number' 
+			FROM record
+			INNER JOIN person ON record.pid = person.pid
+			WHERE
+			record.daterecorded BETWEEN '$sDate' AND '$eDate' 
+			AND record.healthStatus='Deceased'
+			AND record.archive = 0 
 			AND person.referral = '$referral'";
 			$stmt = $this->conn->prepare($query);
 
@@ -330,7 +372,7 @@
 			return $stmt;
 		}
 		function numLSI($sDate, $eDate, $referral){
-			$query = "SELECT COUNT(DISTINCT record.pid, 0) as 'number' 
+			$query = "SELECT COUNT(DISTINCT record.rid, 0) as 'number' 
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
 			WHERE
@@ -344,7 +386,7 @@
 			return $stmt;
 		}
 		function numRES($sDate, $eDate, $referral){
-			$query = "SELECT COUNT(DISTINCT record.pid, 0) as 'number' 
+			$query = "SELECT COUNT(DISTINCT record.rid, 0) as 'number' 
 			FROM record
 			INNER JOIN person ON record.pid = person.pid
 			WHERE
@@ -357,15 +399,71 @@
 			$stmt->execute();
 			return $stmt;
 		}
-		function peopleStatus($sDate, $eDate, $referral){
-			$query = "SELECT DISTINCT(person.pid) AS 'pid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'datetimerecorded', record.reason AS 'reason',record.status AS 'status', person.address AS 'address'
-			FROM record
-			INNER JOIN person ON record.pid = person.pid
-		    WHERE
-		    record.daterecorded BETWEEN '$sDate' AND '$eDate'
+		function peopleStatusPUI($sDate, $eDate, $referral){
+			$query = "SELECT DISTINCT(person.pid) AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.healthStatus AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname1', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid', record.healthStatus AS 'healthStatus'
+			FROM person
+			INNER JOIN record ON record.pid = person.pid
+			INNER JOIN user ON record.uid = user.uid
+			WHERE
+            record.daterecorded BETWEEN '$sDate' AND '$eDate'
+            AND record.pid
 		    AND person.referral = '$referral'
 		    AND person.archive = 0
-		    ORDER BY record.daterecorded DESC
+			AND record.healthStatus = 'PUI'
+			ORDER BY record.daterecorded DESC
+		    ";
+		    $stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			return $stmt;
+		}
+		function peopleStatusPUM($sDate, $eDate, $referral){
+			$query = "SELECT DISTINCT(person.pid) AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.healthStatus AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname1', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid', record.healthStatus AS 'healthStatus'
+			FROM person
+			INNER JOIN record ON record.pid = person.pid
+			INNER JOIN user ON record.uid = user.uid
+			WHERE
+            record.daterecorded BETWEEN '$sDate' AND '$eDate'
+            AND record.pid
+		    AND person.referral = '$referral'
+		    AND person.archive = 0
+			AND record.healthStatus = 'PUM'
+			ORDER BY record.daterecorded DESC
+		    ";
+		    $stmt = $this->conn->prepare($query);
+
+			$stmt->execute();
+			return $stmt;
+		}
+		function peopleStatusREC($sDate, $eDate, $referral){
+			$query = "SELECT DISTINCT(person.pid) AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.healthStatus AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname1', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid', record.healthStatus AS 'healthStatus'
+			FROM person
+			INNER JOIN record ON record.pid = person.pid
+			INNER JOIN user ON record.uid = user.uid
+			WHERE
+            record.daterecorded BETWEEN '$sDate' AND '$eDate'
+            AND record.pid
+		    AND person.referral = '$referral'
+		    AND person.archive = 0
+			AND record.healthStatus = 'Recovered'
+			ORDER BY record.daterecorded DESC
+		    ";
+		    $stmt = $this->conn->prepare($query);
+
+			$stmt->execute();
+			return $stmt;
+		}
+		function peopleStatusDEC($sDate, $eDate, $referral){
+			$query = "SELECT DISTINCT(person.pid) AS 'pid', record.daterecorded AS 'date', record.timeout AS 'timeout', record.reason AS 'reason', record.temp AS 'temp', record.healthStatus AS 'status', record.pointoforigin AS 'point', record.addressto AS 'addressto', record.addressto2 AS 'addressto2', record.addressto3 AS 'addressto3', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'fullname1', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname2', record.rid, record.brgycert AS 'brgycert', record.healthdeclaration AS 'healthdecla', record.medcert AS 'medcert', record.travelauth AS 'travelauth', record.workingid AS 'workingid', record.healthStatus AS 'healthStatus'
+			FROM person
+			INNER JOIN record ON record.pid = person.pid
+			INNER JOIN user ON record.uid = user.uid
+			WHERE
+            record.daterecorded BETWEEN '$sDate' AND '$eDate'
+            AND record.pid
+		    AND person.referral = '$referral'
+		    AND person.archive = 0
+			AND record.healthStatus = 'Deceased'
+			ORDER BY record.daterecorded DESC
 		    ";
 		    $stmt = $this->conn->prepare($query);
 

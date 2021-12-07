@@ -12,11 +12,146 @@
 	}
 
 	include_once '../include/header.php';
+	include_once '../include/sidebar/viewpui.php';
 	include_once '../../classes/person.php';
 	include_once '../../classes/barangay.php';
 
 	$person = new Person($db);
 	$barangay = new Barangay($db);
+<<<<<<< HEAD
+	$record = new record($db);
+
+	
+	
+
+?>
+<br>
+
+<div class="card bg-light mb-3" >
+  <div class="card-header">
+
+		<form action="" method="GET">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="">From Date</label>
+						<input type="date" class="form-control" value="<?php if(isset($_GET['from_date'])){echo $_GET['from_date'];}else{}?>" name="from_date"  placeholder="From Date">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="">To Date</label>
+						<input type="date" class="form-control" value="<?php if(isset($_GET['to_date'])){echo $_GET['to_date'];}else{}?>" name="to_date" placeholder="To Date">
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+					<label for="">...</label>
+					<button type="submit" class="form-control btn btn-primary btn-sm">Trace</button>
+					</div>
+				</div>
+			</div>
+		</form>
+  
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+	
+	<table class="table table-striped" id="tableData">
+        <thead>
+          <tr>
+		  <th scope="col">ID</th>
+					<th scope="col">Full Name</th>
+					<th scope="col">Date Recorded</th>
+					<th scope="col">Barangay Recorded In</th>
+					<th scope="col">Address</th>
+					<th scope="col">Point of Origin</th>
+					<th scope="col">Destination</th>
+					<th scope="col">Contact Number</th>
+					<th scope="col">Reason</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+			<?php
+				if(isset($_GET['from_date']) && isset($_GET['to_date']))
+				{
+					if(strtotime($_GET['from_date']) < strtotime($_GET['to_date']))
+					{
+
+					
+					$from_date = $_GET['from_date'];
+	    			$to_date   = $_GET['to_date'];
+					
+					// Create database connection 
+					$con = mysqli_connect("localhost","root", "","monitoring"); 
+					
+					$query = "SELECT person.pid AS 'personid', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', record.daterecorded AS 'daterecorded', record.timeout AS 'tout', record.reason AS 'reason', record.status AS 'status', person.contactno AS 'contactno', record.pointoforigin AS 'porigin', record.addressto AS 'destination', person.address AS 'address', person.gender AS 'gender', barangay.brgyname AS 'barname' FROM record INNER JOIN person ON record.pid = person.pid INNER JOIN user ON user.uid = record.uid INNER JOIN barangay ON barangay.referral = user.referral WHERE record.pointoforigin != ' '  AND record.daterecorded BETWEEN '$from_date' AND '$to_date'";
+					$query_run = mysqli_query($con, $query);
+					if(mysqli_num_rows($query_run) > 0)
+					{
+						foreach($query_run as $row)
+						{
+							?>
+								<?php
+									
+									echo '
+									<tr>
+									<th>'.$row['personid'].'</th>
+									<td>'.$row['fullname'].'</td>
+									<td>'.$row['daterecorded'].'</td>
+									
+									<td>'.$row['barname'].'</td>
+									<td>'.$row['address'].'</td>
+									<td>'.$row['porigin'].'</td>
+									<td>'.$row['destination'].'</td>
+									<td>'.$row['contactno'].'</td>
+									<td>'.$row['reason'].'</td>
+									<td>'.$row['status'].'</td>
+									<td>
+										<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['personid'].'" value="Mark as PUM"/>	
+									</td>
+									</tr>';
+									
+									?>
+									
+							<?php
+						}
+					}
+					else
+					{
+						echo "<div class='alert alert-danger' role='alert'>
+								No Record Found!
+							</div>";
+					}
+					}
+					else
+					{
+						echo "<div class='alert alert-danger' role='alert'>
+								Please Correct your date!
+							</div>";
+					}
+				}	
+			?>
+        </tbody>
+      </table>
+
+	</div>
+</div>
+
+
+<div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h1><b>PUI</b></h1></div>
+                    
+                </div>
+            </div>
+
+			<table id="tblpeople" class="table table-responsive table-light table-hover compact nowrap table-bordered" cellspacing="0">
+=======
 
 ?>
 <br>
@@ -41,6 +176,7 @@
 			</td> -->
 
 			<table id="tblpeople" class="table table-hover compact nowrap table-bordered" cellspacing="0">
+>>>>>>> parent of 3ffc982 (new ui)
 			  <thead class="thead-light">
 			    <tr>
 			   	  <th scope="col">Person ID</th>
@@ -82,8 +218,13 @@
 			      }
 	      		  echo '
 	      		  <td>
+<<<<<<< HEAD
+					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/>
+					
+=======
 					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/><hr>
 					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$row['pid'].'" value="Change status to Cleared"/>
+>>>>>>> parent of 3ffc982 (new ui)
 				  </td>
 			    </tr>';
 			  }
@@ -229,7 +370,18 @@ $(document).ready(function() {
 		"bLengthChange": true,
 		"bInfo" : true,
 		"order": [[ 7, "desc" ]],
-		"sDom":"ltipr"
+		
+    } );
+} );
+$(document).ready(function() {
+	 var table = $('#tableData').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+		"bLengthChange": true,
+		"bInfo" : true,
+		"order": [[ 7, "desc" ]],
+		
     } );
 
 

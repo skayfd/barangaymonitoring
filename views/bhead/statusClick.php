@@ -17,13 +17,28 @@
     $db = $database->getConnection();
  
 	$person = new Person($db);
+	$record = new Record($db);
+	$history = new History($db);
 if($_POST){
 	date_default_timezone_set("Asia/Manila");
 	$person->pid = $_POST['pid'];
  	$person->datequar = date("Y-m-d h:i:s");
 
+	$record->reason = 'Changed Status to PUM';
+	$record->healthStatus = 'PUM';
+	$record->addressto2 = ' ';
+	$record->status = ' ';
+	$record->temp = '  ';
+	$record->pointoforigin = ' ';
+	$record->addressto = ' ';
+	$record->addressto3 = ' ';
+	$record->daterecorded = date("Y-m-d h:i:s");
+	$record->timeout1 = date("Y-m-d h:i:s ");
+	$record->pid = $_POST['pid'];
+
 
 	$person->personStatus();
-    
+	$bt=$record->createRecord();
+	
 }
 ?>

@@ -21,7 +21,7 @@
 		public $uid;
 		public $rid;
 
-		public $date;
+
 
 		public $conn;
 		private $tableName = 'person';
@@ -54,6 +54,33 @@
 				return false;
 			}
 		}
+		function createPUM(){
+			$query = "INSERT INTO person SET daterecorded=?, firstname=?, middlename=?, lastname=?, gender=?, contactno=?, address=?, referral=?, archive=0, personstatus=?, datequar=?,quarantinedby=?, uid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->daterecorded);
+			$stmt->bindparam(2, $this->firstname);
+			$stmt->bindparam(3, $this->middlename);
+			$stmt->bindparam(4, $this->lastname);
+			$stmt->bindparam(5, $this->gender);
+			$stmt->bindparam(6, $this->contactno);
+			$stmt->bindparam(7, $this->address);
+			$stmt->bindparam(8, $_SESSION['referral']);
+			$stmt->bindparam(9, $this->personStatus);
+			$stmt->bindparam(10, $this->datequar);
+			// $stmt->bindparam(9, $this->brgycert);
+			// $stmt->bindparam(10, $this->healthdeclaration);
+			// $stmt->bindparam(11, $this->medcert);
+			// $stmt->bindparam(12, $this->travelauth);
+			$stmt->bindparam(11, $_SESSION['uid']);
+			$stmt->bindparam(12, $_SESSION['uid']);
+
+			if($stmt->execute()){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 
 		function readallpeople(){
 			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus'
@@ -62,6 +89,17 @@
             INNER JOIN barangay ON barangay.referral = person.referral";
 			$stmt = $this->conn->prepare($query);
 			// $stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readallpeople2(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus'
+			FROM person 
+			INNER JOIN user ON user.uid = person.uid
+            INNER JOIN barangay ON barangay.referral = person.referral
+			WHERE person.referral = ? AND person.archive != 1";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
 			$stmt->execute();
 			return $stmt;
 		}
@@ -87,6 +125,55 @@
 			$stmt->execute();
 			return $stmt;
 		}
+<<<<<<< HEAD
+		function readallPUMbrgy(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus', DATEDIFF(CURRENT_DATE(), person.datequar) AS 'days', person.datequar AS 'datequar'
+			FROM person 
+			INNER JOIN user ON user.uid = person.uid
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'PUM' AND person.referral = ?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readallPUIbrgy(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus', DATEDIFF(CURRENT_DATE(), person.datequar) AS 'days', person.datequar AS 'datequar'
+			FROM person 
+			INNER JOIN user ON user.uid = person.uid
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'PUI'  AND person.referral = ?";
+			
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			//$stmt->bindparam(2, date("Y-m-d"));
+			$stmt->execute();
+			return $stmt;
+		}
+		function readallDeceasedbrgy(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus', DATEDIFF(CURRENT_DATE(), person.datequar) AS 'days', person.datequar AS 'datequar'
+			FROM person 
+			INNER JOIN user ON user.uid = person.uid
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'Deceased' AND person.referral = ?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+		function readallRecoveredbrgy(){
+			$query = "SELECT person.daterecorded AS 'daterecorded', CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.gender AS 'gender', person.contactno AS 'contactno', person.address AS 'address', CONCAT(user.firstname,' ',user.middlename,' ',user.lastname) AS 'addedby', person.pid AS 'pid', barangay.brgyname AS 'barfrom', person.personStatus AS 'personStatus', DATEDIFF(CURRENT_DATE(), person.datequar) AS 'days', person.datequar AS 'datequar'
+			FROM person 
+			INNER JOIN user ON user.uid = person.uid
+            INNER JOIN barangay ON barangay.referral = person.referral
+            WHERE person.personStatus = 'Recovered' AND person.referral = ?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $_SESSION['referral']);
+			$stmt->execute();
+			return $stmt;
+		}
+=======
+>>>>>>> parent of 3ffc982 (new ui)
 		function countPUM(){
 			$query = "SELECT count(person.pid) AS 'count'
 			FROM person 
@@ -136,7 +223,7 @@
 			return $stmt;
 		}
 		function readspecPerson($pid){
-			$query = "SELECT * FROM person WHERE pid='$pid'";
+			$query = "SELECT *, CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname' FROM person WHERE pid='$pid'";
 			$stmt = $this->conn->prepare($query);
 			// $stmt->bindparam(1, $this->pid);
 
@@ -144,6 +231,8 @@
 		
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+			$this->fullname = $row['fullname'];
 			$this->firstname = $row['firstname'];
 			$this->middlename = $row['middlename'];
 			$this->lastname = $row['lastname'];
@@ -155,6 +244,23 @@
 
 			return true;
 		}
+<<<<<<< HEAD
+		function readspecPerson2(){
+			$query = "SELECT *, CONCAT(person.firstname,' ',person.middlename,' ',person.lastname) AS 'fullname', person.address FROM person WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
+			$stmt->execute();
+			return $stmt;
+		}
+		function info(){
+			$query = "SELECT * from person where pid =?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1,$this->pid);
+			$stmt->execute();
+			return $stmt;
+		}
+=======
+>>>>>>> parent of 3ffc982 (new ui)
 		function readPerBarangay(){
 			$query = "SELECT barangay.brgyname AS 'barname' FROM person
 			INNER JOIN user ON user.uid = person.uid
@@ -246,6 +352,21 @@
 			$stmt->execute();
 		}
 
+<<<<<<< HEAD
+			$stmt->execute();
+		}
+		function changeDatequar(){
+			$query = "UPDATE person SET datequar=? WHERE pid=?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->datequar);
+			$stmt->bindparam(2, $this->pid);
+
+			$stmt->execute();
+			return true;
+		}
+=======
+>>>>>>> parent of 3ffc982 (new ui)
+
 		function documentPic(){
 			$query = "SELECT pid, brgycert, healthdeclaration, medcert, travelauth
 				FROM person
@@ -255,18 +376,29 @@
 
 			$stmt->execute();
 			return $stmt;
+		} 
+		function selectHS(){
+			$query = "SELECT personStatus
+				FROM person
+    			WHERE pid = ?";
+			$stmt = $this->conn->prepare($query);
+			$stmt->bindparam(1, $this->pid);
+
+			$stmt->execute();
+			return $stmt;
 		}
+<<<<<<< HEAD
 
 		function specPersonTrace($date, $pid){
 			$query = "SELECT GROUP_CONCAT(TIME(record.daterecorded)) AS 'dates', CONCAT(person.firstname,' ',person.lastname) AS 'Name', GROUP_CONCAT(record.pointoforigin) AS 'Origin', GROUP_CONCAT(record.addressto, record.addressto2, record.addressto3) AS 'Destination'
 				FROM person
 			    LEFT JOIN record ON record.pid = person.pid
 			    WHERE DATE(record.daterecorded) = '$date'
-				AND person.pid = '$pid'
+				AND person.pid = '$pid' 
 			    GROUP BY DATE(record.daterecorded)";
 			$stmt = $this->conn->prepare($query);
-			// $stmt->bindparam(1, $this->date);
-			// $stmt->bindparam(2, $this->pid);
+			//$stmt->bindparam(1, $this->date);
+			//$stmt->bindparam(2, $this->pid);
 
 			$stmt->execute();
 			return $stmt;
@@ -284,5 +416,25 @@
 			$stmt->execute();
 			return $stmt;
 		}
+		function updatequar(){
+ 
+			$query = "UPDATE person SET datequar = ? WHERE pid=?"; 
+			 $stmt = $this->conn->prepare($query); 
+			 // posted values 
+			 $this->datequar=htmlspecialchars(strip_tags($this->datequar));
+			 $this->pid=htmlspecialchars(strip_tags($this->pid));
+			 // bind parameters
+			 $stmt->bindParam(1, $this->datequar);
+			 $stmt->bindParam(3, $this->pid);
+			 // execute the query
+			 if($stmt->execute())
+				 
+				 return true;
+			 else
+				 return false;
+			 
+		 }
+=======
+>>>>>>> parent of 3ffc982 (new ui)
 	}
 ?>

@@ -11,6 +11,7 @@
 		if($_SESSION['status'] == 1){ header("Location: views/request/reqhome"); }
 	}
 	include_once '../include/header.php';
+	include_once '../include/sidebar/officials.php';
 	include_once '../../classes/barangay.php';
 
 	$barangay = new Barangay($db);
@@ -18,6 +19,13 @@
 
 ?>
 <br>
+<<<<<<< HEAD
+
+	<h2 class="text-dark">Barangay Staff</h2>
+	
+
+		<div class="col-md-12 bg-light"><br>
+=======
 <div class="container">
 	<center>
 	<a href="viewgroup?id=
@@ -34,15 +42,16 @@
 		<div class="col-md-1">
 		</div>
 		<div class="col-md-10 bg-light"><br>
+>>>>>>> parent of 3ffc982 (new ui)
 		<?php		
 		echo '
 		<table id="peopleIn" class="table table-light">
 		  <thead class="thead-dark">
 		    <tr>
 		      <th scope="col">Profile Picture</th>
-		      <th scope="col">Barangay ID</th>
 		      <th scope="col">Name</th>
 		      <th scope="col">Email Address</th>
+			  <th scope="col">Barangay ID</th>
 		      <!--<th scope="col">Actions</th>-->
 		    </tr>
 		  </thead>
@@ -56,19 +65,20 @@
 		      <td>';
 		      if($row['profilepic'] == ''){
 		      	echo '
-		      	<i class="fas fa-user text-dark" style="font-size:150px;"></i>
+		      	<i class="fas fa-user text-dark" style="font-size:100px;"></i>
 		      	';
 		      }
 		      else {
 		      	echo '
-		      	<img src="../../assets/img/'.$row['profilepic'].'" width="150px" height="150px">
+		      	<img src="../../assets/img/'.$row['profilepic'].'" width="100px" height="100px">
 		      	';
 		      }
 		      echo '
-		      </td>
-		      <th scope="row"><img class="img-fluid" src="../../assets/img/'.$row['barid'].'" width="150px" height="150px"></th>
-		      <th scope="row">'.$row['fullname'].'</th>
+			  <td scope="row">'.$row['fullname'].'</td>
 		      <td>'.$row['email'].'</td>
+		      </td>
+		      <th scope="row"><img class="img-fluid" src="../../assets/img/'.$row['barid'].'" width="100px" height="100px"></th>
+		      
 		      <!--<td></td>-->
 		    </tr>
 		  </tbody>';
@@ -77,11 +87,16 @@
 		</table>';
 		?><br>
 		</div>
+<<<<<<< HEAD
+
+<!-- MODAL 
+=======
 		<div class="col-md-1">
 		</div>
 	</div><br>
 </div>
 <!-- MODAL -->
+>>>>>>> parent of 3ffc982 (new ui)
 <div class="modal fade" id="addRecord" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

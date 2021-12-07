@@ -12,14 +12,46 @@
 	}
 
 	include_once '../include/header.php';
+	include_once '../include/sidebar/viewpum.php';
 	include_once '../../classes/person.php';
 	include_once '../../classes/barangay.php';
+	include_once '../../classes/record.php';
 
 	$person = new Person($db);
 	$barangay = new Barangay($db);
+	$record = new Record($db);
 
 ?>
 <br>
+<<<<<<< HEAD
+
+
+<div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h1><b>PUM</b></h1></div>
+                    <div class="col-sm-4">
+                        
+						</div>
+                </div>
+            </div>
+
+			<table id="tblpeople" class="table table-bordered" >
+			  <thead>
+			    <tr>
+			   	  <th style="width: 20px;">ID</th>
+			      <th>Full Name</th>
+			      <th>Gender</th>
+			      <th>Contact Number</th>
+			      <th>Address</th>
+			      <th>Listed By</th>
+			      <th>Point of<br>Origin</th>
+			      <th>Date Quarantined</th>
+			      <th style="max-width: 7rem;">Days of <br>Quarantine</th>
+
+			      <th>Action</th>
+=======
 <div class="container">
 	<center>
 	<a href="viewgroup" class="btn btn-danger btn-sm"><i class="fas fa-long-arrow-alt-left"></i> Back to Group Panel</a>
@@ -54,6 +86,7 @@
 			      <th scope="col">No. of Days in Quarantine</th>
 			      <th scope="col">Qarantined By</th>
 			      <th scope="col">Change Status</th>
+>>>>>>> parent of 3ffc982 (new ui)
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -63,18 +96,38 @@
 				extract($row);
 				echo '
 			    <tr>
-			      <th scope="row"><center>'.$row['pid'].'<br><a href="genId?id='.$row['pid'].'" target="_blank" class="btn btn btn-warning btn-sm"><i class="far fa-id-badge"></i> Create ID</a></center></th>
-			      <td>'.$row['fullname'].'</td>
+			      <td>'.$row['pid'].'</td>
+				  <td>'.$row['fullname'].'</td>
 			      <td>'.$row['gender'].'</td>
 			      <td>'.$row['contactno'].'</td>
 			      <td>'.$row['address'].'</td>
 			      <td>'.$row['addedby'].'</td>
 			      <td><b>'.$row['barfrom'].'</b></td>
-			      <td>'.$row['datequar'].'</td>
+			      <td>'.$row['datequar'].'
+				  <a class="btn btn-sm btn-dark" href="editdatequar.php?pid='. $row['pid'] .'" title="Update Record" data-toggle="tooltip"><span data-feather="edit"></span></a></td>
 			      <td>';
 			      //number of days quarantined
 			      if($row['days'] >= 14){
+					date_default_timezone_set("Asia/Manila");
+					$person->pid = $row['pid'];
+					$person->datequar = date("Y-m-d h:i:s");
+					
+					$record->reason = 'Changed Status to Recovered';
+					$record->healthStatus = 'Recovered';
+					$record->addressto2 = ' ';
+					$record->status = ' ';
+					$record->temp = '  ';
+					$record->pointoforigin = ' ';
+					$record->addressto = ' ';
+					$record->addressto3 = ' ';
+					$record->daterecorded = date("Y-m-d h:i:s");
+					$record->timeout1 = date("Y-m-d h:i:s ");
+					$record->pid = $row['pid'];
+
+					$person->personStatus2();
+					$record->createRecord();
 			      	echo '<p class="text-success"><b>Finished Self Quarantine</b></p>';
+
 			      }
 			      else {
 			      	echo "<center><b><p class='text-info'>".$row['days']."</p></b></center>";
@@ -84,38 +137,33 @@
 			      $stmt2 = $person->readQuarBy();
 			      while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
 			      	extract($row2);
-			      	echo '
-			      	<td>'
-				    	.$row2['quarby']. 	
-		      		'</td>';
+			      	
 			      }
 
 	      		  echo '
 	      		  <td>
-					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$row['pid'].'" value="Change status to Cleared"/><hr>
-					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$row['pid'].'" value="Mark as Covid Positive"/>
-				  </td>
+					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$row['pid'].'" value="Mark as Positive"/>
+					</td>
 			    </tr>';
 			  }
 			echo '
 			  </tbody>
 			</table>';
 			?>
-			
-			<br>
+
 		</div>
 	</div><br>
-</div>
+<!--<input type="button" class="btn btn-secondary btn-sm time2-object" time2-id="'.$row['pid'].'" value="Change Date"/>-->
 <!--ADD RECORD for APOR/PUM/PUI/LSI MODAL-->
 <div class="modal fade" id="addRecord" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header bg-secondary">
+      <div class="modal-header">
         <h5 class="modal-title" id="addRecordLabel">Add Record</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
 
-      <div class="modal-body bg-secondary" id="addRecordContent">
+      <div class="modal-body" id="addRecordContent">
 		
       </div>
 
@@ -140,7 +188,34 @@
     </div>
   </div>
 </div>
+<!--datepicker for change date-
+<div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title" id="addRecordLabel"> Change Date</h5>
+      </div>
+      <div class="modal-body bg-white" id="addRecordContent3">
+		
+      </div>
+    </div>
+  </div>
+</div>-->
+<!--MODAL for Timepickert-->
+<div class="modal fade" id="addTime" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title" id="addRecordLabel">Change Date</h5>
+      </div>
+      <div class="modal-body bg-white" id="timepicker">
 
+      </div>
+
+
+    </div>
+  </div>
+</div>
 
 
 <script>
@@ -149,7 +224,7 @@ $(document).on('click', '.edit-object', function(){
     var pid = $(this).attr("edit-id");
   
     $.ajax({
-		url:'addRecord.php',
+		url:'viewpppum.php',
 		method: "POST",
 		data:{pid:pid},
 		success:function(data){
@@ -227,6 +302,20 @@ $(document).on('click', '.edit5-object', function(){
 	}
 });
 
+//script for time change
+$(document).on('click', '.time2-object', function(){
+    var pid = $(this).attr("time2-id");
+  
+    $.ajax({
+		url:'changeDatequar.php',
+		method: "POST",
+		data:{pid:pid},
+		success:function(data){
+		  $('#addTime').modal('show');
+		  $('#timepicker').html(data);
+		}
+    });
+});
 
 
 
@@ -235,11 +324,11 @@ $(document).ready(function() {
 	 var table = $('#tblpeople').DataTable( {
         orderCellsTop: true,
         fixedHeader: true,
-        "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+        "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
 		"bLengthChange": true,
 		"bInfo" : true,
 		"order": [[ 7, "desc" ]],
-		"sDom":"ltipr"
+
     } );
 
 
@@ -261,6 +350,29 @@ $(document).ready(function() {
 
 
     } );
+<<<<<<< HEAD
+	
+	//change Date1
+$(document).on('click', '.edit8-object', function(){
+    var pid = $(this).attr("edit8-id");
+	var dateChange = $(this).attr("edit9-object");
+	var r = confirm("Are you sure you want to update the date?");
+	if (r == true) {
+    $.ajax({
+		url:'changeDatequar.php',
+		method: "POST",
+		data:{pid:pid},
+		success:function(data){
+		  window.location.reload();
+		  alert("Status Updated");
+		}
+    });}
+	else{
+		window.alert("Status update cancelled");
+	}
+});*/ 
+=======
+>>>>>>> parent of 3ffc982 (new ui)
 } );
 </script>
 <?php

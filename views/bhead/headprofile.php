@@ -12,6 +12,7 @@
 	}
 
 	include_once '../include/header.php';
+	include_once '../include/sidebar/profile.php';
 	include_once '../../classes/user.php';
 
 	$user = new User($db);
@@ -20,29 +21,30 @@
 <br>
 <div class="container">
 	<center>
-	<h1 class="display-4">Account</h1><br>
-	</center>
-
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6">
-			<div class="card">
-			<div class="card-header container-fluid">
-			  <div class="row">
-			    <div class="col-md-9 float-left">
-			      <h4 style="color:black"><i class="far fa-address-card"></i> Personal Info</h4>
-			    </div>
-			    <div class="col-md-3 float-right">
-				    <button type="button" style="margin-left: 2em" class="btn btn-secondary btn-sm edit-object" data-toggle="modal" data-target="#editProfile" edit-id="<?php echo $_SESSION['uid']; ?>"><i class="fas fa-file-signature" style="font-size:18px;"></i> Edit</button>
-			    </div>
-			  </div>
+	<div class="card border-dark mb-3" style="max-width: 50rem;">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-md-6 float-left">
+					<h4 style="color:black"><i class="far fa-address-card"></i> Personal Info</h4>
+				</div>
+				<div class="col-md-6 float-right">
+					<button type="button" style="margin-left: 2em" class="btn btn-secondary btn-sm edit-object" data-toggle="modal" data-target="#editProfile" edit-id="<?php echo $_SESSION['uid']; ?>"><i class="fas fa-file-signature" style="font-size:18px;"></i> Edit</button>
+				</div>
 			</div>
-			  <div class="card-body">
-			  	<div class="container">
-			  		<div class="row">
-			  			<div class="col-sm-4"></div>
-			  			<div class="col-sm-4">
-			  				<center>
+		</div>
+		<div class="card-body text-dark">
+			<h5 class="card-title"></h5>
+				<div class="row">
+					<div class="col-md-7">
+							<center>
+							<div><h3 class="card-title">
+							<?php 
+							echo $user->firstname."&nbsp";
+							echo $user->middlename."&nbsp";
+							echo $user->lastname; 
+							?>
+							</h3></div>
+							<div>
 			  				<?php
 			  					if($user->readProfilePic() == 1){		  						
 			  						echo '
@@ -55,61 +57,65 @@
 			  						';
 			  					}
 			  				?>
-			  				</center>	  				
-			  			</div>
-			  			<div class="col-sm-4"></div>				
-			  		</div>&nbsp
-			  		<center>
-			  			<a href="pictureedit" class="btn btn-info edit-object"></i> Change Profile Picture</a>
-			  		</center><br>
-			  		<div class="row">
-			  			<div class="col-sm-1"><i class="fas fa-signature" style="color:black; font-size:26px;"></i></div>
-			  			<div class="col-sm-11">
-			  				<h5 class="card-title text-dark">
-			  				Name: <u><?php 
-			  					echo $user->firstname."&nbsp";
-			  					echo $user->middlename."&nbsp";
-			  					echo $user->lastname;
-			  				?></u>		  					
-			  				</h5>
-			  			</div>
-			  		</div><br/>
-			  		<div class="row">
-			  			<div class="col-sm-1"><i class="fas fa-envelope" style="color:black; font-size:26px;"></i></div>
-			  			<div class="col-sm-11">
-			  				<h5 class="card-text text-dark">Email: <u><?php
-			  					echo $user->email; 
-			  				?></u>	
-			  				</h5>
-			  			</div>
-			  		</div>&nbsp
-			  		<center>
-			  			<h4 class="text-dark">Barangay ID:</h4>
-			  			<?php		
-			  				echo '<img class="img-fluid" src="../../assets/img/'.$user->barid.'" width="520px" height="250px">';	
-			  			?>
-			  			
-			  		</center>
-			  		<hr>
-			  		<center>
-			  			<a href="changepass" class="btn btn-primary btn-lg">Change Password</a>		  		
-			  		<hr>
-			  		<a href="changegroup" class="btn btn-warning bt-sm"><i class="fas fa-user-cog"></i> Change Barangay</a>
-			  		<!-- <p class="text-dark"><em>* Please note, changing into different groups may get your account kicked. Please change if you accidentally chose the wrong barangay during sign-up.</em></p> -->
-			  		<p class="text-dark"><em>* Change your barangay just incase you accidentally joined the wrong one</em></p>
-			  		</center>
-			  	</div>
-			  </div>
+							</div>
+							 <br>
+							<div>
+							<a href="pictureedit" class="btn btn-info btn-sm edit-object"></i> Add Profile Picture</a>
+							<div>
+							<br>
+							<label><h5>Email :</h5></label>
+								<?php echo $user->email; ?>
+								</div>
+							</div>
+							</center>
+
+					</div>
+					<div class="col-md-5 float-left">
+						<table class=" table-sm">
+							<thead>
+								
+							</thead>
+							<tbody>
+								<tr>
+								<th scope="row"></th>
+								<td colspan="2"><a href="changepass" class="btn btn-primary btn-sm">Change Password</a>	</td>
+								</tr>
+								<tr>
+								<th scope="row"></th>
+								<td colspan="2"><a href="changegroup" class="btn btn-warning btn-sm"><i class="fas fa-user-cog"></i> Change Barangay</a></td>
+								</tr>
+								<tr>
+								<th scope="row"></th>
+								<td colspan="2">
+									<p>
+										<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+											Show ID
+										</button>
+									</p>
+									
+								</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="collapse" id="collapseExample">
+										<div class="card card-body">
+										<?php		
+										echo '<img class="img-fluid" src="../../assets/img/'.$user->barid.'" width="350px" height="250px">';	
+										?>
+										</div>
+									</div>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-3"></div>
 	</div>
+	</center>
 </div>
-&nbsp &nbsp
+
+
 <!-- Modal -->
 <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  	<div class="modal-dialog" role="document">
-    	<div class="modal-content bg-secondary">
+  	<div class="modal-dialog modal-dialog-centered" role="document">
+    	<div class="modal-content bg-white">
 		    <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLabel">Edit Account</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -128,7 +134,7 @@
 		    				<input type='text' class='form-control' name='firstname' value='<?php echo $user->firstname; ?>' required>
 		    			</div>
 		    		</div>
-		    		<br>
+		    		
 			    	<div class='row'>
 		    			<div class='col-sm-4'>
 		    				<label>Middle Name: </label>
@@ -137,7 +143,7 @@
 		    				<input type='text' class='form-control' name='middlename' value='<?php echo $user->middlename; ?>'>
 		    			</div>
 		    		</div>
-		    		<br>
+		    		
 		    		<div class='row'>
 		    			<div class='col-sm-4'>
 		    				<label>Last Name: </label>
@@ -146,12 +152,12 @@
 		    				<input type='text' class='form-control' name='lastname' value='<?php echo $user->lastname; ?>' required>
 		    			</div>
 		    		</div>
-		    		<br>
+		    		
 		    	</div>
 		    </div>
 	      	<div class="modal-footer">
-				<input type='submit' class="btn btn-primary" value='Edit'>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<input type='submit' class="btn btn-primary btn-sm" value='Edit'>
+				<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
 	      	</div>
 	      	</form>
     	</div>

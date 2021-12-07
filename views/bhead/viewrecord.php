@@ -19,25 +19,62 @@
 	$record = new Record($db);
 	$person = new Person($db);
 
-
 	$person->pid = $_GET['pid'];
 	$person->readspecPerson($person->pid);
 
 ?>
-	<div class="card"><br>
+
 		<div class="row">
+<<<<<<< HEAD
+			<div class="col-sm-12">
+			<h5 class="text-dark">&nbsp<?php echo "Person ID : ".$person->pid; ?></h4>
+			<h5 class="text-dark">&nbsp<?php echo "Fullname : ".$person->fullname; ?></h4>
+				<!-- Button trigger modal -->
+			
+			
+			<button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				List of Document
+			</button>
+			
+				<?php
+				$person->pid = $_GET['pid'];
+				$stmt=$person->readspecPerson2();
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+					extract($row);
+				if($row['personStatus'] == 'Deceased'){
+					echo '
+					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$person->pid.'" value="Mark as PUM" hidden/>
+					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$person->pid.'" value="Mark as PUI" hidden/>
+					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$person->pid.'" value="Mark as Recovered" hidden/>
+					<input type="button" class="btn btn-dark btn-sm edit6-object" edit6-id="'.$person->pid.'" value="Mark as Deceased" hidden/>';
+				}
+				else if($row['personStatus'] == 'PUI'){
+					echo '
+					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$person->pid.'" value="Mark as PUM" />
+					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$person->pid.'" value="Mark as PUI" />
+					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$person->pid.'" value="Mark as Recovered" />
+					<input type="button" class="btn btn-dark btn-sm edit6-object" edit6-id="'.$person->pid.'" value="Mark as Deceased"/>';
+				}
+				else {
+					echo '
+					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$person->pid.'" value="Mark as PUM" />
+					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$person->pid.'" value="Mark as PUI" />
+					<input type="button" class="btn btn-success btn-sm edit4-object" edit4-id="'.$person->pid.'" value="Mark as Recovered" />';
+				}
+			}
+				?>	
+							
+=======
 			<div class="col-sm-4">
 				<h4 class="text-success"><?php echo $person->firstname."'s Records"; ?></h4>
+>>>>>>> parent of 3ffc982 (new ui)
 			</div>
 			<div class="col-sm-4">
 				<h4 class="text-warning"><?php echo "Person ID: ".$person->pid; ?></h4>
 			</div>
 			<div class="col-sm-4">
-				<?php
-					echo '
-					<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$person->pid.'" value="Mark as PUM"/>
-					<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$person->pid.'" value="Mark as PUI"/>';
-				?>			
+				<input type="button" class="btn btn-warning btn-sm edit3-object" edit3-id="'.$row['pid'].'" value="Mark as PUM"/>
+				<input type="button" class="btn btn-danger btn-sm edit5-object" edit5-id="'.$row['pid'].'" value="Mark as Covid Positive"/>
 			</div>
 		</div><br>
 		<table id="tblRecord" class="table table-responsive table-light">
@@ -146,6 +183,62 @@
 		      	echo '
 		      	<td><img src="../../assets/img/'.$row['healthdecla'].'" width="120px" height="100px"></td>
 		      	';
+<<<<<<< HEAD
+		      }		      			  			    
+
+		      echo '
+		      
+		    </tr>';
+			}
+		    ?>
+		  </tbody>
+		</table>
+
+			</div>
+			</div>
+
+
+
+
+		<br>
+		<table id="tblRecord" class="table table-borderd table-responsive ">
+		  <thead class="thead-light">
+		    <tr>
+		      <th scope="col">Date Recorded/Time In</th>
+		      <th scope="col">Time Out</th>
+		      <th scope="col">Reason</th>
+		      <th scope="col">Temperature</th>
+		      <th scope="col">Person Type</th>
+		      <th scope="col">Point of Origin</th>
+		      <th scope="col">Destination</th>
+		      <th scope="col">Destination 2</th>
+		      <th scope="col">Destination 3</th>
+		      <th scope="col">Recorded By</th>
+			  <th scope="col">Health Status</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<?php
+		  	$record->pid = $_GET['pid'];
+		  	$stmt = $record->readrelatedRecord();
+		  	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		  	echo '
+		    <tr>
+		      <th scope="row">'.$row['date'].'</th>';
+
+		      //check time out and time in<input type="button" class="btn btn-secondary btn-sm time2-object" time2-id="'.$row['rid'].'" value="Manual TO"/>
+			  
+		      if(empty($row['timeout'])){
+		      	echo '
+		      	<th scope="row">
+		      		<a class="btn btn-primary btn-sm text-light time-object" time-id="'.$row['rid'].'">Timeout</a>
+		      		
+		      	</th>';
+		      }
+		      else{
+		      	echo '<td><p class="text-success">'.$row['timeout'].'</p></td>';
+=======
+>>>>>>> parent of 3ffc982 (new ui)
 		      }
 		      if(empty($row['medcert'])){
 		      	echo '
@@ -166,7 +259,19 @@
 		      	echo '
 		      	<td><img src="../../assets/img/'.$row['travelauth'].'" width="120px" height="100px"></td>
 		      	';
+<<<<<<< HEAD
+		      }
+		      //addressto portion ^^^^^^^^^^^^
+		      echo '
+
+		      <td>'.$row['fullname'].'</td>
+			  <td>'.$row['healthStatus'].'</td>';
+
+		      //important docus
+		          			  			    
+=======
 		      }		      			  			    
+>>>>>>> parent of 3ffc982 (new ui)
 
 		      echo '
 		      <td>
@@ -177,21 +282,17 @@
 		    ?>
 		  </tbody>
 		</table>
-	</div>
+
 <!--MODAL for Timepickert-->
 <div class="modal fade" id="addTime" tabindex="-1" role="dialog" aria-labelledby="addRecordLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog " role="document">
     <div class="modal-content">
       <div class="modal-header bg-secondary">
         <h5 class="modal-title" id="addRecordLabel"> Manual Time Out</h5>
         <button type="button" class="close" data-dismiss-modal="modal2" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
-
       <div class="modal-body bg-secondary" id="timepicker">
-
       </div>
-
-
     </div>
   </div>
 </div>
@@ -219,7 +320,6 @@
 	   margin: -10px; 
 	}
 .modal {
-   position: absolute;
    top: 10px;
    right: 100px;
    bottom: 0;
@@ -232,6 +332,15 @@
 <script>
 //datatables
 $(document).ready(function() {
+<<<<<<< HEAD
+	 var table = $('#tblRecord').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+        "aLengthMenu": [[4, 8, 12, 24, 100, -1], [4, 8, 12, 24, 100, "All"]],
+		"bLengthChange": true,
+		"bInfo" : true,
+		"order": [[ 7, "desc" ]],
+=======
     $('#tblRecord').dataTable( {
     "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 	"bLengthChange": true,
@@ -239,7 +348,10 @@ $(document).ready(function() {
 	"order": [[ 0, "desc" ]],
     } );
 } );
+>>>>>>> parent of 3ffc982 (new ui)
 
+    });
+});
 //force close timeout modal
 $("button[data-dismiss-modal=modal2]").click(function(){
     $('#addTime').modal('hide');
@@ -281,13 +393,14 @@ $(document).on('click', '.time2-object', function(){
     $.ajax({
 		url:'timeout.php',
 		method: "POST",
-		data:{pid:pid},
+		data:{rid:rid},
 		success:function(data){
 		  $('#timepicker').html(data);
 		  $('#addTime').modal('show');
 		}
     });
 });
+<<<<<<< HEAD
 //script for making person PUM
 $(document).on('click', '.edit3-object', function(){
     var pid = $(this).attr("edit3-id");
@@ -306,7 +419,25 @@ $(document).on('click', '.edit3-object', function(){
 		window.alert("Status update cancelled");
 	}
 });
-// //script for marking resident as a COVID positive patient
+//script for making person as Recovered
+$(document).on('click', '.edit4-object', function(){
+    var pid = $(this).attr("edit4-id");
+	var r = confirm("Are you sure you want to update the status?");
+	if (r == true) {
+    $.ajax({
+		url:'statusClick2.php',
+		method: "POST",
+		data:{pid:pid},
+		success:function(data){
+		  window.location.reload();
+		  alert("Status Updated");
+		}
+    });}
+	else{
+		window.alert("Status update cancelled");
+	}
+});
+// //script for marking resident as a PUI
 $(document).on('click', '.edit5-object', function(){
     var pid = $(this).attr("edit5-id");
 	var r = confirm("Are you sure you want to update the status?");
@@ -324,7 +455,67 @@ $(document).on('click', '.edit5-object', function(){
 		window.alert("Status update cancelled");
 	}
 });
+
+//script for making person as Deceased
+$(document).on('click', '.edit6-object', function(){
+    var pid = $(this).attr("edit6-id");
+	var r = confirm("Are you sure you want to update the status?");
+	if (r == true) {
+    $.ajax({
+		url:'statusClick4.php',
+		method: "POST",
+		data:{pid:pid},
+		success:function(data){
+		  window.location.reload();
+		  alert("Status Updated");
+		}
+    });}
+	else{
+		window.alert("Status update cancelled");
+	}
+});
+
+//dtTime
+$(document).on('click','.smb1-object',function(){
+    var dtTime = $(this).attr('sDate');
+    $.ajax({
+        url:'dateTimepass.php',
+        method: 'POST',
+        data:{sDate:dtTime},
+            success:function(data){
+              alert("successful");
+        }
+    });
+});
+//stTime
+$(document).on('click','.smb1-object',function(){
+    var stTime = $(this).attr('stTime');
+    $.ajax({
+        url:'dateTimepass.php',
+        method: 'POST',
+        data:{sTime:stTime},
+            success:function(data){
+              alert("successful2");
+        }
+    });
+});
+//edTime
+$(document).on('click','.smb1-object',function(){
+    var edTime = $(this).attr('edTime');
+    $.ajax({
+        url:'dateTimepass.php',
+        method: 'POST',
+        data:{edTime:edTime},
+            success:function(data){
+              alert("successful3");
+        }
+    });
+});
+
+</script>
+=======
 </script>
 <?php
 	include_once '../include/footer.php';
 ?>
+>>>>>>> parent of 3ffc982 (new ui)

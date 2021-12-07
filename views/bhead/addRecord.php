@@ -36,6 +36,11 @@
 		date_default_timezone_set("Asia/Manila");
 
 		$pid = $_GET['pid'];
+		$person->pid=$pid;
+		$stmt =  $person->selectHS();
+		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		extract($row);
+		$record->healthStatus = $row['personStatus'];
 		$record->reason = $_POST['reason'];
 		$record->status = $_POST['status'];
 		$record->temp = $_POST['temp'];
@@ -45,7 +50,7 @@
 		$record->addressto3 = $_POST['addressto3'];
 		$record->daterecorded = date("Y-m-d h:i:s");
 		$record->pid = $pid;
-
+		}
 		$person->pid = $pid;
 		$person->readspecPerson($person->pid);
 
@@ -201,7 +206,7 @@
 					</script>";
 				}
 				else {
-					echo "Something's Wrong";
+					echo "Record is Existing already";
 				}
 			}
 		}	
@@ -218,115 +223,161 @@
 
 
 <form method="POST" action="addRecord.php?pid=<?php echo $person->pid; ?>" enctype="multipart/form-data">
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Person Type: </label>
+<div class="row">
+	<div class="col-6">
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Person Type: </label>
+			</div>
+			<div class='col-sm-8'>
+				<input type="radio" name="status" id="apor" value="APOR" required> APOR
+				<br>
+				<input type="radio" name="status" id="resident" value="Resident" required> Resident
+			</div>
 		</div>
-		<div class='col-sm-8'>
-			<input type="radio" name="status" id="apor" value="APOR" required> APOR
-			<br>
-			<input type="radio" name="status" id="resident" value="Resident" required> Resident
+		<br>
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Reason: </label>
+			</div>
+			<div class='col-sm-8'>
+				<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name='reason' required></textarea>
+			</div>
+		</div>
+		<br>
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Temperature: </label>
+			</div>
+			<div class='col-sm-8'>
+				<input class="form-control" type="number" step="0.01" name="temp" required>
+			</div>
+		</div>
+		<br>
+		<div class='row'>
+			<div class='col-sm-4'>
+				<label>Point of Origin: </label>
+			</div>
+			<div class='col-sm-8'>
+				<select class="form-control" name="pointoforigin" required>
+					<option selected></option>
+					<?php
+						$stmt = $barangay->readbar();
+						while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+							extract($row);
+							echo "
+							<option value='".$row['brgyname']."'>".$row['brgyname']."</option>";
+						}
+					?>
+				</select>
+			</div>
 		</div>
 	</div>
-	<br>
+
+	<div class="col-6">
 	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Reason: </label>
-		</div>
-		<div class='col-sm-8'>
-			<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name='reason' required></textarea>
-		</div>
-	</div>
-	<br>
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Temperature: </label>
-		</div>
-		<div class='col-sm-8'>
-			<input class="form-control" type="number" step="0.01" name="temp" required>
-		</div>
-	</div>
-	<br>
-	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Point of Origin: </label>
-		</div>
-		<div class='col-sm-8'>
-			<select class="form-control" name="pointoforigin" required>
-				<option selected></option>
-				<?php
-					$stmt = $barangay->readbar();
-					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-						extract($row);
-						echo "
-						<option value='".$row['brgyname']."'>".$row['brgyname']."</option>";
-					}
-				?>
-			</select>
-		</div>
-	</div>
-	<br>
-	<div class='row'>
-		<div class='col-sm-4'>
+		<div class='col-sm-12'>
 			<label>Destination: </label>
 		</div>
+	</div>
+	<div class='row'>
+		<div class='col-sm-2'>
+			<label>#1: </label>
+		</div>
+<<<<<<< HEAD
+		<div class='col-sm-10'>
+			<textarea class="form-control" id="exampleFormControlTextarea3" rows="2" name='addressto'></textarea>
+			
+=======
 		<div class='col-sm-8'>
 			<textarea class="form-control" id="exampleFormControlTextarea3" rows="2" name='addressto' required></textarea>
+>>>>>>> parent of 3ffc982 (new ui)
 		</div>
 	</div>
 	<br>
 	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Destination 2: </label>
+		<div class='col-sm-2'>
+			<label>#2: </label>
 		</div>
-		<div class='col-sm-8'>
+		<div class='col-sm-10'>
 			<textarea class="form-control" id="exampleFormControlTextarea4" rows="2" name='addressto2'></textarea>
 		</div>
 	</div>
 	<br>
 	<div class='row'>
-		<div class='col-sm-4'>
-			<label>Destination 3: </label>
+		<div class='col-sm-2'>
+			<label>#3: </label>
 		</div>
-		<div class='col-sm-8'>
+		<div class='col-sm-10'>
 			<textarea class="form-control" id="exampleFormControlTextarea5" rows="2" name='addressto3'></textarea>
 		</div>
 	</div>
-	<br>
+</div>
+</div>
+
 	<hr>
 	<p><small><i class="fas fa-exclamation-circle"></i><em> Files must be an Image(jpg/png) and under 1MB</em></small></p>
-
-	<div id="pictures">
+<div class="row">
+    <div class="col">
+    
 		<div class='row'>
-			<div class='col-sm-4'>
+			<div id="pictures" class='col-sm-12'>
 				<label>Picture of Barangay Certificate: </label>
+<<<<<<< HEAD
+				<input type="file" class="form-control-file" accept='image/*' name="brgycert" >
+=======
 			</div>
 			<div class='col-sm-8'>
 				<input type="file" class="form-control-file" accept='image/*' name="brgycert" required>
+>>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
-		<br>
+		<hr>
 		<div class='row'>
+<<<<<<< HEAD
+			<div id="pictures" class='col-sm-12'>
+			<label>Picture of Health Declaration Form: </label>
+				<input type="file" class="form-control-file" accept='image/*' name="healthdeclaration" >
+=======
 			<div class='col-sm-4'>
 				<label>Picture of Health Declaration Form: </label>
 			</div>
 			<div class='col-sm-8'>
 				<input type="file" class="form-control-file" accept='image/*' name="healthdeclaration" required>
+>>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
-		<br>
+		<hr>
 		<div class='row'>
-			<div class='col-sm-4'>
+			<div id="pictures" class='col-sm-8'>
 				<label>Picture of Medical Certificate: </label>
+<<<<<<< HEAD
+				<input type="file" class="form-control-file" accept='image/*' name="medcert" >
+=======
 			</div>
 			<div class='col-sm-8'>
 				<input type="file" class="form-control-file" accept='image/*' name="medcert" required>
+>>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
-		<br>
+    </div>
+    <div class="col">
+      	
 		<div class='row'>
-			<div class='col-sm-4'>
+			<div id="pictures" class='col-sm-8'>
 				<label>Picture of Travel Authority: </label>
+<<<<<<< HEAD
+				<input type="file" class="form-control-file" accept='image/*' name="travelauth" >
+			</div>
+		</div>
+		<hr>
+		<div id="pictures2">
+			<div class='row'>
+				<div class='col-sm-8'>
+					<label>Picture of Valid ID: </label>
+					<input type="file" class="form-control-file" accept='image/*' name="workingid" >
+				</div>
+=======
 			</div>
 			<div class='col-sm-8'>
 				<input type="file" class="form-control-file" accept='image/*' name="travelauth" required>
@@ -341,17 +392,18 @@
 			</div>
 			<div class='col-sm-8'>
 				<input type="file" class="form-control-file" accept='image/*' name="workingid" required>
+>>>>>>> parent of 3ffc982 (new ui)
 			</div>
 		</div>
-	</div>
-	<br>
-
-	<div class="form-row float-right">
-		<div class="col-lg-12 mb-3">  
-		  <input type="submit" class="btn btn-success ml-2" name="save" value="Add Record"/>
-		  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-		</div>
-  	</div>  
+		<hr>
+		<div class="form-row" align="center">
+			<div class="col-lg-12 mb-3">  
+			<input type="submit" class="btn btn-success ml-2" name="save" value="Add Record"/>
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+  		</div>  
+    </div>
+</div>	
 </form>
 
 <script>

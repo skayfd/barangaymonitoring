@@ -10,6 +10,7 @@
 	include_once "../../config/database.php";
 	include_once "../../classes/user.php";
 	include_once '../include/header.php';
+	include_once '../include/sidebar/profile.php';
 
 	if(!isset($_SESSION['uid'])){
 		header("Location: ../login.php");
@@ -99,7 +100,7 @@
 	}
 ?>
 <div class="modal-dialog" role="document">
-<div class="modal-content bg-secondary">
+<div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Change Profile Picture</h5>
     </div>
@@ -128,22 +129,27 @@
     			</div>
     		</div>
     		<div class='row'>
-				<div class="input-group mb-3">
-				  <div class="input-group-prepend">
-				    <span class="input-group-text">Upload</span>
-				  </div>
-				  <div class="custom-file">
-				    <input type="file" class="custom-file-input" accept='image/*' name="profpic" required>
-				    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-				  </div>
+				<div class="col"></div>
+    			<div class="col-8">	
+					<div class="input-group mb-4">
+						<div class="input-group-prepend">
+						</div>
+						<div class="custom-file">
+						<label for="profpic">Select file:</label>
+						<input type="file" id="myfile" name="profpic">
+							<!--<input type="file" class="custom-file-input" accept='image/*' name="profpic" required>
+							<label class="custom-file-label" for="inputGroupFile01">Choose file...</label>-->
+						</div>	
+					</div>
+					<div class="col"></div>
 				</div>
     		</div>
     		<br>
     	</div>
     </div>
   	<div class="modal-footer">
-		<input type='submit' name="submit" class="btn btn-primary" value='Edit'>
-		<a href="headprofile" class="btn btn-danger">Back</a>
+		<input type='submit' name="submit" class="btn btn-sm btn-primary" value='Upload'>
+		<a href="headprofile" class="btn btn-danger btn-sm">Back</a>
   	</div>
   	</form>
 </div>
